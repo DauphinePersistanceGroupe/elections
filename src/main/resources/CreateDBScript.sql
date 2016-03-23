@@ -47,7 +47,7 @@ COMMENT ON COLUMN elections."PROJET".note IS 'Score du groupe à l''election';
   
   -- Table: elections."PARTICIPANT"
 
-DROP TABLE elections."USER";
+  -- DROP TABLE elections."USER";
 
 CREATE TABLE elections."USER"
 (
@@ -90,3 +90,10 @@ WITH (
 ALTER TABLE elections."GROUPE"
   OWNER TO postgres;
 
+
+  
+  INSERT INTO elections."USER"(nom, prenom, email, pass, role,hasvoted)
+    VALUES ('barou', 'rene', 'barou2000@gmail.com', 'barou', 'admin',false);
+
+  INSERT INTO elections."USER"( nom, prenom, email, pass, role,hasvoted)
+    VALUES ('UserTest', 'rene', 'UserTest@gmail.com', 'UserTest', 'participant',false);
