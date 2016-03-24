@@ -7,7 +7,8 @@ package fr.dauphine.lamsade.hib.elections.utils;
  * @author Rene.BAROU
  *
  */
-public class SQLConstantes {
+public class SQLConstantes {   
+	
 	public final static String DB_URL = "jdbc:postgresql://localhost/elections";
 	public final static String DB_USER = "postgres";
 	public final static String DB_PASS = "postgres";
