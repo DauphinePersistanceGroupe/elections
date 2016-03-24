@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 import fr.dauphine.lamsade.hib.elections.Exception.Exceptions;
 import fr.dauphine.lamsade.hib.elections.services.DbConnectionService;
+import fr.dauphine.lamsade.hib.elections.utils.SQLConstantes;
 
 /**
  * @author Rene.BAROU
@@ -24,16 +25,14 @@ public class DbConnectionServiceImpl implements DbConnectionService {
 
 	private Connection conn;
 
-	private final String DB_URL = "jdbc:postgresql://localhost/elections";
-	private final String DB_USER = "postgres";
-	private final String DB_PASS = "postgres";
+	
 
 	private DbConnectionServiceImpl() {
 		Connection con;
 
 		try {
 
-			con = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+			con = DriverManager.getConnection(SQLConstantes.DB_URL, SQLConstantes.DB_USER, SQLConstantes.DB_PASS);
 
 		} catch (SQLException e) {
 			con = null;
@@ -56,7 +55,7 @@ public class DbConnectionServiceImpl implements DbConnectionService {
 
 	public Connection getConnection() throws Exceptions {
 		if (null == this.conn) {
-			throw new Exceptions("Connection database Failed! " + DB_URL);
+			throw new Exceptions("Connection database Failed! " + SQLConstantes.DB_URL);
 		}
 		return this.conn;
 	}
