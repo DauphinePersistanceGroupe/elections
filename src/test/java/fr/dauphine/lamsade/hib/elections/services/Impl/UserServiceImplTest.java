@@ -126,7 +126,7 @@ private String name="UserTest";
 		userT.setEmail("UserJuniTest@gmail.com");
 		userT.setPass("UserTest");
 		userT.setRole("participant");
-		userT.setHasVoted(false);
+		userT.setHasvoted(false);
 		userService.create(userT);
 		
 		User user=userService.findByEmail("UserJuniTest@gmail.com");

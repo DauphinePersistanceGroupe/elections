@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 						user.setEmail(rs.getString("email"));
 						user.setPass(rs.getString("pass"));
 						user.setRole(rs.getString("role"));
-						user.setHasVoted(rs.getBoolean("hasvoted"));
+						user.setHasvoted(rs.getBoolean("hasvoted"));
 					}
 //			id, nom, prenom, email, pass, role,hasvoted
 		} catch (SQLException e) {
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
 						user.setEmail(rs.getString("email"));
 						user.setPass(rs.getString("pass"));
 						user.setRole(rs.getString("role"));
-						user.setHasVoted(rs.getBoolean("hasvoted"));
+						user.setHasvoted(rs.getBoolean("hasvoted"));
 					}
 		} catch (SQLException e) {
 			throw new Exceptions(e.getMessage(),e.getCause());
@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService {
 						user.setEmail(rs.getString("email"));
 						user.setPass(rs.getString("pass"));
 						user.setRole(rs.getString("role"));
-						user.setHasVoted(rs.getBoolean("hasvoted"));
+						user.setHasvoted(rs.getBoolean("hasvoted"));
 						users.add(user);
 					}
 		} catch (SQLException e) {
@@ -125,7 +125,7 @@ public class UserServiceImpl implements UserService {
 						user.setEmail(rs.getString("email"));
 						user.setPass(rs.getString("pass"));
 						user.setRole(rs.getString("role"));
-						user.setHasVoted(rs.getBoolean("hasvoted"));
+						user.setHasvoted(rs.getBoolean("hasvoted"));
 						users.add(user);
 					}
 		} catch (SQLException e) {
@@ -147,7 +147,7 @@ public class UserServiceImpl implements UserService {
 			pre.setString(3, user.getEmail());
 			pre.setString(4, user.getPass());
 			pre.setString(5, user.getRole());
-			pre.setBoolean(6, user.isHasVoted());
+			pre.setBoolean(6, user.getHasvoted());
 			pre.executeUpdate();
 		} catch (SQLException e) {
 			throw new Exceptions(e.getMessage(),e.getCause());
@@ -185,7 +185,7 @@ public class UserServiceImpl implements UserService {
 			pre.setString(3, user.getEmail());
 			pre.setString(4, user.getPass());
 			pre.setString(5, user.getRole());
-			pre.setBoolean(6, user.isHasVoted());
+			pre.setBoolean(6, user.getHasvoted());
 			pre.setLong(7, user.getId());
 			pre.executeUpdate();
 		} catch (SQLException e) {
