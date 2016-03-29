@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -15,17 +17,17 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
+import javax.persistence.Version;
 
 /**
  * @author gnepa.rene.barou
  * 
- * Entity implementation class for Entity: User
+ *         Entity implementation class for Entity: User
  * 
  */
 @Entity
-@Table(name="USER")
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@Table(name = "USER")
+@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User implements Serializable {
 
 	/**
@@ -34,41 +36,45 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 407127474693946058L;
 
 	@Id
-	@Column(unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(unique = true, nullable = false)
 	private Long id;
 
-	@Column(nullable=false, length=2147483647)
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@Column(nullable = false, length = 2147483647)
 	private String email;
 
 	private Boolean hasvoted;
 
-	@Column(nullable=false, length=2147483647)
+	@Column(nullable = false, length = 2147483647)
 	private String nom;
 
-	@Column(nullable=false, length=2147483647)
+	@Column(nullable = false, length = 2147483647)
 	private String pass;
 
-	@Column(nullable=false, length=2147483647)
+	@Column(nullable = false, length = 2147483647)
 	private String prenom;
 
-	@Column(nullable=false, length=2147483647)
+	@Column(nullable = false, length = 2147483647)
 	private String role;
 
-	//bi-directional many-to-one association to Groupe
-	@OneToMany(mappedBy="user")
+	@Version
+	@Column(name = "VERSION")
+	private Integer version;
+
+	// bi-directional many-to-one association to Groupe
+	@OneToMany(mappedBy = "user")
 	private List<Groupe> groupes;
 
-	//bi-directional many-to-many association to Projet
+	// bi-directional many-to-many association to Projet
 	@ManyToMany
-	@JoinTable(
-		name="\"GROUPE\""
-		, joinColumns={
-			@JoinColumn(name="user_id", nullable=false)
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="projet_id", nullable=false)
-			}
-		)
+	@JoinTable(name = "GROUPE", joinColumns = { @JoinColumn(name = "user_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "projet_id", nullable = false) })
 	private List<Projet> projets;
 
 	public User() {
@@ -76,10 +82,6 @@ public class User implements Serializable {
 
 	public Long getId() {
 		return this.id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getEmail() {
