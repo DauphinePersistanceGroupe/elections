@@ -1,0 +1,2 @@
+INSERT INTO "USER"(nom, prenom, email, pass, role,hasvoted) VALUES ('barou', 'rene', 'barou2000@gmail.com', 'barou', 'admin',false);    
+INSERT INTO "USER"( nom, prenom, email, pass, role,hasvoted)  VALUES ('UserTest', 'rene', 'UserTest@gmail.com', 'UserTest', 'participant',false);
