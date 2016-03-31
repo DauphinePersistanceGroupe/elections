@@ -15,7 +15,7 @@ import fr.dauphine.lamsade.hib.elections.domain.Projet;
 public interface ProjetService {
 	Projet findById(Long id) throws Exceptions;
 
-	List<Projet> findByName(String name) throws Exceptions;
+	Projet findByName(String name) throws Exceptions;
 
 	List<Projet> findAll() throws Exceptions;
 
