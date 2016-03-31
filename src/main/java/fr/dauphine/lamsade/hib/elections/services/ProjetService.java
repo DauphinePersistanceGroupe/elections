@@ -5,7 +5,6 @@ package fr.dauphine.lamsade.hib.elections.services;
 
 import java.util.List;
 
-import fr.dauphine.lamsade.hib.elections.Exception.Exceptions;
 import fr.dauphine.lamsade.hib.elections.domain.Projet;
 
 /**

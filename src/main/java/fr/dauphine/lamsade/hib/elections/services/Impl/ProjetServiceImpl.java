@@ -40,7 +40,11 @@ public class ProjetServiceImpl implements ProjetService{
 		return projet;
 	};
 
-	List<Projet> findAll() throws Exceptions;
+	public List<Projet> findAll() throws Exceptions{
+		Query query = em.createQuery("SELECT p FROM Projet p");
+		query.getResultList();
+		reurn null;
+	};
 
 	void create(Projet projet) throws Exceptions;
 

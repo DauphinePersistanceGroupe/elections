@@ -3,203 +3,123 @@
  */
 package fr.dauphine.lamsade.hib.elections.services.Impl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
-import fr.dauphine.lamsade.hib.elections.Exception.Exceptions;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
+import javax.persistence.Query;
+
+import fr.dauphine.lamsade.hib.elections.Exception.MyExceptions;
 import fr.dauphine.lamsade.hib.elections.domain.User;
 import fr.dauphine.lamsade.hib.elections.services.UserService;
-import fr.dauphine.lamsade.hib.elections.utils.SQLConstantes;
 
 /**
- * @author Rene.BAROU
+ * @author gnepa.rene.barou
  *
  */
 public class UserServiceImpl implements UserService {
 
-//	private DbConnectionService dbService;
-	/* (non-Javadoc)
-	 * @see fr.dauphine.lamsade.hib.elections.services.UserService#findById(java.lang.Long)
+	@PersistenceContext(unitName = "electionsPU")
+	EntityManager em;
+
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.dauphine.lamsade.hib.elections.services.UserService#findById(java.
+	 * lang.Long)
 	 */
-	public User findById(Long id) throws Exceptions {
-		Connection conn=getConnection();
-		User user=new User();
+	@Override
+	public User findById(Long id) throws MyExceptions {
 		try {
-			PreparedStatement pre=conn.prepareStatement(SQLConstantes.USER_FINDBYID_SQL);
-			pre.setLong(1, id);
-			ResultSet rs=pre.executeQuery();
-			
-					if (rs.next()) {
-						user.setId(rs.getLong("id"));
-						user.setNom(rs.getString("nom"));
-						user.setPrenom(rs.getString("prenom"));
-						user.setEmail(rs.getString("email"));
-						user.setPass(rs.getString("pass"));
-						user.setRole(rs.getString("role"));
-						user.setHasvoted(rs.getBoolean("hasvoted"));
-					}
-//			id, nom, prenom, email, pass, role,hasvoted
-		} catch (SQLException e) {
-			throw new Exceptions(e.getMessage(),e.getCause());
+			return em.find(User.class, id);
+		} catch (IllegalArgumentException e) {
+			throw new MyExceptions(e.getMessage(), e);
 		}
-		return user;
 	}
 
-	/* (non-Javadoc)
-	 * @see fr.dauphine.lamsade.hib.elections.services.UserService#findByEmail(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.dauphine.lamsade.hib.elections.services.UserService#findByEmail(java
+	 * .lang.String)
 	 */
-	public User findByEmail(String email) throws Exceptions {
-		Connection conn=getConnection();
-		User user=null;
+	@Override
+	public User findByEmail(String email) throws MyExceptions {
 		try {
-			PreparedStatement pre=conn.prepareStatement(SQLConstantes.USER_FINDBYEMAIL_SQL);
-			pre.setString(1, email);
-			ResultSet rs=pre.executeQuery();
-			
-					if (rs.next()) {
-						user=new User();
-						user.setId(rs.getLong("id"));
-						user.setNom(rs.getString("nom"));
-						user.setPrenom(rs.getString("prenom"));
-						user.setEmail(rs.getString("email"));
-						user.setPass(rs.getString("pass"));
-						user.setRole(rs.getString("role"));
-						user.setHasvoted(rs.getBoolean("hasvoted"));
-					}
-		} catch (SQLException e) {
-			throw new Exceptions(e.getMessage(),e.getCause());
+			Query query = em
+					.createQuery("SELECT u FROM User u WHERE u.email =:email");
+			query.setParameter("email", email);
+			return (User) query.getSingleResult();
+		} catch (IllegalArgumentException | PersistenceException e) {
+			throw new MyExceptions(e.getMessage(), e);
 		}
-		return user;
 	}
 
-	/* (non-Javadoc)
-	 * @see fr.dauphine.lamsade.hib.elections.services.UserService#findByName(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.dauphine.lamsade.hib.elections.services.UserService#findByName(java
+	 * .lang.String)
 	 */
-	public List<User> findByName(String name) throws Exceptions {
-		Connection conn=getConnection();
-		List<User> users=new ArrayList<User>();
-		User user;
-		try {
-			PreparedStatement pre=conn.prepareStatement(SQLConstantes.USER_FINDBYNAME_SQL);
-			pre.setString(1, name);
-			ResultSet rs=pre.executeQuery();
-			
-					while (rs.next()) {
-						user=new User();
-						user.setId(rs.getLong("id"));
-						user.setNom(rs.getString("nom"));
-						user.setPrenom(rs.getString("prenom"));
-						user.setEmail(rs.getString("email"));
-						user.setPass(rs.getString("pass"));
-						user.setRole(rs.getString("role"));
-						user.setHasvoted(rs.getBoolean("hasvoted"));
-						users.add(user);
-					}
-		} catch (SQLException e) {
-			throw new Exceptions(e.getMessage(),e.getCause());
-		}
-		return users;
+	@Override
+	public List<User> findByName(String name) throws MyExceptions {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fr.dauphine.lamsade.hib.elections.services.UserService#findAll()
 	 */
-	public List<User> findAll() throws Exceptions {
-		Connection conn=getConnection();
-		List<User> users=new ArrayList<User>();
-		User user;
-		try {
-			Statement stm=conn.createStatement();
-			ResultSet rs=stm.executeQuery(SQLConstantes.USER_FINDALL_SQL);
-			
-					while (rs.next()) {
-						user=new User();
-						user.setId(rs.getLong("id"));
-						user.setNom(rs.getString("nom"));
-						user.setPrenom(rs.getString("prenom"));
-						user.setEmail(rs.getString("email"));
-						user.setPass(rs.getString("pass"));
-						user.setRole(rs.getString("role"));
-						user.setHasvoted(rs.getBoolean("hasvoted"));
-						users.add(user);
-					}
-		} catch (SQLException e) {
-			throw new Exceptions(e.getMessage(),e.getCause());
-		}
-		return users;
+	@Override
+	public List<User> findAll() throws MyExceptions {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see fr.dauphine.lamsade.hib.elections.services.UserService#create(fr.dauphine.lamsade.hib.elections.domain.User)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.dauphine.lamsade.hib.elections.services.UserService#create(fr.dauphine
+	 * .lamsade.hib.elections.domain.User)
 	 */
-	public void create(User user) throws Exceptions {
-		Connection conn=getConnection();
-		try {
-			PreparedStatement pre=conn.prepareStatement(SQLConstantes.USER_CREATE_SQL);
-
-			pre.setString(1, user.getNom());
-			pre.setString(2, user.getPrenom());
-			pre.setString(3, user.getEmail());
-			pre.setString(4, user.getPass());
-			pre.setString(5, user.getRole());
-			pre.setBoolean(6, user.getHasvoted());
-			pre.executeUpdate();
-		} catch (SQLException e) {
-			throw new Exceptions(e.getMessage(),e.getCause());
-		}
+	@Override
+	public void create(User user) throws MyExceptions {
+		// TODO Auto-generated method stub
 
 	}
 
-	/* (non-Javadoc)
-	 * @see fr.dauphine.lamsade.hib.elections.services.UserService#delete(fr.dauphine.lamsade.hib.elections.domain.User)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.dauphine.lamsade.hib.elections.services.UserService#delete(fr.dauphine
+	 * .lamsade.hib.elections.domain.User)
 	 */
-	public void delete(User user) throws Exceptions {
-//		nom, prenom, email, pass, role,hasvoted
-		Connection conn=getConnection();
-		try {
-			PreparedStatement pre=conn.prepareStatement(SQLConstantes.USER_DELETE_SQL);
-
-			pre.setLong(1, user.getId());
-			pre.executeUpdate();
-		} catch (SQLException e) {
-			throw new Exceptions(e.getMessage(),e.getCause());
-		}
+	@Override
+	public void delete(User user) throws MyExceptions {
+		// TODO Auto-generated method stub
 
 	}
 
-	/* (non-Javadoc)
-	 * @see fr.dauphine.lamsade.hib.elections.services.UserService#update(fr.dauphine.lamsade.hib.elections.domain.User)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.dauphine.lamsade.hib.elections.services.UserService#update(fr.dauphine
+	 * .lamsade.hib.elections.domain.User)
 	 */
-	public void update(User user) throws Exceptions {
-		Connection conn=getConnection();
-		try {
-			PreparedStatement pre=conn.prepareStatement(SQLConstantes.USER_UPDATE_SQL);
+	@Override
+	public void update(User user) throws MyExceptions {
+		// TODO Auto-generated method stub
 
-			pre.setString(1, user.getNom());
-			pre.setString(2, user.getPrenom());
-			pre.setString(3, user.getEmail());
-			pre.setString(4, user.getPass());
-			pre.setString(5, user.getRole());
-			pre.setBoolean(6, user.getHasvoted());
-			pre.setLong(7, user.getId());
-			pre.executeUpdate();
-		} catch (SQLException e) {
-			throw new Exceptions(e.getMessage(),e.getCause());
-		}
 	}
-
-	/**
-	 * @return the dbService
-	 * @throws Exceptions 
-	 */
-	public Connection getConnection() throws Exceptions {
-		return DbConnectionServiceImpl.getInstance().getConnection();
-	}
-
 
 }
