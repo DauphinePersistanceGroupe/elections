@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import fr.dauphine.lamsade.hib.elections.Exception.Exceptions;
+import fr.dauphine.lamsade.hib.elections.Exception.MyExceptions;
 import fr.dauphine.lamsade.hib.elections.services.DbConnectionService;
 import fr.dauphine.lamsade.hib.elections.utils.SQLConstantes;
 
@@ -53,9 +53,9 @@ public class DbConnectionServiceImpl implements DbConnectionService {
 		return DbConnectionServiceImpl.instance;
 	}
 
-	public Connection getConnection() throws Exceptions {
+	public Connection getConnection() throws MyExceptions {
 		if (null == this.conn) {
-			throw new Exceptions("Connection database Failed! " + SQLConstantes.DB_URL);
+			throw new MyExceptions("Connection database Failed! " + SQLConstantes.DB_URL);
 		}
 		return this.conn;
 	}

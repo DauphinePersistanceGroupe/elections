@@ -11,7 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.dauphine.lamsade.hib.elections.Exception.Exceptions;
+import fr.dauphine.lamsade.hib.elections.Exception.MyExceptions;
 import fr.dauphine.lamsade.hib.elections.domain.Projet;
 import fr.dauphine.lamsade.hib.elections.services.ProjetService;
 import fr.dauphine.lamsade.hib.elections.utils.SQLConstantes;
@@ -22,7 +22,7 @@ import fr.dauphine.lamsade.hib.elections.utils.SQLConstantes;
  */
 public class ProjetServiceImpl implements ProjetService{
 	
-	public Projet findById(Long id) throws Exceptions {
+	public Projet findById(Long id) throws MyExceptions {
 		Connection conn=getConnection();
 		Projet projet=new Projet();
 		try {
@@ -38,7 +38,7 @@ public class ProjetServiceImpl implements ProjetService{
 					}
 //			id, nom, description, note
 		} catch (SQLException e) {
-			throw new Exceptions(e.getMessage(),e.getCause());
+			throw new MyExceptions(e.getMessage(),e.getCause());
 		}
 		return projet;
 	}
@@ -47,7 +47,7 @@ public class ProjetServiceImpl implements ProjetService{
 	/* (non-Javadoc)
 	 * @see fr.dauphine.lamsade.hib.elections.services.ProjetService#findByName(java.lang.String)
 	 */
-	public List<Projet> findByName(String name) throws Exceptions {
+	public List<Projet> findByName(String name) throws MyExceptions {
 		Connection conn=getConnection();
 		List<Projet> projets=new ArrayList<Projet>();
 		Projet projet;
@@ -65,7 +65,7 @@ public class ProjetServiceImpl implements ProjetService{
 						projets.add(projet);
 					}
 		} catch (SQLException e) {
-			throw new Exceptions(e.getMessage(),e.getCause());
+			throw new MyExceptions(e.getMessage(),e.getCause());
 		}
 		return projets;
 	}
@@ -73,7 +73,7 @@ public class ProjetServiceImpl implements ProjetService{
 	/* (non-Javadoc)
 	 * @see fr.dauphine.lamsade.hib.elections.services.ProjetService#findAll()
 	 */
-	public List<Projet> findAll() throws Exceptions {
+	public List<Projet> findAll() throws MyExceptions {
 		Connection conn=getConnection();
 		List<Projet> projets=new ArrayList<Projet>();
 		Projet projet;
@@ -90,7 +90,7 @@ public class ProjetServiceImpl implements ProjetService{
 						projets.add(projet);
 					}
 		} catch (SQLException e) {
-			throw new Exceptions(e.getMessage(),e.getCause());
+			throw new MyExceptions(e.getMessage(),e.getCause());
 		}
 		return projets;
 	}
@@ -98,7 +98,7 @@ public class ProjetServiceImpl implements ProjetService{
 	/* (non-Javadoc)
 	 * @see fr.dauphine.lamsade.hib.elections.services.ProjetService#create(fr.dauphine.lamsade.hib.elections.domain.Projet)
 	 */
-	public void create(Projet projet) throws Exceptions {
+	public void create(Projet projet) throws MyExceptions {
 		Connection conn=getConnection();
 		try {
 			PreparedStatement pre=conn.prepareStatement(SQLConstantes.PROJET_CREATE_SQL);
@@ -108,7 +108,7 @@ public class ProjetServiceImpl implements ProjetService{
 			pre.setString(3, String.valueOf(projet.getNote()));
 			pre.executeUpdate();
 		} catch (SQLException e) {
-			throw new Exceptions(e.getMessage(),e.getCause());
+			throw new MyExceptions(e.getMessage(),e.getCause());
 		}
 
 	}
@@ -116,7 +116,7 @@ public class ProjetServiceImpl implements ProjetService{
 	/* (non-Javadoc)
 	 * @see fr.dauphine.lamsade.hib.elections.services.ProjetService#delete(fr.dauphine.lamsade.hib.elections.domain.Projet)
 	 */
-	public void delete(Projet projet) throws Exceptions {
+	public void delete(Projet projet) throws MyExceptions {
 //		nom, description, note
 		Connection conn=getConnection();
 		try {
@@ -125,7 +125,7 @@ public class ProjetServiceImpl implements ProjetService{
 			pre.setLong(1, projet.getId());
 			pre.executeUpdate();
 		} catch (SQLException e) {
-			throw new Exceptions(e.getMessage(),e.getCause());
+			throw new MyExceptions(e.getMessage(),e.getCause());
 		}
 
 	}
@@ -133,7 +133,7 @@ public class ProjetServiceImpl implements ProjetService{
 	/* (non-Javadoc)
 	 * @see fr.dauphine.lamsade.hib.elections.services.ProjetService#update(fr.dauphine.lamsade.hib.elections.domain.Projet)
 	 */
-	public void update(Projet projet) throws Exceptions {
+	public void update(Projet projet) throws MyExceptions {
 		Connection conn=getConnection();
 		try {
 			PreparedStatement pre=conn.prepareStatement(SQLConstantes.PROJET_UPDATE_SQL);
@@ -144,15 +144,15 @@ public class ProjetServiceImpl implements ProjetService{
 			pre.setLong(7, projet.getId());
 			pre.executeUpdate();
 		} catch (SQLException e) {
-			throw new Exceptions(e.getMessage(),e.getCause());
+			throw new MyExceptions(e.getMessage(),e.getCause());
 		}
 	}
 
 	/**
 	 * @return the dbService
-	 * @throws Exceptions 
+	 * @throws MyExceptions 
 	 */
-	public Connection getConnection() throws Exceptions {
+	public Connection getConnection() throws MyExceptions {
 		return DbConnectionServiceImpl.getInstance().getConnection();
 	}
 
