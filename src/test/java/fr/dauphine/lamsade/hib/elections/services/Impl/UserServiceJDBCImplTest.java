@@ -13,7 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.dauphine.lamsade.hib.elections.Exception.Exceptions;
+import fr.dauphine.lamsade.hib.elections.Exception.MyExceptions;
 import fr.dauphine.lamsade.hib.elections.domain.User;
 import fr.dauphine.lamsade.hib.elections.services.UserService;
 
@@ -21,7 +21,7 @@ import fr.dauphine.lamsade.hib.elections.services.UserService;
  * @author gnepa.rene.barou
  *
  */
-public class UserServiceImplTest {
+public class UserServiceJDBCImplTest {
 private UserService userService;
 private String email="UserTest@gmail.com";
 private String name="UserTest";
@@ -32,7 +32,7 @@ private String name="UserTest";
 	 */
 	@Before
 	public void setUp() throws Exception {
-		userService=new UserServiceImpl();
+		userService=new UserServiceJDBCImpl();
 		
 	}
 
@@ -44,11 +44,11 @@ private String name="UserTest";
 	}
 	
 	/**
-	 * Test method for {@link fr.dauphine.lamsade.hib.elections.services.Impl.UserServiceImpl#create(fr.dauphine.lamsade.hib.elections.domain.User)}.
-	 * @throws Exceptions 
+	 * Test method for {@link fr.dauphine.lamsade.hib.elections.services.Impl.UserServiceJDBCImpl#create(fr.dauphine.lamsade.hib.elections.domain.User)}.
+	 * @throws MyExceptions 
 	 */
 	@Test
-	public void testCreate() throws Exceptions {
+	public void testCreate() throws MyExceptions {
 //		User userT= new User();
 //		userT.setNom("UserTest");
 //		userT.setPrenom("rene");
@@ -60,42 +60,42 @@ private String name="UserTest";
 	}
 
 	/**
-	 * Test method for {@link fr.dauphine.lamsade.hib.elections.services.Impl.UserServiceImpl#findById(java.lang.Long)}.
-	 * @throws Exceptions 
+	 * Test method for {@link fr.dauphine.lamsade.hib.elections.services.Impl.UserServiceJDBCImpl#findById(java.lang.Long)}.
+	 * @throws MyExceptions 
 	 */
 	@Test
-	public void testFindById() throws Exceptions {
+	public void testFindById() throws MyExceptions {
 		User user=userService.findById(1L);
 		assertNotNull(user);
 	}
 
 	/**
-	 * Test method for {@link fr.dauphine.lamsade.hib.elections.services.Impl.UserServiceImpl#findByEmail(java.lang.String)}.
-	 * @throws Exceptions 
+	 * Test method for {@link fr.dauphine.lamsade.hib.elections.services.Impl.UserServiceJDBCImpl#findByEmail(java.lang.String)}.
+	 * @throws MyExceptions 
 	 */
 	@Test
-	public void testFindByEmail() throws Exceptions {
+	public void testFindByEmail() throws MyExceptions {
 		User user=userService.findByEmail(email);
 		assertNotNull(user);
 	}
 
 	/**
-	 * Test method for {@link fr.dauphine.lamsade.hib.elections.services.Impl.UserServiceImpl#findByName(java.lang.String)}.
-	 * @throws Exceptions 
+	 * Test method for {@link fr.dauphine.lamsade.hib.elections.services.Impl.UserServiceJDBCImpl#findByName(java.lang.String)}.
+	 * @throws MyExceptions 
 	 */
 	@Test
-	public void testFindByName() throws Exceptions {
+	public void testFindByName() throws MyExceptions {
 		List<User> users=userService.findByName(name);
 		assertNotNull(users);
 		assertTrue(users.size()>0);
 	}
 
 	/**
-	 * Test method for {@link fr.dauphine.lamsade.hib.elections.services.Impl.UserServiceImpl#findAll()}.
-	 * @throws Exceptions 
+	 * Test method for {@link fr.dauphine.lamsade.hib.elections.services.Impl.UserServiceJDBCImpl#findAll()}.
+	 * @throws MyExceptions 
 	 */
 	@Test
-	public void testFindAll() throws Exceptions {
+	public void testFindAll() throws MyExceptions {
 		List<User> users=userService.findAll();
 		assertNotNull(users);
 		assertTrue(users.size()>1);
@@ -103,11 +103,11 @@ private String name="UserTest";
 
 
 	/**
-	 * Test method for {@link fr.dauphine.lamsade.hib.elections.services.Impl.UserServiceImpl#update(fr.dauphine.lamsade.hib.elections.domain.User)}.
-	 * @throws Exceptions 
+	 * Test method for {@link fr.dauphine.lamsade.hib.elections.services.Impl.UserServiceJDBCImpl#update(fr.dauphine.lamsade.hib.elections.domain.User)}.
+	 * @throws MyExceptions 
 	 */
 	@Test
-	public void testUpdate() throws Exceptions {
+	public void testUpdate() throws MyExceptions {
 		User user=userService.findByEmail(email);
 		user.setPrenom("Update");
 		userService.update(user);
@@ -115,11 +115,11 @@ private String name="UserTest";
 		assertTrue(user.getPrenom().equals("Update"));
 	}
 	/**
-	 * Test method for {@link fr.dauphine.lamsade.hib.elections.services.Impl.UserServiceImpl#delete(fr.dauphine.lamsade.hib.elections.domain.User)}.
-	 * @throws Exceptions 
+	 * Test method for {@link fr.dauphine.lamsade.hib.elections.services.Impl.UserServiceJDBCImpl#delete(fr.dauphine.lamsade.hib.elections.domain.User)}.
+	 * @throws MyExceptions 
 	 */
 	@Test
-	public void testDelete() throws Exceptions {
+	public void testDelete() throws MyExceptions {
 		User userT= new User();
 		userT.setNom("UserTest");
 		userT.setPrenom("rene");
