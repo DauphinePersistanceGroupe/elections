@@ -1,39 +1,55 @@
 package fr.dauphine.lamsade.hib.elections.controller;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.io.Serializable;
+import java.util.List;
+
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+
+import fr.dauphine.lamsade.hib.elections.Exception.MyExceptions;
+import fr.dauphine.lamsade.hib.elections.domain.User;
+import fr.dauphine.lamsade.hib.elections.services.UserService;
 
 /**
  * Servlet implementation class UserControler
  */
-@WebServlet("/UserControler")
-public class UserControler extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UserControler() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+@ManagedBean
+public class UserControler implements Serializable {
 
+	@EJB
+	private UserService serviceUser;
+	
+	private String user;
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * 
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	private static final long serialVersionUID = 673718825850668676L;
+	
+	public UserControler(){
+		
 	}
-
+	public String getUser() {
+		StringBuffer result=new StringBuffer();
+		try {
+//			User user=serviceUser.findById(1L);
+			List<User> users=serviceUser.findAll();
+			for (User user2 : users) {
+				result.append(user2.toString());
+				result.append("</br>");
+			}
+		} catch (MyExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result.toString();
+		
+	}
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @param user the user to set
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	public void setUser(String user) {
+		this.user = user;
 	}
 
 }

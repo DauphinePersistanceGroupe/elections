@@ -17,6 +17,8 @@ import fr.dauphine.lamsade.hib.elections.utils.SQLConstantes;
  * @author Rene.BAROU
  * 
  */
+//TODO be removed
+@Deprecated
 public class DbConnectionServiceImpl implements DbConnectionService {
 
 	private static Logger log = Logger.getLogger(DbConnectionServiceImpl.class
