@@ -30,6 +30,8 @@ import javax.persistence.Version;
 @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User implements Serializable {
 
+	
+
 	/**
 	 * 
 	 */
@@ -161,5 +163,21 @@ public class User implements Serializable {
 	public void setProjets(List<Projet> projets) {
 		this.projets = projets;
 	}
-
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("User [id=");
+		builder.append(id);
+		builder.append(", email=");
+		builder.append(email);
+		builder.append(", nom=");
+		builder.append(nom);
+		builder.append(", prenom=");
+		builder.append(prenom);
+		builder.append("]");
+		return builder.toString();
+	}
 }

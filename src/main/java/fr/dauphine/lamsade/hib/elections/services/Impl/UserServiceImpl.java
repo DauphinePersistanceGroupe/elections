@@ -5,6 +5,8 @@ package fr.dauphine.lamsade.hib.elections.services.Impl;
 
 import java.util.List;
 
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
@@ -18,6 +20,8 @@ import fr.dauphine.lamsade.hib.elections.services.UserService;
  * @author gnepa.rene.barou
  *
  */
+@Stateless
+@Remote(UserService.class)
 public class UserServiceImpl implements UserService {
 
 	@PersistenceContext(unitName = "electionsPU")
