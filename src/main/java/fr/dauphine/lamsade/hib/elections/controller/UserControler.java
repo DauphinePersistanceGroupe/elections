@@ -1,6 +1,7 @@
 package fr.dauphine.lamsade.hib.elections.controller;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -28,16 +29,20 @@ public class UserControler implements Serializable {
 		
 	}
 	public String getUser() {
-		String result="new user";
+		StringBuffer result=new StringBuffer();
 		try {
-			User user=serviceUser.findById(1L);
-			result=user.toString();
+//			User user=serviceUser.findById(1L);
+			List<User> users=serviceUser.findAll();
+			for (User user2 : users) {
+				result.append(user2.toString());
+				result.append("</br>");
+			}
 		} catch (MyExceptions e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return result;
+		return result.toString();
 		
 	}
 	/**
