@@ -33,7 +33,7 @@ public class Projet implements Serializable {
 
 	@Id
 	@Column(unique=true, nullable=false)
-	private Long id;
+	private Integer id;
 
 	@Column(length=2147483647)
 	private String description;
@@ -54,11 +54,11 @@ public class Projet implements Serializable {
 	public Projet() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

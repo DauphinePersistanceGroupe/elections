@@ -12,8 +12,9 @@ import fr.dauphine.lamsade.hib.elections.domain.Projet;
  * @author omar.trabelsi
  *
  */
+
 public interface ProjetService {
-	Projet findById(Long id) throws MyExceptions;
+	Projet findById(Integer id) throws MyExceptions;
 
 	List<Projet> findByName(String name) throws MyExceptions;
 

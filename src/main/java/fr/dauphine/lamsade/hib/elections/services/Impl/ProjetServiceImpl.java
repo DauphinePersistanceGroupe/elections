@@ -3,7 +3,6 @@
  */
 package fr.dauphine.lamsade.hib.elections.services.Impl;
 
-
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -19,11 +18,11 @@ import fr.dauphine.lamsade.hib.elections.services.ProjetService;
  * @author omar.trabelsi
  *
  */
+
 public class ProjetServiceImpl implements ProjetService {
 
 	@PersistenceContext(unitName = "electionsPU")
 	EntityManager em;
-
 
 	/*
 	 * (non-Javadoc)
@@ -32,15 +31,15 @@ public class ProjetServiceImpl implements ProjetService {
 	 * fr.dauphine.lamsade.hib.elections.services.ProjetService#findById(java.
 	 * lang.Long)
 	 */
-	@Override
-	public Projet findById(Long id) throws MyExceptions {
+	
+	public  Projet findById(Integer id) throws MyExceptions {
 		try {
 			return em.find(Projet.class, id);
 		} catch (IllegalArgumentException e) {
 			throw new MyExceptions(e.getMessage(), e);
 		}
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -51,10 +50,9 @@ public class ProjetServiceImpl implements ProjetService {
 	@Override
 	public List<Projet> findByName(String name) throws MyExceptions {
 		try {
-			Query query = em
-					.createQuery("SELECT p FROM Projet p WHERE p.nom = :name");
+			Query query = em.createQuery("SELECT p FROM Projet p WHERE p.nom = :name");
 			query.setParameter("name", name);
-			return  (List<Projet>) query.getSingleResult();
+			return (List<Projet>) query.getSingleResult();
 		} catch (IllegalArgumentException | PersistenceException e) {
 			throw new MyExceptions(e.getMessage(), e);
 		}
@@ -68,9 +66,8 @@ public class ProjetServiceImpl implements ProjetService {
 	@Override
 	public List<Projet> findAll() throws MyExceptions {
 		try {
-			Query query = em
-					.createQuery("SELECT p FROM Projet p ");
-			return  (List<Projet>) query.getSingleResult();
+			Query query = em.createQuery("SELECT p FROM Projet p ");
+			return (List<Projet>) query.getSingleResult();
 		} catch (IllegalArgumentException | PersistenceException e) {
 			throw new MyExceptions(e.getMessage(), e);
 		}
@@ -79,14 +76,14 @@ public class ProjetServiceImpl implements ProjetService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fr.dauphine.lamsade.hib.elections.services.ProjetService#create(fr.dauphine
-	 * .lamsade.hib.elections.domain.Projet)
+	 * @see fr.dauphine.lamsade.hib.elections.services.ProjetService#create(fr.
+	 * dauphine .lamsade.hib.elections.domain.Projet)
 	 */
 	@Override
 	public void create(Projet projet) throws MyExceptions {
 		try {
-			em.persist(projet);;
+			em.persist(projet);
+			;
 		} catch (IllegalArgumentException e) {
 			throw new MyExceptions(e.getMessage(), e);
 		}
@@ -96,14 +93,13 @@ public class ProjetServiceImpl implements ProjetService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fr.dauphine.lamsade.hib.elections.services.ProjetService#delete(fr.dauphine
-	 * .lamsade.hib.elections.domain.Projet)
+	 * @see fr.dauphine.lamsade.hib.elections.services.ProjetService#delete(fr.
+	 * dauphine .lamsade.hib.elections.domain.Projet)
 	 */
 	@Override
 	public void delete(Projet projet) throws MyExceptions {
 		try {
-			 em.remove(projet);
+			em.remove(projet);
 		} catch (IllegalArgumentException e) {
 			throw new MyExceptions(e.getMessage(), e);
 		}
@@ -113,20 +109,16 @@ public class ProjetServiceImpl implements ProjetService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fr.dauphine.lamsade.hib.elections.services.ProjetService#update(fr.dauphine
-	 * .lamsade.hib.elections.domain.Projet)
+	 * @see fr.dauphine.lamsade.hib.elections.services.ProjetService#update(fr.
+	 * dauphine .lamsade.hib.elections.domain.Projet)
 	 */
 	@Override
 	public void update(Projet projet) throws MyExceptions {
 		try {
-			 em.merge(projet);
+			em.merge(projet);
 		} catch (IllegalArgumentException e) {
 			throw new MyExceptions(e.getMessage(), e);
 		}
 
-
 	}
-
-
 }
