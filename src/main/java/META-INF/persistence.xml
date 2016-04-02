@@ -1,24 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-	<persistence-unit name="electionsPU">
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="electionsPU" transaction-type="JTA">
 		<jta-data-source>java:jboss/datasources/electionsDS</jta-data-source>
-		<class>fr.dauphine.lamsade.hib.elections.domain.User</class>
+		<class>fr.dauphine.lamsade.hib.elections.domain.Person</class>
 		<class>fr.dauphine.lamsade.hib.elections.domain.Groupe</class>
 		<class>fr.dauphine.lamsade.hib.elections.domain.Projet</class>
-		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
 		<properties>
+
 			<property name="javax.persistence.schema-generation.database.action"
 				value="drop-and-create" />
-			<property name="javax.persistence.schema-generation.create-source"
-				value="script" />
-			<property name="javax.persistence.schema-generation.create-script-source"
-				value="sql/create.sql" />
 			<property name="javax.persistence.sql-load-script-source"
 				value="sql/data.sql" />
-			<property name="javax.persistence.schema-generation.drop-source"
-				value="script" />
-			<property name="javax.persistence.schema-generation.drop-script-source"
-				value="sql/drop.sql" />
+			<property name = "hibernate.show_sql" value = "true" />
 		</properties>
+		<!-- <properties> -->
+		<!-- <property name="javax.persistence.schema-generation.database.action" -->
+		<!-- value="drop-and-create" /> -->
+		<!-- <property name="javax.persistence.schema-generation.create-source" -->
+		<!-- value="script" /> -->
+		<!-- <property name="javax.persistence.schema-generation.create-script-source" -->
+		<!-- value="sql/create.sql" /> -->
+		<!-- <property name="javax.persistence.sql-load-script-source" -->
+		<!-- value="sql/data.sql" /> -->
+		<!-- <property name="javax.persistence.schema-generation.drop-source" -->
+		<!-- value="script" /> -->
+		<!-- <property name="javax.persistence.schema-generation.drop-script-source" -->
+		<!-- value="sql/drop.sql" /> -->
+		<!-- <property name = "hibernate.show_sql" value = "true" /> -->
+		<!-- <property name="hibernate.ejb.cfgfile" value="META-INF/hibernate.cfg.xml"/> -->
+		<!-- </properties> -->
 	</persistence-unit>
 </persistence>

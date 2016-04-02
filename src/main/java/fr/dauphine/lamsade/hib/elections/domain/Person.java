@@ -18,19 +18,20 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  * @author gnepa.rene.barou
  * 
- *         Entity implementation class for Entity: User
+ *         Entity implementation class for Entity: Person
  * 
  */
 @Entity
-@Table(name = "USER")
-@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
-public class User implements Serializable {
-
-	
+@Table(name = "PERSON")
+@NamedQuery(name = "Person.findAll", query = "SELECT u FROM Person u")
+public class Person implements Serializable {
 
 	/**
 	 * 
@@ -39,31 +40,23 @@ public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(unique = true, nullable = false)
 	private Long id;
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	@Column(nullable = false, length = 2147483647)
+	@NotNull
+	@Size(min = 1, max = 50)
 	private String email;
 
 	private Boolean hasvoted;
 
-	@Column(nullable = false, length = 2147483647)
+	@NotNull
+	@Size(min = 1, max = 25)
+	@Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
 	private String nom;
 
-	@Column(nullable = false, length = 2147483647)
 	private String pass;
 
-	@Column(nullable = false, length = 2147483647)
 	private String prenom;
 
-	@Column(nullable = false, length = 2147483647)
 	private String role;
 
 	@Version
@@ -71,7 +64,7 @@ public class User implements Serializable {
 	private Integer version;
 
 	// bi-directional many-to-one association to Groupe
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "person")
 	private List<Groupe> groupes;
 
 	// bi-directional many-to-many association to Projet
@@ -79,67 +72,7 @@ public class User implements Serializable {
 	@JoinTable(name = "GROUPE", joinColumns = { @JoinColumn(name = "user_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "projet_id", nullable = false) })
 	private List<Projet> projets;
 
-	public User() {
-	}
-
-	public Long getId() {
-		return this.id;
-	}
-
-	public String getEmail() {
-		return this.email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Boolean getHasvoted() {
-		return this.hasvoted;
-	}
-
-	public void setHasvoted(Boolean hasvoted) {
-		this.hasvoted = hasvoted;
-	}
-
-	public String getNom() {
-		return this.nom;
-	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	public String getPass() {
-		return this.pass;
-	}
-
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
-
-	public String getPrenom() {
-		return this.prenom;
-	}
-
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
-	}
-
-	public String getRole() {
-		return this.role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
-	public List<Groupe> getGroupes() {
-		return this.groupes;
-	}
-
-	public void setGroupes(List<Groupe> groupes) {
-		this.groupes = groupes;
+	public Person() {
 	}
 
 	public Groupe addGroupe(Groupe groupe) {
@@ -149,6 +82,42 @@ public class User implements Serializable {
 		return groupe;
 	}
 
+	public String getEmail() {
+		return this.email;
+	}
+
+	public List<Groupe> getGroupes() {
+		return this.groupes;
+	}
+
+	public Boolean getHasvoted() {
+		return this.hasvoted;
+	}
+
+	public Long getId() {
+		return this.id;
+	}
+
+	public String getNom() {
+		return this.nom;
+	}
+
+	public String getPass() {
+		return this.pass;
+	}
+
+	public String getPrenom() {
+		return this.prenom;
+	}
+
+	public List<Projet> getProjets() {
+		return this.projets;
+	}
+
+	public String getRole() {
+		return this.role;
+	}
+
 	public Groupe removeGroupe(Groupe groupe) {
 		getGroupes().remove(groupe);
 		groupe.setUser(null);
@@ -156,12 +125,43 @@ public class User implements Serializable {
 		return groupe;
 	}
 
-	public List<Projet> getProjets() {
-		return this.projets;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setGroupes(List<Groupe> groupes) {
+		this.groupes = groupes;
+	}
+
+	public void setHasvoted(Boolean hasvoted) {
+		this.hasvoted = hasvoted;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
 	}
 
 	public void setProjets(List<Projet> projets) {
 		this.projets = projets;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -169,7 +169,7 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("User [id=");
+		builder.append("Person [id=");
 		builder.append(id);
 		builder.append(", email=");
 		builder.append(email);

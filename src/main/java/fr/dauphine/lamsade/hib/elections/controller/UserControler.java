@@ -7,7 +7,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 
 import fr.dauphine.lamsade.hib.elections.Exception.MyExceptions;
-import fr.dauphine.lamsade.hib.elections.domain.User;
+import fr.dauphine.lamsade.hib.elections.domain.Person;
 import fr.dauphine.lamsade.hib.elections.services.UserService;
 
 /**
@@ -31,9 +31,10 @@ public class UserControler implements Serializable {
 	public String getUser() {
 		StringBuffer result=new StringBuffer();
 		try {
-//			User user=serviceUser.findById(1L);
-			List<User> users=serviceUser.findAll();
-			for (User user2 : users) {
+			Person person=serviceUser.findByEmail("barou2000@gmail.com");
+			result.append(person.toString());
+			List<Person> persons=serviceUser.findAll();
+			for (Person user2 : persons) {
 				result.append(user2.toString());
 				result.append("</br>");
 			}

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.dauphine.lamsade.hib.elections.Exception.MyExceptions;
-import fr.dauphine.lamsade.hib.elections.domain.User;
+import fr.dauphine.lamsade.hib.elections.domain.Person;
 import fr.dauphine.lamsade.hib.elections.services.UserService;
 import fr.dauphine.lamsade.hib.elections.utils.SQLConstantes;
 
@@ -30,9 +30,9 @@ public class UserServiceJDBCImpl implements UserService {
 	 * fr.dauphine.lamsade.hib.elections.services.UserService#findById(java.
 	 * lang.Long)
 	 */
-	public User findById(Long id) throws MyExceptions {
+	public Person findById(Long id) throws MyExceptions {
 		Connection conn = getConnection();
-		User user = new User();
+		Person person = new Person();
 		try {
 			PreparedStatement pre = conn
 					.prepareStatement(SQLConstantes.USER_FINDBYID_SQL);
@@ -40,19 +40,19 @@ public class UserServiceJDBCImpl implements UserService {
 			ResultSet rs = pre.executeQuery();
 
 			if (rs.next()) {
-				user.setId(rs.getLong("id"));
-				user.setNom(rs.getString("nom"));
-				user.setPrenom(rs.getString("prenom"));
-				user.setEmail(rs.getString("email"));
-				user.setPass(rs.getString("pass"));
-				user.setRole(rs.getString("role"));
-				user.setHasvoted(rs.getBoolean("hasvoted"));
+				person.setId(rs.getLong("id"));
+				person.setNom(rs.getString("nom"));
+				person.setPrenom(rs.getString("prenom"));
+				person.setEmail(rs.getString("email"));
+				person.setPass(rs.getString("pass"));
+				person.setRole(rs.getString("role"));
+				person.setHasvoted(rs.getBoolean("hasvoted"));
 			}
 			// id, nom, prenom, email, pass, role,hasvoted
 		} catch (SQLException e) {
 			throw new MyExceptions(e.getMessage(), e.getCause());
 		}
-		return user;
+		return person;
 	}
 
 	/*
@@ -62,9 +62,9 @@ public class UserServiceJDBCImpl implements UserService {
 	 * fr.dauphine.lamsade.hib.elections.services.UserService#findByEmail(java
 	 * .lang.String)
 	 */
-	public User findByEmail(String email) throws MyExceptions {
+	public Person findByEmail(String email) throws MyExceptions {
 		Connection conn = getConnection();
-		User user = null;
+		Person person = null;
 		try {
 			PreparedStatement pre = conn
 					.prepareStatement(SQLConstantes.USER_FINDBYEMAIL_SQL);
@@ -72,19 +72,19 @@ public class UserServiceJDBCImpl implements UserService {
 			ResultSet rs = pre.executeQuery();
 
 			if (rs.next()) {
-				user = new User();
-				user.setId(rs.getLong("id"));
-				user.setNom(rs.getString("nom"));
-				user.setPrenom(rs.getString("prenom"));
-				user.setEmail(rs.getString("email"));
-				user.setPass(rs.getString("pass"));
-				user.setRole(rs.getString("role"));
-				user.setHasvoted(rs.getBoolean("hasvoted"));
+				person = new Person();
+				person.setId(rs.getLong("id"));
+				person.setNom(rs.getString("nom"));
+				person.setPrenom(rs.getString("prenom"));
+				person.setEmail(rs.getString("email"));
+				person.setPass(rs.getString("pass"));
+				person.setRole(rs.getString("role"));
+				person.setHasvoted(rs.getBoolean("hasvoted"));
 			}
 		} catch (SQLException e) {
 			throw new MyExceptions(e.getMessage(), e.getCause());
 		}
-		return user;
+		return person;
 	}
 
 	/*
@@ -94,10 +94,10 @@ public class UserServiceJDBCImpl implements UserService {
 	 * fr.dauphine.lamsade.hib.elections.services.UserService#findByName(java
 	 * .lang.String)
 	 */
-	public List<User> findByName(String name) throws MyExceptions {
+	public List<Person> findByName(String name) throws MyExceptions {
 		Connection conn = getConnection();
-		List<User> users = new ArrayList<User>();
-		User user;
+		List<Person> persons = new ArrayList<Person>();
+		Person person;
 		try {
 			PreparedStatement pre = conn
 					.prepareStatement(SQLConstantes.USER_FINDBYNAME_SQL);
@@ -105,20 +105,20 @@ public class UserServiceJDBCImpl implements UserService {
 			ResultSet rs = pre.executeQuery();
 
 			while (rs.next()) {
-				user = new User();
-				user.setId(rs.getLong("id"));
-				user.setNom(rs.getString("nom"));
-				user.setPrenom(rs.getString("prenom"));
-				user.setEmail(rs.getString("email"));
-				user.setPass(rs.getString("pass"));
-				user.setRole(rs.getString("role"));
-				user.setHasvoted(rs.getBoolean("hasvoted"));
-				users.add(user);
+				person = new Person();
+				person.setId(rs.getLong("id"));
+				person.setNom(rs.getString("nom"));
+				person.setPrenom(rs.getString("prenom"));
+				person.setEmail(rs.getString("email"));
+				person.setPass(rs.getString("pass"));
+				person.setRole(rs.getString("role"));
+				person.setHasvoted(rs.getBoolean("hasvoted"));
+				persons.add(person);
 			}
 		} catch (SQLException e) {
 			throw new MyExceptions(e.getMessage(), e.getCause());
 		}
-		return users;
+		return persons;
 	}
 
 	/*
@@ -126,29 +126,29 @@ public class UserServiceJDBCImpl implements UserService {
 	 * 
 	 * @see fr.dauphine.lamsade.hib.elections.services.UserService#findAll()
 	 */
-	public List<User> findAll() throws MyExceptions {
+	public List<Person> findAll() throws MyExceptions {
 		Connection conn = getConnection();
-		List<User> users = new ArrayList<User>();
-		User user;
+		List<Person> persons = new ArrayList<Person>();
+		Person person;
 		try {
 			Statement stm = conn.createStatement();
 			ResultSet rs = stm.executeQuery(SQLConstantes.USER_FINDALL_SQL);
 
 			while (rs.next()) {
-				user = new User();
-				user.setId(rs.getLong("id"));
-				user.setNom(rs.getString("nom"));
-				user.setPrenom(rs.getString("prenom"));
-				user.setEmail(rs.getString("email"));
-				user.setPass(rs.getString("pass"));
-				user.setRole(rs.getString("role"));
-				user.setHasvoted(rs.getBoolean("hasvoted"));
-				users.add(user);
+				person = new Person();
+				person.setId(rs.getLong("id"));
+				person.setNom(rs.getString("nom"));
+				person.setPrenom(rs.getString("prenom"));
+				person.setEmail(rs.getString("email"));
+				person.setPass(rs.getString("pass"));
+				person.setRole(rs.getString("role"));
+				person.setHasvoted(rs.getBoolean("hasvoted"));
+				persons.add(person);
 			}
 		} catch (SQLException e) {
 			throw new MyExceptions(e.getMessage(), e.getCause());
 		}
-		return users;
+		return persons;
 	}
 
 	/*
@@ -158,18 +158,18 @@ public class UserServiceJDBCImpl implements UserService {
 	 * fr.dauphine.lamsade.hib.elections.services.UserService#create(fr.dauphine
 	 * .lamsade.hib.elections.domain.User)
 	 */
-	public void create(User user) throws MyExceptions {
+	public void create(Person person) throws MyExceptions {
 		Connection conn = getConnection();
 		try {
 			PreparedStatement pre = conn
 					.prepareStatement(SQLConstantes.USER_CREATE_SQL);
 
-			pre.setString(1, user.getNom());
-			pre.setString(2, user.getPrenom());
-			pre.setString(3, user.getEmail());
-			pre.setString(4, user.getPass());
-			pre.setString(5, user.getRole());
-			pre.setBoolean(6, user.getHasvoted());
+			pre.setString(1, person.getNom());
+			pre.setString(2, person.getPrenom());
+			pre.setString(3, person.getEmail());
+			pre.setString(4, person.getPass());
+			pre.setString(5, person.getRole());
+			pre.setBoolean(6, person.getHasvoted());
 			pre.executeUpdate();
 		} catch (SQLException e) {
 			throw new MyExceptions(e.getMessage(), e.getCause());
@@ -184,14 +184,14 @@ public class UserServiceJDBCImpl implements UserService {
 	 * fr.dauphine.lamsade.hib.elections.services.UserService#delete(fr.dauphine
 	 * .lamsade.hib.elections.domain.User)
 	 */
-	public void delete(User user) throws MyExceptions {
+	public void delete(Person person) throws MyExceptions {
 		// nom, prenom, email, pass, role,hasvoted
 		Connection conn = getConnection();
 		try {
 			PreparedStatement pre = conn
 					.prepareStatement(SQLConstantes.USER_DELETE_SQL);
 
-			pre.setLong(1, user.getId());
+			pre.setLong(1, person.getId());
 			pre.executeUpdate();
 		} catch (SQLException e) {
 			throw new MyExceptions(e.getMessage(), e.getCause());
@@ -206,19 +206,19 @@ public class UserServiceJDBCImpl implements UserService {
 	 * fr.dauphine.lamsade.hib.elections.services.UserService#update(fr.dauphine
 	 * .lamsade.hib.elections.domain.User)
 	 */
-	public void update(User user) throws MyExceptions {
+	public void update(Person person) throws MyExceptions {
 		Connection conn = getConnection();
 		try {
 			PreparedStatement pre = conn
 					.prepareStatement(SQLConstantes.USER_UPDATE_SQL);
 
-			pre.setString(1, user.getNom());
-			pre.setString(2, user.getPrenom());
-			pre.setString(3, user.getEmail());
-			pre.setString(4, user.getPass());
-			pre.setString(5, user.getRole());
-			pre.setBoolean(6, user.getHasvoted());
-			pre.setLong(7, user.getId());
+			pre.setString(1, person.getNom());
+			pre.setString(2, person.getPrenom());
+			pre.setString(3, person.getEmail());
+			pre.setString(4, person.getPass());
+			pre.setString(5, person.getRole());
+			pre.setBoolean(6, person.getHasvoted());
+			pre.setLong(7, person.getId());
 			pre.executeUpdate();
 		} catch (SQLException e) {
 			throw new MyExceptions(e.getMessage(), e.getCause());

@@ -35,10 +35,8 @@ public class Projet implements Serializable {
 	@Column(unique=true, nullable=false)
 	private Long id;
 
-	@Column(length=2147483647)
 	private String description;
 
-	@Column(nullable=false, length=2147483647)
 	private String nom;
 
 	private Integer note;
@@ -47,9 +45,9 @@ public class Projet implements Serializable {
 	@OneToMany(mappedBy="projet")
 	private List<Groupe> groupes;
 
-	//bi-directional many-to-many association to User
+	//bi-directional many-to-many association to Person
 	@ManyToMany(mappedBy="projets")
-	private List<User> users;
+	private List<Person> persons;
 
 	public Projet() {
 	}
@@ -108,12 +106,12 @@ public class Projet implements Serializable {
 		return groupe;
 	}
 
-	public List<User> getUsers() {
-		return this.users;
+	public List<Person> getUsers() {
+		return this.persons;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
+	public void setUsers(List<Person> persons) {
+		this.persons = persons;
 	}
 
 }

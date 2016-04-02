@@ -17,7 +17,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import fr.dauphine.lamsade.hib.elections.Exception.MyExceptions;
-import fr.dauphine.lamsade.hib.elections.domain.User;
+import fr.dauphine.lamsade.hib.elections.domain.Person;
 import fr.dauphine.lamsade.hib.elections.services.UserService;
 
 /**
@@ -34,6 +34,13 @@ public class UserServiceImpl implements UserService {
 
 	@PostConstruct
 	private void init() {
+		try {
+			System.out.println(em.isOpen());
+			em.getProperties();
+		} catch (IllegalArgumentException | PersistenceException e) {
+			System.out.println("+++++++++++++select 1 from dual ERRO"+e.getMessage());
+		}
+			
 		builder = em.getCriteriaBuilder();
 	}
 	/*
@@ -44,9 +51,9 @@ public class UserServiceImpl implements UserService {
 	 * lang.Long)
 	 */
 	@Override
-	public User findById(Long id) throws MyExceptions {
+	public Person findById(Long id) throws MyExceptions {
 		try {
-			return em.find(User.class, id);
+			return em.find(Person.class, id);
 		} catch (IllegalArgumentException | PersistenceException e) {
 			throw new MyExceptions(e.getMessage(), e);
 		}
@@ -60,12 +67,12 @@ public class UserServiceImpl implements UserService {
 	 * .lang.String)
 	 */
 	@Override
-	public User findByEmail(String email) throws MyExceptions {
+	public Person findByEmail(String email) throws MyExceptions {
 		try {
 			Query query = em
-					.createQuery("SELECT u FROM User u WHERE u.email =:email");
+					.createQuery("SELECT u FROM Person u WHERE u.email =:email");
 			query.setParameter("email", email);
-			return (User) query.getSingleResult();
+			return (Person) query.getSingleResult();
 		} catch (IllegalArgumentException | PersistenceException e) {
 			throw new MyExceptions(e.getMessage(), e);
 		}
@@ -79,14 +86,14 @@ public class UserServiceImpl implements UserService {
 	 * .lang.String)
 	 */
 	@Override
-	public List<User> findByName(String name) throws MyExceptions {
+	public List<Person> findByName(String name) throws MyExceptions {
 		try {
-			CriteriaQuery<User> criteria = builder
-					.createQuery(User.class);
-			Root<User> user = criteria.from(User.class);
+			CriteriaQuery<Person> criteria = builder
+					.createQuery(Person.class);
+			Root<Person> person = criteria.from(Person.class);
 
-			criteria.select(user).where(
-					builder.equal(user.get("nom"), name));
+			criteria.select(person).where(
+					builder.equal(person.get("nom"), name));
 			return em.createQuery(criteria).getResultList();
 		} catch (IllegalArgumentException | PersistenceException e1) {
 			throw new MyExceptions(e1.getMessage(), e1);
@@ -99,11 +106,11 @@ public class UserServiceImpl implements UserService {
 	 * @see fr.dauphine.lamsade.hib.elections.services.UserService#findAll()
 	 */
 	@Override
-	public List<User> findAll() throws MyExceptions {
+	public List<Person> findAll() throws MyExceptions {
 		try {
-			CriteriaQuery<User> criteria = builder
-					.createQuery(User.class);
-			Root<User> userRoot = criteria.from(User.class);
+			CriteriaQuery<Person> criteria = builder
+					.createQuery(Person.class);
+			Root<Person> userRoot = criteria.from(Person.class);
 
 			criteria.select(userRoot).orderBy(
 					builder.asc(userRoot.get("nom")));
@@ -121,9 +128,9 @@ public class UserServiceImpl implements UserService {
 	 * .lamsade.hib.elections.domain.User)
 	 */
 	@Override
-	public void create(User user) throws MyExceptions {
+	public void create(Person person) throws MyExceptions {
 		try {
-			em.persist(user);
+			em.persist(person);
 			return;
 		} catch (IllegalArgumentException | PersistenceException e) {
 			throw new MyExceptions(e.getMessage(), e);
@@ -138,9 +145,9 @@ public class UserServiceImpl implements UserService {
 	 * .lamsade.hib.elections.domain.User)
 	 */
 	@Override
-	public void delete(User user) throws MyExceptions {
+	public void delete(Person person) throws MyExceptions {
 		try {
-			em.remove(user);
+			em.remove(person);
 		} catch (IllegalArgumentException | PersistenceException e) {
 			throw new MyExceptions(e.getMessage(), e);
 		}
@@ -155,9 +162,9 @@ public class UserServiceImpl implements UserService {
 	 * .lamsade.hib.elections.domain.User)
 	 */
 	@Override
-	public void update(User user) throws MyExceptions {
+	public void update(Person person) throws MyExceptions {
 		try {
-			em.merge(user);
+			em.merge(person);
 		} catch (IllegalArgumentException | PersistenceException e) {
 			throw new MyExceptions(e.getMessage(), e);
 		}

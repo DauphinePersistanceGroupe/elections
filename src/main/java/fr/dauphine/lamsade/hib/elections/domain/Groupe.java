@@ -38,7 +38,6 @@ public class Groupe implements Serializable {
 	@Column(unique=true, nullable=false)
 	private Long id;
 
-	@Column(nullable=false, length=2147483647)
 	private String nom;
 
 	//bi-directional many-to-one association to Projet
@@ -46,10 +45,10 @@ public class Groupe implements Serializable {
 	@JoinColumn(name="projet_id", nullable=false)
 	private Projet projet;
 
-	//bi-directional many-to-one association to User
+	//bi-directional many-to-one association to Person
 	@ManyToOne
 	@JoinColumn(name="user_id", nullable=false)
-	private User user;
+	private Person person;
 
 	public Groupe() {
 	}
@@ -78,12 +77,12 @@ public class Groupe implements Serializable {
 		this.projet = projet;
 	}
 
-	public User getUser() {
-		return this.user;
+	public Person getUser() {
+		return this.person;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUser(Person person) {
+		this.person = person;
 	}
 
 }
