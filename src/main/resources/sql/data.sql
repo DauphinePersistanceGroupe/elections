@@ -1,4 +1,2 @@
 INSERT INTO "person"(id, nom, prenom, email, pass, role,hasvoted) VALUES (1,' barou', 'rene', 'barou2000@gmail.com', 'barou', 'admin',false);    
 INSERT INTO "person"(id, nom, prenom, email, pass, role,hasvoted)  VALUES (2,' UserTest', 'rene', 'UserTest@gmail.com', 'UserTest', 'participant',false);
---insert into `person` (`id`, `email`, `hasvoted`, `nom`, `pass`, `prenom`, `role`, `VERSION`) values(1, 'barou2000@gmail.com', 0, 'barou', 'barou', 'rene', 'admin', null);
---insert into `person` (`id`, `email`, `hasvoted`, `nom`, `pass`, `prenom`, `role`, `VERSION`) values(2, 'UserTest@gmail.com', 1, 'UserTest', 'barou', 'rene', 'admin', null);
