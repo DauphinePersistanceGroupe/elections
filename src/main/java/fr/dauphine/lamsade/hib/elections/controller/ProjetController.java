@@ -3,59 +3,87 @@
  */
 package fr.dauphine.lamsade.hib.elections.controller;
 
-import java.sql.*;
+import java.io.Serializable;
+import java.util.List;
+
+import javax.ejb.EJB;
 
 import fr.dauphine.lamsade.hib.elections.domain.Projet;
+import fr.dauphine.lamsade.hib.elections.services.ProjetService;
 
 /**
  * @author omar.trabelsi
  *
  */
-public class ProjetController {
+public class ProjetController implements Serializable {
 
-	static Projet projet = new Projet();
+	private static final long serialVersionUID = 1L;
 
-	public static void main(String[] args) {
-		// get connection
-		Connection connection = projet.getConnection();
-		if (connection != null) {
-			System.out.println("You made it, take control your database now!");
-		} else {
-			System.out.println("Failed to make connection!");
-		}
+	@EJB
+	static ProjetService projetService;
 
-		// get all projects
-		try {
-			projet.getAllProjects(connection);
+	public static void createProjet(Projet p) {
 
-		} catch (SQLException e) {
-			System.out.println("Failed to get all projects!");
+		try {			
+			projetService.create(p);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		// Add a test project
+	}
+	public static void deleteProjet(Projet p) {
+
 		try {
-			projet.addProject(connection, "test3", "test3");
-		} catch (SQLException e) {
-			System.out.println("Failed to add the project!");
+			projetService.delete(p);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	public static void updateProjet(Projet p) {
 
-		// delete a project
 		try {
-			projet.deleteProject(connection, 11);
-		} catch (SQLException e) {
-			System.out.println("Failed to delete the project!");
+			projetService.update(p);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		// update a project description
-		try {
-			projet.updateProject(connection, 6, "test6 ");
-		} catch (SQLException e) {
-			System.out.println("Failed to update the project!");
-			e.printStackTrace();
-		}
-
 	}
 
+	public static Projet getProjetById(Long id){
+		Projet projet = new Projet();
+		try {
+			projet = projetService.findById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return projet;
+	}
+	public static List<Projet> getAllProjets(){
+		try {
+			return projetService.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public static List<Projet> getProjetByName(String name){
+		try {
+			return projetService.findByName(name);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+
+	// public static void main(String[] args) {
+	// Projet newProjet = new Projet();
+	// newProjet.setNom("TEST");
+	// newProjet.setDescription("TEST");
+	// newProjet.setNote(0);
+	// createProjet(newProjet);
+	// Projet projet = new Projet();
+	// //projet = getProjetById(2);
+	// List<Projet> projetsList = getAllProjets();
+	// deleteProjet(newProjet);
+	//
+	// }
 }

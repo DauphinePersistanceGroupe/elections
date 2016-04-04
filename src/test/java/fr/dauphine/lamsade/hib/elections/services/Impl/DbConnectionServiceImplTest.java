@@ -12,7 +12,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.dauphine.lamsade.hib.elections.Exception.Exceptions;
+import fr.dauphine.lamsade.hib.elections.Exception.MyExceptions;
 import fr.dauphine.lamsade.hib.elections.services.DbConnectionService;
 
 /**
@@ -56,7 +56,7 @@ public class DbConnectionServiceImplTest {
 			assertNotNull(conn);
 			dbService.closeConnection();
 			assertTrue(conn.isClosed());
-		} catch (Exceptions e) {
+		} catch (MyExceptions e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {

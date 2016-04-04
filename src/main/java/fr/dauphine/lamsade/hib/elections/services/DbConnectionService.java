@@ -5,14 +5,16 @@ package fr.dauphine.lamsade.hib.elections.services;
 
 import java.sql.Connection;
 
-import fr.dauphine.lamsade.hib.elections.Exception.Exceptions;
+import fr.dauphine.lamsade.hib.elections.Exception.MyExceptions;
 
 /**
  * @author Rene.BAROU
  *
  */
+//TODO be removed
+@Deprecated
 public interface DbConnectionService {
 
-	 Connection getConnection() throws Exceptions;
-	 void closeConnection() throws Exceptions;
+	 Connection getConnection() throws MyExceptions;
+	 void closeConnection() throws MyExceptions;
 }

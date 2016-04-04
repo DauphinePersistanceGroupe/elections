@@ -3,84 +3,115 @@
  */
 package fr.dauphine.lamsade.hib.elections.domain;
 
-import java.sql.*;
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 
 /**
  * @author omar.trabelsi
+ *The persistent class for the "PROJET" database table.
  *
+ *@reviewer gnepa.rene.barou
  */
-public class Projet {
+@Entity
+@Table(name="PROJET")
+@NamedQuery(name="Projet.findAll", query="SELECT p FROM Projet p")
+public class Projet implements Serializable {
 
-	public Connection getConnection() {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4089021386275603684L;
 
-		Connection conn = null;
+	@Id
+	@Column(unique=true, nullable=false)
+	private Long id;
 
-		try {
+	private String description;
 
-			conn = DriverManager.getConnection("jdbc:postgresql://localhost/elections", "postgres", "postgres");
+	private String nom;
 
-		} catch (SQLException e) {
+	private Integer note;
 
-			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
+	//bi-directional many-to-one association to Groupe
+	@OneToMany(mappedBy="projet")
+	private List<Groupe> groupes;
 
-		}
-		return conn;
+	//bi-directional many-to-many association to Person
+	@ManyToMany(mappedBy="projets")
+	private List<Person> persons;
 
+	public Projet() {
 	}
 
-	public void getAllProjects(Connection conn) throws SQLException {
-		Statement stmt = null;
-		stmt = conn.createStatement();
-		String sql = "SELECT * FROM elections.\"PROJET\" ";
-		ResultSet result = stmt.executeQuery(sql);
-		System.out.println("List of Projects:");
-		while (result.next()) {
-			System.out.println("ID : " + result.getString(1));
-			System.out.println("Nom : " + result.getString(2));
-			System.out.println("Description : " + result.getString(3));
-			System.out.println("Vote : " + result.getString(4));
-			System.out.println("**********************");
-		}
-		stmt.close();
+	public Long getId() {
+		return this.id;
 	}
 
-	public void addProject(Connection conn, String nom, String descr) throws SQLException {
-
-		Statement stmt = null;
-		stmt = conn.createStatement();
-		String sql = "INSERT INTO elections.\"PROJET\" (nom, description) VALUES (?,?)";
-		PreparedStatement st = conn.prepareStatement(sql);
-		st.setString(1, nom);
-		st.setString(2, descr);
-		st.executeUpdate();
-		System.out.println("Project added successfully!");
-		stmt.close();
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public void deleteProject(Connection conn, int id) throws SQLException {
-		Statement stmt = null;
-		stmt = conn.createStatement();
-		String sql = "DELETE FROM elections.\"PROJET\" WHERE ID = ?";
-		PreparedStatement st = conn.prepareStatement(sql);
-		st.setInt(1, id);
-		st.executeUpdate();
-		System.out.println("Project deleted successfully!");
-		stmt.close();
-
+	public String getDescription() {
+		return this.description;
 	}
 
-	public void updateProject(Connection conn, int id, String desc) throws SQLException {
-		Statement stmt = null;
-		stmt = conn.createStatement();
-		String sql = "UPDATE elections.\"PROJET\"  SET description = ? WHERE ID = ?";
-		PreparedStatement st = conn.prepareStatement(sql);
-		st.setString(1, desc);
-		st.setInt(2, id);
-		st.executeUpdate();
-		System.out.println("Project updated successfully!");
-		stmt.close();
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
+	public String getNom() {
+		return this.nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public Integer getNote() {
+		return this.note;
+	}
+
+	public void setNote(Integer note) {
+		this.note = note;
+	}
+
+	public List<Groupe> getGroupes() {
+		return this.groupes;
+	}
+
+	public void setGroupes(List<Groupe> groupes) {
+		this.groupes = groupes;
+	}
+
+	public Groupe addGroupe(Groupe groupe) {
+		getGroupes().add(groupe);
+		groupe.setProjet(this);
+
+		return groupe;
+	}
+
+	public Groupe removeGroupe(Groupe groupe) {
+		getGroupes().remove(groupe);
+		groupe.setProjet(null);
+
+		return groupe;
+	}
+
+	public List<Person> getUsers() {
+		return this.persons;
+	}
+
+	public void setUsers(List<Person> persons) {
+		this.persons = persons;
 	}
 
 }

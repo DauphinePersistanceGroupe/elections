@@ -3,203 +3,172 @@
  */
 package fr.dauphine.lamsade.hib.elections.services.Impl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
-import fr.dauphine.lamsade.hib.elections.Exception.Exceptions;
-import fr.dauphine.lamsade.hib.elections.domain.User;
+import javax.annotation.PostConstruct;
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+import fr.dauphine.lamsade.hib.elections.Exception.MyExceptions;
+import fr.dauphine.lamsade.hib.elections.domain.Person;
 import fr.dauphine.lamsade.hib.elections.services.UserService;
-import fr.dauphine.lamsade.hib.elections.utils.SQLConstantes;
 
 /**
- * @author Rene.BAROU
+ * @author gnepa.rene.barou
  *
  */
+@Stateless
+@Remote(UserService.class)
 public class UserServiceImpl implements UserService {
 
-//	private DbConnectionService dbService;
-	/* (non-Javadoc)
-	 * @see fr.dauphine.lamsade.hib.elections.services.UserService#findById(java.lang.Long)
-	 */
-	public User findById(Long id) throws Exceptions {
-		Connection conn=getConnection();
-		User user=new User();
+	@PersistenceContext(unitName = "electionsPU")
+	EntityManager em;
+	private CriteriaBuilder builder;
+
+	@PostConstruct
+	private void init() {
 		try {
-			PreparedStatement pre=conn.prepareStatement(SQLConstantes.USER_FINDBYID_SQL);
-			pre.setLong(1, id);
-			ResultSet rs=pre.executeQuery();
-			
-					if (rs.next()) {
-						user.setId(rs.getLong("id"));
-						user.setNom(rs.getString("nom"));
-						user.setPrenom(rs.getString("prenom"));
-						user.setEmail(rs.getString("email"));
-						user.setPass(rs.getString("pass"));
-						user.setRole(rs.getString("role"));
-						user.setHasVoted(rs.getBoolean("hasvoted"));
-					}
-//			id, nom, prenom, email, pass, role,hasvoted
-		} catch (SQLException e) {
-			throw new Exceptions(e.getMessage(),e.getCause());
+			System.out.println(em.isOpen());
+			em.getProperties();
+		} catch (IllegalArgumentException | PersistenceException e) {
+			System.out.println("+++++++++++++select 1 from dual ERRO"+e.getMessage());
 		}
-		return user;
+			
+		builder = em.getCriteriaBuilder();
+	}
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.dauphine.lamsade.hib.elections.services.UserService#findById(java.
+	 * lang.Long)
+	 */
+	@Override
+	public Person findById(Long id) throws MyExceptions {
+		try {
+			return em.find(Person.class, id);
+		} catch (IllegalArgumentException | PersistenceException e) {
+			throw new MyExceptions(e.getMessage(), e);
+		}
 	}
 
-	/* (non-Javadoc)
-	 * @see fr.dauphine.lamsade.hib.elections.services.UserService#findByEmail(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.dauphine.lamsade.hib.elections.services.UserService#findByEmail(java
+	 * .lang.String)
 	 */
-	public User findByEmail(String email) throws Exceptions {
-		Connection conn=getConnection();
-		User user=null;
+	@Override
+	public Person findByEmail(String email) throws MyExceptions {
 		try {
-			PreparedStatement pre=conn.prepareStatement(SQLConstantes.USER_FINDBYEMAIL_SQL);
-			pre.setString(1, email);
-			ResultSet rs=pre.executeQuery();
-			
-					if (rs.next()) {
-						user=new User();
-						user.setId(rs.getLong("id"));
-						user.setNom(rs.getString("nom"));
-						user.setPrenom(rs.getString("prenom"));
-						user.setEmail(rs.getString("email"));
-						user.setPass(rs.getString("pass"));
-						user.setRole(rs.getString("role"));
-						user.setHasVoted(rs.getBoolean("hasvoted"));
-					}
-		} catch (SQLException e) {
-			throw new Exceptions(e.getMessage(),e.getCause());
+			Query query = em
+					.createQuery("SELECT u FROM Person u WHERE u.email =:email");
+			query.setParameter("email", email);
+			return (Person) query.getSingleResult();
+		} catch (IllegalArgumentException | PersistenceException e) {
+			throw new MyExceptions(e.getMessage(), e);
 		}
-		return user;
 	}
 
-	/* (non-Javadoc)
-	 * @see fr.dauphine.lamsade.hib.elections.services.UserService#findByName(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.dauphine.lamsade.hib.elections.services.UserService#findByName(java
+	 * .lang.String)
 	 */
-	public List<User> findByName(String name) throws Exceptions {
-		Connection conn=getConnection();
-		List<User> users=new ArrayList<User>();
-		User user;
+	@Override
+	public List<Person> findByName(String name) throws MyExceptions {
 		try {
-			PreparedStatement pre=conn.prepareStatement(SQLConstantes.USER_FINDBYNAME_SQL);
-			pre.setString(1, name);
-			ResultSet rs=pre.executeQuery();
-			
-					while (rs.next()) {
-						user=new User();
-						user.setId(rs.getLong("id"));
-						user.setNom(rs.getString("nom"));
-						user.setPrenom(rs.getString("prenom"));
-						user.setEmail(rs.getString("email"));
-						user.setPass(rs.getString("pass"));
-						user.setRole(rs.getString("role"));
-						user.setHasVoted(rs.getBoolean("hasvoted"));
-						users.add(user);
-					}
-		} catch (SQLException e) {
-			throw new Exceptions(e.getMessage(),e.getCause());
+			CriteriaQuery<Person> criteria = builder
+					.createQuery(Person.class);
+			Root<Person> person = criteria.from(Person.class);
+
+			criteria.select(person).where(
+					builder.equal(person.get("nom"), name));
+			return em.createQuery(criteria).getResultList();
+		} catch (IllegalArgumentException | PersistenceException e1) {
+			throw new MyExceptions(e1.getMessage(), e1);
 		}
-		return users;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fr.dauphine.lamsade.hib.elections.services.UserService#findAll()
 	 */
-	public List<User> findAll() throws Exceptions {
-		Connection conn=getConnection();
-		List<User> users=new ArrayList<User>();
-		User user;
+	@Override
+	public List<Person> findAll() throws MyExceptions {
 		try {
-			Statement stm=conn.createStatement();
-			ResultSet rs=stm.executeQuery(SQLConstantes.USER_FINDALL_SQL);
-			
-					while (rs.next()) {
-						user=new User();
-						user.setId(rs.getLong("id"));
-						user.setNom(rs.getString("nom"));
-						user.setPrenom(rs.getString("prenom"));
-						user.setEmail(rs.getString("email"));
-						user.setPass(rs.getString("pass"));
-						user.setRole(rs.getString("role"));
-						user.setHasVoted(rs.getBoolean("hasvoted"));
-						users.add(user);
-					}
-		} catch (SQLException e) {
-			throw new Exceptions(e.getMessage(),e.getCause());
+			CriteriaQuery<Person> criteria = builder
+					.createQuery(Person.class);
+			Root<Person> userRoot = criteria.from(Person.class);
+
+			criteria.select(userRoot).orderBy(
+					builder.asc(userRoot.get("nom")));
+			return em.createQuery(criteria).getResultList();
+		} catch (IllegalArgumentException | PersistenceException e1) {
+			throw new MyExceptions(e1.getMessage(), e1);
 		}
-		return users;
 	}
 
-	/* (non-Javadoc)
-	 * @see fr.dauphine.lamsade.hib.elections.services.UserService#create(fr.dauphine.lamsade.hib.elections.domain.User)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.dauphine.lamsade.hib.elections.services.UserService#create(fr.dauphine
+	 * .lamsade.hib.elections.domain.User)
 	 */
-	public void create(User user) throws Exceptions {
-		Connection conn=getConnection();
+	@Override
+	public void create(Person person) throws MyExceptions {
 		try {
-			PreparedStatement pre=conn.prepareStatement(SQLConstantes.USER_CREATE_SQL);
-
-			pre.setString(1, user.getNom());
-			pre.setString(2, user.getPrenom());
-			pre.setString(3, user.getEmail());
-			pre.setString(4, user.getPass());
-			pre.setString(5, user.getRole());
-			pre.setBoolean(6, user.isHasVoted());
-			pre.executeUpdate();
-		} catch (SQLException e) {
-			throw new Exceptions(e.getMessage(),e.getCause());
+			em.persist(person);
+			return;
+		} catch (IllegalArgumentException | PersistenceException e) {
+			throw new MyExceptions(e.getMessage(), e);
 		}
-
 	}
 
-	/* (non-Javadoc)
-	 * @see fr.dauphine.lamsade.hib.elections.services.UserService#delete(fr.dauphine.lamsade.hib.elections.domain.User)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.dauphine.lamsade.hib.elections.services.UserService#delete(fr.dauphine
+	 * .lamsade.hib.elections.domain.User)
 	 */
-	public void delete(User user) throws Exceptions {
-//		nom, prenom, email, pass, role,hasvoted
-		Connection conn=getConnection();
+	@Override
+	public void delete(Person person) throws MyExceptions {
 		try {
-			PreparedStatement pre=conn.prepareStatement(SQLConstantes.USER_DELETE_SQL);
-
-			pre.setLong(1, user.getId());
-			pre.executeUpdate();
-		} catch (SQLException e) {
-			throw new Exceptions(e.getMessage(),e.getCause());
+			em.remove(person);
+		} catch (IllegalArgumentException | PersistenceException e) {
+			throw new MyExceptions(e.getMessage(), e);
 		}
 
 	}
 
-	/* (non-Javadoc)
-	 * @see fr.dauphine.lamsade.hib.elections.services.UserService#update(fr.dauphine.lamsade.hib.elections.domain.User)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.dauphine.lamsade.hib.elections.services.UserService#update(fr.dauphine
+	 * .lamsade.hib.elections.domain.User)
 	 */
-	public void update(User user) throws Exceptions {
-		Connection conn=getConnection();
+	@Override
+	public void update(Person person) throws MyExceptions {
 		try {
-			PreparedStatement pre=conn.prepareStatement(SQLConstantes.USER_UPDATE_SQL);
-
-			pre.setString(1, user.getNom());
-			pre.setString(2, user.getPrenom());
-			pre.setString(3, user.getEmail());
-			pre.setString(4, user.getPass());
-			pre.setString(5, user.getRole());
-			pre.setBoolean(6, user.isHasVoted());
-			pre.setLong(7, user.getId());
-			pre.executeUpdate();
-		} catch (SQLException e) {
-			throw new Exceptions(e.getMessage(),e.getCause());
+			em.merge(person);
+		} catch (IllegalArgumentException | PersistenceException e) {
+			throw new MyExceptions(e.getMessage(), e);
 		}
-	}
 
-	/**
-	 * @return the dbService
-	 * @throws Exceptions 
-	 */
-	public Connection getConnection() throws Exceptions {
-		return DbConnectionServiceImpl.getInstance().getConnection();
 	}
-
 
 }

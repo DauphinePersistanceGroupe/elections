@@ -5,8 +5,8 @@ package fr.dauphine.lamsade.hib.elections.services;
 
 import java.util.List;
 
-import fr.dauphine.lamsade.hib.elections.Exception.Exceptions;
-import fr.dauphine.lamsade.hib.elections.domain.User;
+import fr.dauphine.lamsade.hib.elections.Exception.MyExceptions;
+import fr.dauphine.lamsade.hib.elections.domain.Person;
 
 
 /**
@@ -15,18 +15,18 @@ import fr.dauphine.lamsade.hib.elections.domain.User;
  */
 public interface UserService {
 	
-	User findById(Long id) throws Exceptions;
+	Person findById(Long id) throws MyExceptions;
 
-	User findByEmail(String email) throws Exceptions;
+	Person findByEmail(String email) throws MyExceptions;
 
-	List<User> findByName(String name) throws Exceptions;
+	List<Person> findByName(String name) throws MyExceptions;
 
-	List<User> findAll() throws Exceptions;
+	List<Person> findAll() throws MyExceptions;
 
-	void create(User user) throws Exceptions;
+	void create(Person person) throws MyExceptions;
 
-	void delete(User user) throws Exceptions;
+	void delete(Person person) throws MyExceptions;
 
-	void update(User user) throws Exceptions;
+	void update(Person person) throws MyExceptions;
 
 }
