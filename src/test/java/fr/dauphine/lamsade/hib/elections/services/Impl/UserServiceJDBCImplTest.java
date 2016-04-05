@@ -32,7 +32,7 @@ private String name="UserTest";
 	 */
 	@Before
 	public void setUp() throws Exception {
-		userService=new UserServiceJDBCImpl();
+//		userService=new UserServiceJDBCImpl();
 		
 	}
 
@@ -124,7 +124,7 @@ private String name="UserTest";
 		userT.setNom("UserTest");
 		userT.setPrenom("rene");
 		userT.setEmail("UserJuniTest@gmail.com");
-		userT.setPass("UserTest");
+		userT.setPasswrd("UserTest");
 		userT.setRole("participant");
 		userT.setHasvoted(false);
 		userService.create(userT);

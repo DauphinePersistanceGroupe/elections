@@ -17,10 +17,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import fr.dauphine.lamsade.hib.elections.utils.Constantes;
 
 /**
  * @author gnepa.rene.barou
@@ -53,11 +56,14 @@ public class Person implements Serializable {
 	@Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
 	private String nom;
 
-	private String pass;
+	private String passwrd;
 
 	private String prenom;
 
 	private String role;
+	
+	@Transient
+	private boolean isAdmin;
 
 	@Version
 	@Column(name = "VERSION")
@@ -102,8 +108,8 @@ public class Person implements Serializable {
 		return this.nom;
 	}
 
-	public String getPass() {
-		return this.pass;
+	public String getPasswrd() {
+		return this.passwrd;
 	}
 
 	public String getPrenom() {
@@ -148,8 +154,8 @@ public class Person implements Serializable {
 		this.nom = nom;
 	}
 
-	public void setPass(String pass) {
-		this.pass = pass;
+	public void setPasswrd(String passwrd) {
+		this.passwrd = passwrd;
 	}
 
 	public void setPrenom(String prenom) {
@@ -180,4 +186,18 @@ public class Person implements Serializable {
 		builder.append("]");
 		return builder.toString();
 	}
+
+	/**
+	 * @return the isAdmin
+	 */
+	public boolean isAdmin() {
+		return Constantes.USER_ADMIN.equalsIgnoreCase(this.role);
+	}
+
+	/**
+	 * @param isAdmin the isAdmin to set
+	 */
+//	public void setAdmin(boolean isAdmin) {
+//		this.isAdmin = isAdmin;
+//	}
 }
