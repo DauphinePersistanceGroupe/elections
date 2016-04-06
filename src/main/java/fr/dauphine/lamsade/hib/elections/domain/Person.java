@@ -42,7 +42,7 @@ public class Person implements Serializable {
 	private static final long serialVersionUID = 407127474693946058L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Long id;
 
 	@NotNull
@@ -72,6 +72,7 @@ public class Person implements Serializable {
 	// bi-directional many-to-one association to Groupe
 	@OneToMany(mappedBy = "person")
 	private List<Groupe> groupes;
+
 
 	// bi-directional many-to-many association to Projet
 	@ManyToMany
@@ -169,9 +170,6 @@ public class Person implements Serializable {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -194,10 +192,9 @@ public class Person implements Serializable {
 		return Constantes.USER_ADMIN.equalsIgnoreCase(this.role);
 	}
 
-	/**
-	 * @param isAdmin the isAdmin to set
-	 */
-//	public void setAdmin(boolean isAdmin) {
-//		this.isAdmin = isAdmin;
-//	}
+	@Override
+	public Person clone() throws CloneNotSupportedException {
+		return (Person) super.clone();
+	}
+
 }
