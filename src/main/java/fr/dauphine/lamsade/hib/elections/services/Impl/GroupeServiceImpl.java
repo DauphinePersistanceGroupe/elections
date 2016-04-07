@@ -87,7 +87,7 @@ public class GroupeServiceImpl implements GroupeService{
 	@Override
 	public void create(Groupe groupe) throws MyExceptions {
 		try {
-			em.persist(groupe);;
+			em.persist(groupe);
 		} catch (IllegalArgumentException e) {
 			throw new MyExceptions(e.getMessage(), e);
 		}
