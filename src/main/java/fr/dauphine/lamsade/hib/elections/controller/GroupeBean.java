@@ -4,17 +4,25 @@
 package fr.dauphine.lamsade.hib.elections.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
 
+import fr.dauphine.lamsade.hib.elections.Exception.MyExceptions;
 import fr.dauphine.lamsade.hib.elections.domain.Groupe;
 import fr.dauphine.lamsade.hib.elections.services.GroupeService;
 
 
 /**
  * @author yosra.helal
- *
+ * 
+ * @reviewer gnepa.rene.barou
  */
 @ManagedBean
 @SessionScoped
@@ -43,7 +51,7 @@ public class GroupeBean implements Serializable {
 	public void createGroupe(Groupe g) {
 
 		try {
-			groupeService.create(g);
+			serviceGroupe.create(g);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

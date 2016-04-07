@@ -2,6 +2,8 @@ package fr.dauphine.lamsade.hib.elections.services.Impl;
 
 import java.util.List;
 
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
@@ -17,7 +19,10 @@ import fr.dauphine.lamsade.hib.elections.services.GroupeService;
 /**
  * @author yosra.helal
  *
+ *@reviewer gnepa.rene.barou
  */
+@Stateless
+@Remote(GroupeService.class)
 public class GroupeServiceImpl implements GroupeService{
 
 	@PersistenceContext(unitName = "electionsPU")
@@ -49,13 +54,14 @@ public class GroupeServiceImpl implements GroupeService{
 	 * fr.dauphine.lamsade.hib.elections.services.GroupeService#findByName(java
 	 * .lang.String)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Groupe> findByName(String name) throws MyExceptions {
 		try {
 			Query query = em
 					.createQuery("SELECT p FROM Groupe p WHERE p.nom = :name");
 			query.setParameter("name", name);
-			return  (List<Groupe>) query.getSingleResult();
+			return  query.getResultList();
 		} catch (IllegalArgumentException | PersistenceException e) {
 			throw new MyExceptions(e.getMessage(), e);
 		}
@@ -66,6 +72,7 @@ public class GroupeServiceImpl implements GroupeService{
 	 * 
 	 * @see fr.dauphine.lamsade.hib.elections.services.GroupeService#findAll()
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Groupe> findAll() throws MyExceptions {
 		try {
