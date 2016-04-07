@@ -42,7 +42,7 @@ public class Person implements Serializable {
 	private static final long serialVersionUID = 407127474693946058L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@NotNull
@@ -189,12 +189,22 @@ public class Person implements Serializable {
 	 * @return the isAdmin
 	 */
 	public boolean isAdmin() {
-		return Constantes.USER_ADMIN.equalsIgnoreCase(this.role);
+		if(!this.isAdmin){
+			setAdmin(Constantes.USER_ADMIN.equalsIgnoreCase(this.role));
+		}
+		return this.isAdmin;
 	}
 
 	@Override
 	public Person clone() throws CloneNotSupportedException {
 		return (Person) super.clone();
+	}
+
+	/**
+	 * @param isAdmin the isAdmin to set
+	 */
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 
 }

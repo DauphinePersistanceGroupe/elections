@@ -131,6 +131,10 @@ public class UserBean implements Serializable {
 			System.out.println("updateUser: " + person);
 			Person personToEdit = serviceUser.findById(person.getId());
 			System.out.println("personToEdit: " + personToEdit);
+			if(person.isAdmin()){
+				personToEdit.setRole(Constantes.USER_ADMIN);
+				personToEdit.setAdmin(true);
+			}
 			personToEdit.setNom(person.getNom());
 			personToEdit.setPrenom(person.getPrenom());
 			serviceUser.update(personToEdit);

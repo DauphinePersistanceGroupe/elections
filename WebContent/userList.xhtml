@@ -57,7 +57,7 @@
 			<div class="col-md-12">
 				<h:form id="userForm">
 					<h:dataTable value="#{userBean.personsList}" var="person"
-						id="userTable">
+						id="userTable" rendered="#{not empty userBean.personsList}">
 						<h:column><f:facet name="header"> <h:outputText value="Id" /> </f:facet>#{person.id}</h:column>
 						<h:column><f:facet name="header"> <h:outputText value="Nom" /> </f:facet>#{person.nom}</h:column>
 						<h:column><f:facet name="header"> <h:outputText value="Prénom" /> </f:facet>#{person.prenom}</h:column>
@@ -66,6 +66,7 @@
 						<h:column><h:commandButton action="#{userBean.editUser(person)}" value="Modifier" /></h:column>
 						<h:column><h:commandButton action="#{userBean.deleteUser(person)}" value="Supprimer" /></h:column>
 					</h:dataTable>
+					<h:outputText value="Aucun participant" rendered="#{empty userBean.personsList}"/>
 				</h:form>
 			</div>
 
