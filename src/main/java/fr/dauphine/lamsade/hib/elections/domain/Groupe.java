@@ -43,7 +43,7 @@ public class Groupe implements Serializable {
 	//bi-directional many-to-one association to Projet
 	@ManyToOne
 	@JoinColumn(name="projet_id", nullable=false)
-	private Projet projet;
+	private Project projet;
 
 	//bi-directional many-to-one association to Person
 	@ManyToOne
@@ -69,11 +69,11 @@ public class Groupe implements Serializable {
 		this.nom = nom;
 	}
 
-	public Projet getProjet() {
+	public Project getProjet() {
 		return this.projet;
 	}
 
-	public void setProjet(Projet projet) {
+	public void setProjet(Project projet) {
 		this.projet = projet;
 	}
 

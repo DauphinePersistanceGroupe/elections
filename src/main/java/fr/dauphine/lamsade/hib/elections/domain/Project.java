@@ -22,9 +22,9 @@ import javax.persistence.Table;
  *@reviewer gnepa.rene.barou
  */
 @Entity
-@Table(name="PROJET")
-@NamedQuery(name="Projet.findAll", query="SELECT p FROM Projet p")
-public class Projet implements Serializable {
+@Table(name="PROJECT")
+@NamedQuery(name="Projet.findAll", query="SELECT p FROM Project p")
+public class Project implements Serializable {
 
 	/**
 	 * 
@@ -49,7 +49,7 @@ public class Projet implements Serializable {
 	@ManyToMany(mappedBy="projets")
 	private List<Person> persons;
 
-	public Projet() {
+	public Project() {
 	}
 
 	public Long getId() {

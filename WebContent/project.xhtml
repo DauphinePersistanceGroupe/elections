@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Liste des projets</title>
+</head>
+<body>
+	<f:view>
+		<h:form>
+			<h1>
+				<h:outputText value="Liste des projets" />
+			</h1>
+			<p>
+				<h:commandLink action="#{project.addProject()}" value="Ajouter un projet" />
+			</p>
+			<h:dataTable value="#{project.allProjects}" var="dataTableItem"
+				border="1" cellpadding="2" cellspacing="2">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Nom" />
+					</f:facet>
+					<h:outputText value="#{dataTableItem.nom}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Description" />
+					</f:facet>
+					<h:outputText value="#{dataTableItem.description}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Note" />
+					</f:facet>
+					<h:outputText value="#{dataTableItem.note}" />
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</f:view>
+</body>
+</html>

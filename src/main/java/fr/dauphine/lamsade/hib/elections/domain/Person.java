@@ -76,7 +76,7 @@ public class Person implements Serializable {
 	// bi-directional many-to-many association to Projet
 	@ManyToMany
 	@JoinTable(name = "GROUPE", joinColumns = { @JoinColumn(name = "user_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "projet_id", nullable = false) })
-	private List<Projet> projets;
+	private List<Project> projets;
 
 	public Person() {
 	}
@@ -116,7 +116,7 @@ public class Person implements Serializable {
 		return this.prenom;
 	}
 
-	public List<Projet> getProjets() {
+	public List<Project> getProjets() {
 		return this.projets;
 	}
 
@@ -162,7 +162,7 @@ public class Person implements Serializable {
 		this.prenom = prenom;
 	}
 
-	public void setProjets(List<Projet> projets) {
+	public void setProjets(List<Project> projets) {
 		this.projets = projets;
 	}
 
