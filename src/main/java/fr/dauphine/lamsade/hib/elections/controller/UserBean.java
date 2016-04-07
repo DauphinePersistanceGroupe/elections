@@ -17,6 +17,7 @@ import fr.dauphine.lamsade.hib.elections.Exception.MyExceptions;
 import fr.dauphine.lamsade.hib.elections.domain.Person;
 import fr.dauphine.lamsade.hib.elections.services.UserService;
 import fr.dauphine.lamsade.hib.elections.utils.Constantes;
+import fr.dauphine.lamsade.hib.elections.utils.UrlConstantes;
 
 /**
  * @author gnepa.rene.barou
@@ -55,8 +56,7 @@ public class UserBean implements Serializable {
 
 	public String editUser(Person person) {
 		this.person = person;
-		System.out.println("editUser: " + this.person);
-		return "userEdit";
+		return UrlConstantes.USER_EDIT;
 	}
 
 	/**
@@ -90,15 +90,17 @@ public class UserBean implements Serializable {
 		}
 	}
 
-	public void inscrire() {
+	public String inscrire() {
 		try {
 			person.setHasvoted(false);
 			person.setRole(Constantes.USER_ELECT);
 			serviceUser.create(person);
 			FacesMessage message = new FacesMessage("Succès de l'inscription !");
 			FacesContext.getCurrentInstance().addMessage(null, message);
+			return "login";
 		} catch (MyExceptions e) {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
+			return "inscription";
 		}
 	}
 
@@ -128,9 +130,7 @@ public class UserBean implements Serializable {
 
 	public void updateUser() {
 		try {
-			System.out.println("updateUser: " + person);
 			Person personToEdit = serviceUser.findById(person.getId());
-			System.out.println("personToEdit: " + personToEdit);
 			if(person.isAdmin()){
 				personToEdit.setRole(Constantes.USER_ADMIN);
 				personToEdit.setAdmin(true);
@@ -143,7 +143,7 @@ public class UserBean implements Serializable {
 		}
 	}
 
-	public void login() {
+	public String login() {
 		boolean isAuthentificate = false;
 		try {
 			Person login = serviceUser.findByEmail(this.person.getEmail());
@@ -151,6 +151,11 @@ public class UserBean implements Serializable {
 				isAuthentificate = true;
 		} catch (MyExceptions e) {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
+		}
+		if(isAuthentificate){
+			return "";
+		}else{
+			return "";
 		}
 
 	}

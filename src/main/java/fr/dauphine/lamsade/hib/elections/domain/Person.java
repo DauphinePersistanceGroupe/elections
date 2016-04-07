@@ -18,6 +18,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -32,8 +33,8 @@ import fr.dauphine.lamsade.hib.elections.utils.Constantes;
  * 
  */
 @Entity
-@Table(name = "PERSON")
 @NamedQuery(name = "Person.findAll", query = "SELECT u FROM Person u")
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class Person implements Serializable {
 
 	/**
