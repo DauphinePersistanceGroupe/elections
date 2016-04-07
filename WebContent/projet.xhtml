@@ -15,7 +15,8 @@
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 	<!--     <link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css" /> -->
 </h:head>
-<h:body>
+<body>
+
 	<!-- Navigation -->
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	<div class="container">
@@ -34,9 +35,7 @@
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="">accueil</a></li>
-				<li><h:form> <h:commandLink action="inscription" value="Inscription" /></h:form> </li>
-				<li><h:form><h:commandLink action="userList"
-						value="Liste des participants" /></h:form> </li>
+				<li><a href="">Inscription</a></li>
 			</ul>
 		</div>
 	</div>
@@ -44,26 +43,17 @@
 
 	<!-- Page Content -->
 	<div class="container">
-
-		<!-- Page Heading/Breadcrumbs -->
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Accueil</h1>
+				<h1 class="page-header">Projets</h1>
 				<ol class="breadcrumb">
-					<!-- 					<li><a href=" ">accueil</a></li> -->
-					<li class="active">Accueil</li>
+					<li class="active">Projets</li>
 				</ol>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-5">
-				<p>Un projet associé à un groupe de participants</p>
-				<p>Un administrateur établit les règles de vote</p>
-				<p>Chaque électeur (participant ou autre) peut voter pour un
-					projet Ou ranger les projets</p>
-				<p>L’administrateur peut interdire de voter pour son propre
-					projet</p>
-				<p>Option anonyme : l’identité des électeurs est oubliée</p>
+			<div class="col-md-12">
+				<p>Projets</p>
 			</div>
 
 		</div>
@@ -71,12 +61,11 @@
 		<hr />
 
 	</div>
-
 	<!-- jQuery -->
 	<h:outputScript library="js" name="jquery.js" />
 	<h:outputScript library="js" name="bootstrap.min.js" />
 
-</h:body>
+</body>
 
 </html>
 

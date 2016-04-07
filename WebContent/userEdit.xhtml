@@ -44,39 +44,71 @@
 
 	<!-- Page Content -->
 	<div class="container">
-
-		<!-- Page Heading/Breadcrumbs -->
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Accueil</h1>
+				<h1 class="page-header"></h1>
 				<ol class="breadcrumb">
-					<!-- 					<li><a href=" ">accueil</a></li> -->
-					<li class="active">Accueil</li>
+					<li><a href="/">accueil</a></li>
+					<li class="active">Modifier mes informations</li>
 				</ol>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-5">
-				<p>Un projet associé à un groupe de participants</p>
-				<p>Un administrateur établit les règles de vote</p>
-				<p>Chaque électeur (participant ou autre) peut voter pour un
-					projet Ou ranger les projets</p>
-				<p>L’administrateur peut interdire de voter pour son propre
-					projet</p>
-				<p>Option anonyme : l’identité des électeurs est oubliée</p>
+			<div class="col-md-12">
+			<h:form>
+					<fieldset>
+						<legend>Modifier mes informations </legend>
+						<h:inputHidden value="#{userBean.person.id}" />
+						<div class="form-group">
+							<h:outputLabel for="nom">Nom<span class="requis">*</span>
+							</h:outputLabel>
+							<h:inputText id="nom" value="#{userBean.person.nom}"
+								required="true" size="20" maxlength="20" class="form-control" />
+							<h:message id="nomMessage" for="nom" errorClass="erreur" />
+							<br />
+						</div>
+						<div class="form-group">
+							<h:outputLabel for="prenom">Prenom <span
+									class="requis">*</span>
+							</h:outputLabel>
+							<h:inputText id="prenom" value="#{userBean.person.prenom}"
+								required="true" size="20" maxlength="20" class="form-control" />
+							<h:message id="prenomMessage" for="prenom" errorClass="erreur" />
+							<br />
+						</div>
+						<div class="checkbox-inline">
+							<h:outputLabel for="isAdmin"><h:selectBooleanCheckbox value="#{userBean.person.admin}" id="isAdmin" class=""/>Administrateur</h:outputLabel>
+<!-- 							<h:message id="isAdminMessage" for="isAdmin" errorClass="erreur" /> -->
+<!-- 							<br /> -->
+						</div>
+						<div class="form-group">
+							<h:outputLabel for="email">Adresse email <span
+									class="requis">*</span>
+							</h:outputLabel>
+							<h:inputText id="email" value="#{userBean.person.email}"
+								required="true" size="20" maxlength="60" class="form-control" readonly="true"/>
+							<h:message id="emailMessage" for="email" errorClass="erreur" />
+							<br />
+						</div>
+						<h:messages globalOnly="true" infoClass="info" />
+
+						<h:commandButton value="Modifier" action="#{userBean.updateUser()}"
+							styleClass="sansLabel" />
+						<br />
+					</fieldset>
+				</h:form>
 			</div>
 
 		</div>
 
-		<hr />
+		<hr/>
 
 	</div>
-
 	<!-- jQuery -->
-	<h:outputScript library="js" name="jquery.js" />
-	<h:outputScript library="js" name="bootstrap.min.js" />
-
+	<h:outputScript library="js"  name="jquery.js"/>
+	<h:outputScript library="js"  name="bootstrap.min.js"/>
+	
 </h:body>
-
+    
 </html>
 

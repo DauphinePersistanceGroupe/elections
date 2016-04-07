@@ -73,6 +73,7 @@ public class Person implements Serializable {
 	@OneToMany(mappedBy = "person")
 	private List<Groupe> groupes;
 
+
 	// bi-directional many-to-many association to Projet
 	@ManyToMany
 	@JoinTable(name = "GROUPE", joinColumns = { @JoinColumn(name = "user_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "projet_id", nullable = false) })
@@ -169,9 +170,6 @@ public class Person implements Serializable {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -191,13 +189,22 @@ public class Person implements Serializable {
 	 * @return the isAdmin
 	 */
 	public boolean isAdmin() {
-		return Constantes.USER_ADMIN.equalsIgnoreCase(this.role);
+		if(!this.isAdmin){
+			setAdmin(Constantes.USER_ADMIN.equalsIgnoreCase(this.role));
+		}
+		return this.isAdmin;
+	}
+
+	@Override
+	public Person clone() throws CloneNotSupportedException {
+		return (Person) super.clone();
 	}
 
 	/**
 	 * @param isAdmin the isAdmin to set
 	 */
-//	public void setAdmin(boolean isAdmin) {
-//		this.isAdmin = isAdmin;
-//	}
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
 }

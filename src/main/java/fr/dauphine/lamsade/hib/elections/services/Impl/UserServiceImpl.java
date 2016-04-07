@@ -28,19 +28,12 @@ import fr.dauphine.lamsade.hib.elections.services.UserService;
 @Remote(UserService.class)
 public class UserServiceImpl implements UserService {
 
-	@PersistenceContext(unitName = "electionsPU")
+	@PersistenceContext
 	EntityManager em;
 	private CriteriaBuilder builder;
 
 	@PostConstruct
 	private void init() {
-		try {
-			System.out.println(em.isOpen());
-			em.getProperties();
-		} catch (IllegalArgumentException | PersistenceException e) {
-			System.out.println("+++++++++++++select 1 from dual ERRO"+e.getMessage());
-		}
-			
 		builder = em.getCriteriaBuilder();
 	}
 	/*
@@ -147,7 +140,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void delete(Person person) throws MyExceptions {
 		try {
-			em.remove(person);
+			Person toDelete=em.getReference(Person.class, person.getId());
+			em.remove(toDelete);
 		} catch (IllegalArgumentException | PersistenceException e) {
 			throw new MyExceptions(e.getMessage(), e);
 		}
