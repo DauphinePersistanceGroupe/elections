@@ -32,12 +32,14 @@ public class ProjectController implements Serializable {
 	    return "add_project";
 	  }
 
-	public void createProject(Project p) {
+	public String createProject(Project p) {
 
 		try {
 			projectService.create(p);
+			return "project";
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
 	}
 

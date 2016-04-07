@@ -2,7 +2,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Nouveau Projet</title>
 </head>
 <body>
@@ -10,15 +10,19 @@
 		<h:form>
 			<h:messages />
 			<h:panelGrid columns="2">
+				<h:outputText value="Id" />
+				<h:inputText label="Id" value="#{project.project.id}"
+					required="true" />
 				<h:outputText value="Nom" />
 				<h:inputText label="Nom" value="#{project.project.nom}"
 					required="true" />
 				<h:outputText value="Description" />
-				<h:inputText label="Description" value="#{project.project.description}" />
+				<h:inputText label="Description"
+					value="#{project.project.description}" />
 				<h:outputText value="Note" />
 				<h:inputText label="Note" value="#{project.project.note}" />
-				
-				<h:commandButton action="#" value="Ajouter" />
+
+				<h:commandButton action="#{project.createProject(project.project)}" value="Ajouter" />
 			</h:panelGrid>
 		</h:form>
 	</f:view>
