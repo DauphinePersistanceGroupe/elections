@@ -36,28 +36,28 @@ ALTER TABLE elections."USER"
   OWNER TO postgres;
 
   
--- Table: elections."PROJET"
+-- Table: elections."PROJECT"
 
--- DROP TABLE elections."PROJET";
+-- DROP TABLE elections."PROJECT";
 
-CREATE TABLE elections."PROJET"
+CREATE TABLE elections."PROJECT"
 (
   id serial NOT NULL, -- Identifiant unique PK
   nom text NOT NULL, -- Nom du groupe
   description text, -- Description du groupe
   note integer DEFAULT 0, -- Score du groupe à l'election
-  CONSTRAINT "PROJET_pkey" PRIMARY KEY (id),
-  CONSTRAINT "PROJET_nom_key" UNIQUE (nom)
+  CONSTRAINT "PROJECT_pkey" PRIMARY KEY (id),
+  CONSTRAINT "PROJECT_nom_key" UNIQUE (nom)
 )
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE elections."PROJET"
+ALTER TABLE elections."PROJECT"
   OWNER TO postgres;
-COMMENT ON COLUMN elections."PROJET".id IS 'Identifiant unique PK';
-COMMENT ON COLUMN elections."PROJET".nom IS 'Nom du groupe';
-COMMENT ON COLUMN elections."PROJET".description IS 'Description du groupe';
-COMMENT ON COLUMN elections."PROJET".note IS 'Score du groupe à l''election';
+COMMENT ON COLUMN elections."PROJECT".id IS 'Identifiant unique PK';
+COMMENT ON COLUMN elections."PROJECT".nom IS 'Nom du groupe';
+COMMENT ON COLUMN elections."PROJECT".description IS 'Description du groupe';
+COMMENT ON COLUMN elections."PROJECT".note IS 'Score du groupe à l''election';
 
 
 
@@ -73,12 +73,12 @@ CREATE TABLE elections."GROUPE"
   user_id integer NOT NULL,
   CONSTRAINT "GROUPE_pkey" PRIMARY KEY (id),
   CONSTRAINT "GROUPE_projet_id_fkey" FOREIGN KEY (projet_id)
-      REFERENCES elections."PROJET" (id) MATCH SIMPLE
+      REFERENCES elections."PROJECT" (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT "GROUPE_user_id_fkey" FOREIGN KEY (user_id)
       REFERENCES elections."USER" (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT "PROJET_unique_key" UNIQUE (projet_id, user_id)
+  CONSTRAINT "PROJECT_unique_key" UNIQUE (projet_id, user_id)
 )
 WITH (
   OIDS=FALSE

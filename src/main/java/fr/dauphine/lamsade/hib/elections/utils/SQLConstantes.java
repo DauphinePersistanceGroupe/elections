@@ -12,7 +12,7 @@ public class SQLConstantes {
 	public final static String DB_USER = "postgres";
 	public final static String DB_PASS = "postgres";
 	
-	// Table User
+	// Table Person
 	public static final String USER_CREATE_SQL = "INSERT INTO elections.\"USER\"( nom, prenom, email, pass, role,hasvoted) VALUES (?, ?, ?, ?, ?,?)";
 	public static final String USER_DELETE_SQL = "DELETE FROM elections.\"USER\" WHERE ID = ?";
 	public static final String USER_UPDATE_SQL = "UPDATE elections.\"USER\" SET nom=?, prenom=?, email=?, pass=?, role=?, hasvoted=? WHERE id=?;";
