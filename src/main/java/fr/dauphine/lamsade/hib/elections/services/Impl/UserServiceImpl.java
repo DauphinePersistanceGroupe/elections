@@ -36,13 +36,6 @@ public class UserServiceImpl implements UserService {
 	private void init() {
 		builder = em.getCriteriaBuilder();
 	}
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fr.dauphine.lamsade.hib.elections.services.UserService#findById(java.
-	 * lang.Long)
-	 */
 	@Override
 	public Person findById(Long id) throws MyExceptions {
 		try {
@@ -52,13 +45,6 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fr.dauphine.lamsade.hib.elections.services.UserService#findByEmail(java
-	 * .lang.String)
-	 */
 	@Override
 	public Person findByEmail(String email) throws MyExceptions {
 		try {
@@ -71,13 +57,6 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fr.dauphine.lamsade.hib.elections.services.UserService#findByName(java
-	 * .lang.String)
-	 */
 	@Override
 	public List<Person> findByName(String name) throws MyExceptions {
 		try {
@@ -93,11 +72,6 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.dauphine.lamsade.hib.elections.services.UserService#findAll()
-	 */
 	@Override
 	public List<Person> findAll() throws MyExceptions {
 		try {
@@ -113,13 +87,6 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fr.dauphine.lamsade.hib.elections.services.UserService#create(fr.dauphine
-	 * .lamsade.hib.elections.domain.User)
-	 */
 	@Override
 	public void create(Person person) throws MyExceptions {
 		try {
@@ -130,13 +97,6 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fr.dauphine.lamsade.hib.elections.services.UserService#delete(fr.dauphine
-	 * .lamsade.hib.elections.domain.User)
-	 */
 	@Override
 	public void delete(Person person) throws MyExceptions {
 		try {
@@ -148,13 +108,6 @@ public class UserServiceImpl implements UserService {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fr.dauphine.lamsade.hib.elections.services.UserService#update(fr.dauphine
-	 * .lamsade.hib.elections.domain.User)
-	 */
 	@Override
 	public void update(Person person) throws MyExceptions {
 		try {

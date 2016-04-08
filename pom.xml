@@ -53,8 +53,6 @@
 			<artifactId>primefaces</artifactId>
 			<version>5.3</version>
 		</dependency>
-
-
 	</dependencies>
 	<build>
 		<finalName>elections-webapp</finalName>
