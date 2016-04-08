@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
 	<title>Elections</title>
@@ -17,31 +17,9 @@
 </h:head>
 <h:body>
 	<!-- Navigation -->
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-	<div class="container">
-		<!-- Brand and toggle get grouped for better mobile display -->
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target="#bs-example-navbar-collapse-1">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<h:link value="Elections" outcome="index" class="navbar-brand"/>
-		</div>
-		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="collapse navbar-collapse"
-			id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav navbar-right">
-				<li><h:link value="Accueil" outcome="index"/></li>
-				<li><h:form> <h:commandLink action="inscription" value="Inscription" /></h:form> </li>
-				<li><h:form><h:commandLink action="userList"
-						value="Liste des participants" /></h:form> </li>
-			</ul>
-		</div>
-	</div>
-	</nav>
-
+	<ui:insert name="navbar">
+		<ui:include src="template/navbar.xhtml" />
+	</ui:insert>
 	<!-- Page Content -->
 	<div class="container">
 
@@ -62,7 +40,10 @@
 					projet Ou ranger les projets</p>
 				<p>L’administrateur peut interdire de voter pour son propre
 					projet</p>
-				<p>Option anonyme : l’identité des électeurs est oubliée</p>
+				<p>Option anonyme : l’identité des électeurs est oubliée</p> img\ClassDiagram.png
+			</div>
+			<div class="col-md-7">
+				<h:graphicImage value="/resources/img/ClassDiagram.png" class="img-rounded" alt="ClassDiagram" />
 			</div>
 
 		</div>
