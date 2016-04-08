@@ -36,7 +36,7 @@ public class Project implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
-	private Long id;
+	private Integer id;
 
 	private String description;
 
@@ -55,11 +55,11 @@ public class Project implements Serializable {
 	public Project() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
