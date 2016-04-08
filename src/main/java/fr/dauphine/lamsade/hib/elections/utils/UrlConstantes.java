@@ -9,7 +9,7 @@ package fr.dauphine.lamsade.hib.elections.utils;
  */
 public class UrlConstantes {
 
-	public static final String ACCUEIL="index";
+	public static final String ACCUEIL=UtilSessionBean.getContextPath()+"/faces/site/index.xhtml";
 	public static final String LOGIN="login";
 	public static final String INSCRIPTION="inscription";
 	public static final String ADMIN_ACCUEIL="admin";

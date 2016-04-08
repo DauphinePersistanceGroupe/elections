@@ -42,4 +42,9 @@ public class UtilSessionBean {
         else
             return null;
     }
+    
+    public static String getContextPath(){
+    	return FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
+//    	request.contextPath;
+    }
 }
