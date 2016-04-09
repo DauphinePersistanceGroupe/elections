@@ -8,16 +8,18 @@ import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import fr.dauphine.lamsade.hib.elections.Exception.MyExceptions;
 import fr.dauphine.lamsade.hib.elections.domain.Person;
 import fr.dauphine.lamsade.hib.elections.services.UserService;
 import fr.dauphine.lamsade.hib.elections.utils.Constantes;
 import fr.dauphine.lamsade.hib.elections.utils.UrlConstantes;
+import fr.dauphine.lamsade.hib.elections.utils.UtilSessionBean;
 
 /**
  * @author gnepa.rene.barou
@@ -131,7 +133,7 @@ public class UserBean implements Serializable {
 	public void updateUser() {
 		try {
 			Person personToEdit = serviceUser.findById(person.getId());
-			if(person.isAdmin()){
+			if (person.isAdmin()) {
 				personToEdit.setRole(Constantes.USER_ADMIN);
 				personToEdit.setAdmin(true);
 			}
@@ -145,19 +147,37 @@ public class UserBean implements Serializable {
 
 	public String login() {
 		boolean isAuthentificate = false;
+		Person login = new Person();
 		try {
-			Person login = serviceUser.findByEmail(this.person.getEmail());
-			if (null != login && login.getPasswrd().equals(person.getPasswrd()))
+			login = serviceUser.findByEmail(this.person.getEmail());
+			if (null != login && login.getPasswrd().equals(person.getPasswrd())) {
 				isAuthentificate = true;
+			}
+
 		} catch (MyExceptions e) {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
 		}
-		if(isAuthentificate){
-			return "";
-		}else{
-			return "";
+		if (isAuthentificate) {
+			HttpSession session = UtilSessionBean.getSession();
+            session.setAttribute("username", login.getNom());
+            if(login.isAdmin()){
+            	session.setAttribute("useradmin", login.getRole());
+            	return  UrlConstantes.ADMIN_ACCUEIL;
+            }else{
+            	return  UrlConstantes.USER_ACCUEIL;
+            }
+            
+			
+		} else {
+			return UrlConstantes.LOGIN;
 		}
 
 	}
+	
+	public String logout() {
+        HttpSession session = UtilSessionBean.getSession();
+        session.invalidate();
+        return UrlConstantes.ACCUEIL;
+    }
 
 }
