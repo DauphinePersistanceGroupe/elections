@@ -163,6 +163,7 @@ public class UserBean implements Serializable {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
 		}
 		if (isAuthentificate) {
+			this.person=login;
 			HttpSession session = UtilSessionBean.getSession();
             session.setAttribute("username", login.getNom());
             if(login.isAdmin()){
