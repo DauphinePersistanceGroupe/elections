@@ -184,7 +184,7 @@ public class UserBean implements Serializable {
 	public String logout() {
         HttpSession session = UtilSessionBean.getSession();
         session.invalidate();
-        return UrlConstantes.ACCUEIL;
+        return "deconnection";
     }
 
 }
