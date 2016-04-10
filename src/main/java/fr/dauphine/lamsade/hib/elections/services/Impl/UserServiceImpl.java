@@ -4,6 +4,8 @@
 package fr.dauphine.lamsade.hib.elections.services.Impl;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Remote;
@@ -27,7 +29,9 @@ import fr.dauphine.lamsade.hib.elections.services.UserService;
 @Stateless
 @Remote(UserService.class)
 public class UserServiceImpl implements UserService {
-
+	
+	private static Logger log = Logger.getLogger(UserServiceImpl.class
+			.getCanonicalName());
 	@PersistenceContext
 	EntityManager em;
 	private CriteriaBuilder builder;
@@ -116,6 +120,17 @@ public class UserServiceImpl implements UserService {
 			throw new MyExceptions(e.getMessage(), e);
 		}
 
+	}
+	@Override
+	public int count(){
+		int count=0;
+		try {
+			count=findAll().size();
+		} catch (MyExceptions e) {
+			count=0;
+			log.log(Level.SEVERE, e.getMessage(), e.getCause());
+		}
+		return count;
 	}
 
 }

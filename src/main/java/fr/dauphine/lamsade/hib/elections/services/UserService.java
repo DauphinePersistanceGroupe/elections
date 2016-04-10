@@ -28,5 +28,7 @@ public interface UserService {
 	void delete(Person person) throws MyExceptions;
 
 	void update(Person person) throws MyExceptions;
+	
+	int count();
 
 }

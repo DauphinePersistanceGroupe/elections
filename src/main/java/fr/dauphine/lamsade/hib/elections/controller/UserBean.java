@@ -94,8 +94,13 @@ public class UserBean implements Serializable {
 
 	public String inscrire() {
 		try {
+			if(serviceUser.count()==0){
+				person.setRole(Constantes.USER_ADMIN);
+			}else{
+				person.setRole(Constantes.USER_ELECT);
+			}
 			person.setHasvoted(false);
-			person.setRole(Constantes.USER_ELECT);
+			
 			serviceUser.create(person);
 			FacesMessage message = new FacesMessage("Succès de l'inscription !");
 			FacesContext.getCurrentInstance().addMessage(null, message);
@@ -169,6 +174,8 @@ public class UserBean implements Serializable {
             
 			
 		} else {
+			FacesMessage message = new FacesMessage("User et/ou mot de passe incorrect !");
+			FacesContext.getCurrentInstance().addMessage("loginForm:passwrd", message);
 			return UrlConstantes.LOGIN;
 		}
 
