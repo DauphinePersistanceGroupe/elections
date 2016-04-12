@@ -37,6 +37,7 @@
 				<h:form id="loginForm">
 					<fieldset>
 						<legend>Login</legend>
+						<h:messages globalOnly="true" errorClass="errorMessage" />
 						<div class="form-group">
 							<h:outputLabel for="email">Adresse email <span
 									class="requis">*</span>
@@ -52,7 +53,7 @@
 							</h:outputLabel>
 							<h:inputSecret id="passwrd" value="#{userBean.person.passwrd}"
 								required="true" size="20" maxlength="20" class="form-control" />
-							<h:message id="passwrdMessage" for="passwrd" errorClass="erreur" />
+							<h:message id="passwrdMessage" for="passwrd" errorStyle="erreur"  />
 							<br />
 						</div>
 						<h:commandButton value="login" action="#{userBean.login}" />

@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:head>
 	<title>Elections</title>
@@ -17,8 +18,20 @@
 </h:head>
 <h:body>
 	<!-- Navigation -->
+	
 	<ui:insert name="navbar">
-		<ui:include src="template/navbar.xhtml" />
+		<c:choose>
+			<c:when test="#{not empty useradmin}">
+				<ui:include src="template/navbarAdmin.xhtml" />
+			</c:when>
+			<c:when test="#{not empty username}">
+				<ui:include src="template/navbarUser.xhtml" />
+			</c:when>
+			<c:otherwise>
+				<ui:include src="template/navbar.xhtml" />
+			</c:otherwise>
+		</c:choose>
+		
 	</ui:insert>
 	<!-- Page Content -->
 	<div class="container">
@@ -34,16 +47,38 @@
 		</div>
 		<div class="row">
 			<div class="col-md-5">
-				<p>Un projet associé à un groupe de participants</p>
-				<p>Un administrateur établit les règles de vote</p>
-				<p>Chaque électeur (participant ou autre) peut voter pour un
-					projet Ou ranger les projets</p>
-				<p>L’administrateur peut interdire de voter pour son propre
-					projet</p>
-				<p>Option anonyme : l’identité des électeurs est oubliée</p> img\ClassDiagram.png
+				<div class="panel panel-default">
+			  		<div class="panel-heading">Enoncé du projet Elections</div>
+			  		<div class="panel-body">
+						<p>Un projet associé à un groupe de participants</p>
+						<p>Un administrateur établit les règles de vote</p>
+						<p>Chaque électeur (participant ou autre) peut voter pour un
+							projet Ou ranger les projets</p>
+						<p>L’administrateur peut interdire de voter pour son propre
+							projet</p>
+						<p>Option anonyme : l’identité des électeurs est oubliée</p> 
+					</div>
+				</div>
 			</div>
 			<div class="col-md-7">
-				<h:graphicImage value="/resources/img/ClassDiagram.png" class="img-rounded" alt="ClassDiagram" />
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-default">
+					  		<div class="panel-heading">Diagramme de classe 1</div>
+					  		<div class="panel-body">
+								<h:graphicImage value="/resources/img/ClassDiagram.png" class="img-rounded" alt="ClassDiagram" />
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="panel panel-default">
+					  		<div class="panel-heading">Diagramme de classe 2</div>
+					  		<div class="panel-body">
+								<h:graphicImage value="/resources/img/ClassDiagram2.png" class="img-rounded" alt="ClassDiagram" />
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 
 		</div>

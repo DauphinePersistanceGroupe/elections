@@ -94,9 +94,15 @@ public class UserBean implements Serializable {
 
 	public String inscrire() {
 		try {
+			if(serviceUser.count()==0){
+				person.setRole(Constantes.USER_ADMIN);
+			}else{
+				person.setRole(Constantes.USER_ELECT);
+			}
 			person.setHasvoted(false);
-			person.setRole(Constantes.USER_ELECT);
+			
 			serviceUser.create(person);
+			this.personsList=serviceUser.findAll();
 			FacesMessage message = new FacesMessage("Succès de l'inscription !");
 			FacesContext.getCurrentInstance().addMessage(null, message);
 			return "login";
@@ -158,6 +164,7 @@ public class UserBean implements Serializable {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
 		}
 		if (isAuthentificate) {
+			this.person=login;
 			HttpSession session = UtilSessionBean.getSession();
             session.setAttribute("username", login.getNom());
             if(login.isAdmin()){
@@ -169,6 +176,8 @@ public class UserBean implements Serializable {
             
 			
 		} else {
+			FacesMessage message = new FacesMessage("User et/ou mot de passe incorrect !");
+			FacesContext.getCurrentInstance().addMessage("loginForm:passwrd", message);
 			return UrlConstantes.LOGIN;
 		}
 
@@ -177,7 +186,7 @@ public class UserBean implements Serializable {
 	public String logout() {
         HttpSession session = UtilSessionBean.getSession();
         session.invalidate();
-        return UrlConstantes.ACCUEIL;
+        return "deconnection";
     }
 
 }

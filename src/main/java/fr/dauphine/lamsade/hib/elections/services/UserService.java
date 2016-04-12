@@ -20,6 +20,8 @@ public interface UserService {
 	Person findByEmail(String email) throws MyExceptions;
 
 	List<Person> findByName(String name) throws MyExceptions;
+	
+	List<Person> findByGroup(Long idGroup) throws MyExceptions;
 
 	List<Person> findAll() throws MyExceptions;
 
@@ -28,5 +30,7 @@ public interface UserService {
 	void delete(Person person) throws MyExceptions;
 
 	void update(Person person) throws MyExceptions;
+	
+	int count();
 
 }

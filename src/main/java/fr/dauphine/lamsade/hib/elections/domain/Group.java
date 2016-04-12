@@ -20,13 +20,13 @@ import javax.persistence.Table;
 /**
  * @author gnepa.rene.barou
  *
- * The persistent class for the "GROUPE" database table.
+ * The persistent class for the "GROUP" database table.
  * 
  */
 @Entity
 @Table(name="GROUPE")
-@NamedQuery(name="Groupe.findAll", query="SELECT g FROM Groupe g")
-public class Groupe implements Serializable {
+@NamedQuery(name="Group.findAll", query="SELECT g FROM Group g")
+public class Group implements Serializable {
 
 	/**
 	 * 
@@ -38,51 +38,51 @@ public class Groupe implements Serializable {
 	@Column(unique=true, nullable=false)
 	private Long id;
 
+	@Column(length=255)
+	private String description;
+
+	@Column(length=255)
 	private String nom;
 
-	//bi-directional many-to-one association to Projet
+	//uni-directional many-to-one association to Project
 	@ManyToOne
 	@JoinColumn(name="projet_id", nullable=false)
-	private Project projet;
+	private Project project;
 
-	//bi-directional many-to-one association to Person
-	@ManyToOne
-	@JoinColumn(name="user_id", nullable=false)
-	private Person person;
-
-	public Groupe() {
+	public Group() {
 	}
 
 	public Long getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public String getNom() {
-		return this.nom;
+		return nom;
 	}
 
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
 
-	public Project getProjet() {
-		return this.projet;
+	public Project getProject() {
+		return project;
 	}
 
-	public void setProjet(Project projet) {
-		this.projet = projet;
+	public void setProject(Project project) {
+		this.project = project;
 	}
 
-	public Person getUser() {
-		return this.person;
-	}
-
-	public void setUser(Person person) {
-		this.person = person;
-	}
 
 }
