@@ -4,28 +4,25 @@
 package fr.dauphine.lamsade.hib.elections.domain;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
 /**
  * @author omar.trabelsi
- *The persistent class for the "PROJET" database table.
+ *The persistent class for the "PROJECT" database table.
  *
  *@reviewer gnepa.rene.barou
  */
 @Entity
 @Table(name="PROJECT")
-@NamedQuery(name="Projet.findAll", query="SELECT p FROM Project p")
+@NamedQuery(name="Project.findAll", query="SELECT p FROM Project p")
 public class Project implements Serializable {
 
 	/**
@@ -43,14 +40,6 @@ public class Project implements Serializable {
 	private String nom;
 
 	private Integer note;
-
-	//bi-directional many-to-one association to Groupe
-	@OneToMany(mappedBy="projet")
-	private List<Groupe> groupes;
-
-	//bi-directional many-to-many association to Person
-	@ManyToMany(mappedBy="projets")
-	private List<Person> persons;
 
 	public Project() {
 	}
@@ -86,35 +75,4 @@ public class Project implements Serializable {
 	public void setNote(Integer note) {
 		this.note = note;
 	}
-
-	public List<Groupe> getGroupes() {
-		return this.groupes;
-	}
-
-	public void setGroupes(List<Groupe> groupes) {
-		this.groupes = groupes;
-	}
-
-	public Groupe addGroupe(Groupe groupe) {
-		getGroupes().add(groupe);
-		groupe.setProjet(this);
-
-		return groupe;
-	}
-
-	public Groupe removeGroupe(Groupe groupe) {
-		getGroupes().remove(groupe);
-		groupe.setProjet(null);
-
-		return groupe;
-	}
-
-	public List<Person> getUsers() {
-		return this.persons;
-	}
-
-	public void setUsers(List<Person> persons) {
-		this.persons = persons;
-	}
-
 }

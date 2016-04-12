@@ -4,7 +4,6 @@
 package fr.dauphine.lamsade.hib.elections.domain;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,10 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
@@ -43,7 +40,7 @@ public class Person implements Serializable {
 	private static final long serialVersionUID = 407127474693946058L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@NotNull
@@ -70,33 +67,19 @@ public class Person implements Serializable {
 	@Column(name = "VERSION")
 	private Integer version;
 
-	// bi-directional many-to-one association to Groupe
-	@OneToMany(mappedBy = "person")
-	private List<Groupe> groupes;
+	@ManyToOne
+	@JoinColumn(name="group_id")
+	private Group group;
 
-
-	// bi-directional many-to-many association to Projet
-	@ManyToMany
-	@JoinTable(name = "GROUPE", joinColumns = { @JoinColumn(name = "user_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "projet_id", nullable = false) })
-	private List<Project> projets;
 
 	public Person() {
 	}
 
-	public Groupe addGroupe(Groupe groupe) {
-		getGroupes().add(groupe);
-		groupe.setUser(this);
-
-		return groupe;
-	}
 
 	public String getEmail() {
 		return this.email;
 	}
 
-	public List<Groupe> getGroupes() {
-		return this.groupes;
-	}
 
 	public Boolean getHasvoted() {
 		return this.hasvoted;
@@ -118,28 +101,16 @@ public class Person implements Serializable {
 		return this.prenom;
 	}
 
-	public List<Project> getProjets() {
-		return this.projets;
-	}
 
 	public String getRole() {
 		return this.role;
 	}
 
-	public Groupe removeGroupe(Groupe groupe) {
-		getGroupes().remove(groupe);
-		groupe.setUser(null);
-
-		return groupe;
-	}
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public void setGroupes(List<Groupe> groupes) {
-		this.groupes = groupes;
-	}
 
 	public void setHasvoted(Boolean hasvoted) {
 		this.hasvoted = hasvoted;
@@ -164,9 +135,6 @@ public class Person implements Serializable {
 		this.prenom = prenom;
 	}
 
-	public void setProjets(List<Project> projets) {
-		this.projets = projets;
-	}
 
 	public void setRole(String role) {
 		this.role = role;
@@ -196,16 +164,22 @@ public class Person implements Serializable {
 		return this.isAdmin;
 	}
 
-	@Override
-	public Person clone() throws CloneNotSupportedException {
-		return (Person) super.clone();
-	}
 
 	/**
 	 * @param isAdmin the isAdmin to set
 	 */
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
+	}
+
+
+	public Group getGroup() {
+		return group;
+	}
+
+
+	public void setGroup(Group group) {
+		this.group = group;
 	}
 
 }

@@ -10,8 +10,8 @@ import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 import fr.dauphine.lamsade.hib.elections.Exception.MyExceptions;
-import fr.dauphine.lamsade.hib.elections.domain.Groupe;
-import fr.dauphine.lamsade.hib.elections.services.GroupeService;
+import fr.dauphine.lamsade.hib.elections.domain.Group;
+import fr.dauphine.lamsade.hib.elections.services.GroupService;
 
 
 
@@ -22,8 +22,8 @@ import fr.dauphine.lamsade.hib.elections.services.GroupeService;
  *@reviewer gnepa.rene.barou
  */
 @Stateless
-@Remote(GroupeService.class)
-public class GroupeServiceImpl implements GroupeService{
+@Remote(GroupService.class)
+public class GroupServiceImpl implements GroupService{
 
 	@PersistenceContext(unitName = "electionsPU")
 	EntityManager em;
@@ -33,14 +33,14 @@ public class GroupeServiceImpl implements GroupeService{
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * fr.dauphine.lamsade.hib.elections.services.GroupeService#findById(java.
+	 * fr.dauphine.lamsade.hib.elections.services.GroupService#findById(java.
 	 * lang.Long)
 	 */
 	
 	@Override
-	public Groupe findById(Long id) throws MyExceptions {
+	public Group findById(Long id) throws MyExceptions {
 		try {
-			return em.find(Groupe.class, id);
+			return em.find(Group.class, id);
 		} catch (IllegalArgumentException e) {
 			throw new MyExceptions(e.getMessage(), e);
 		}
@@ -51,15 +51,15 @@ public class GroupeServiceImpl implements GroupeService{
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * fr.dauphine.lamsade.hib.elections.services.GroupeService#findByName(java
+	 * fr.dauphine.lamsade.hib.elections.services.GroupService#findByName(java
 	 * .lang.String)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Groupe> findByName(String name) throws MyExceptions {
+	public List<Group> findByName(String name) throws MyExceptions {
 		try {
 			Query query = em
-					.createQuery("SELECT p FROM Groupe p WHERE p.nom = :name");
+					.createQuery("SELECT p FROM Group p WHERE p.nom = :name");
 			query.setParameter("name", name);
 			return  query.getResultList();
 		} catch (IllegalArgumentException | PersistenceException e) {
@@ -70,15 +70,15 @@ public class GroupeServiceImpl implements GroupeService{
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.dauphine.lamsade.hib.elections.services.GroupeService#findAll()
+	 * @see fr.dauphine.lamsade.hib.elections.services.GroupService#findAll()
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Groupe> findAll() throws MyExceptions {
+	public List<Group> findAll() throws MyExceptions {
 		try {
 			Query query = em
-					.createQuery("SELECT p FROM Groupe p ");
-			return  (List<Groupe>) query.getSingleResult();
+					.createQuery("SELECT p FROM Group p ");
+			return  (List<Group>) query.getSingleResult();
 		} catch (IllegalArgumentException | PersistenceException e) {
 			throw new MyExceptions(e.getMessage(), e);
 		}
@@ -88,13 +88,13 @@ public class GroupeServiceImpl implements GroupeService{
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * fr.dauphine.lamsade.hib.elections.services.GroupeService#create(fr.dauphine
+	 * fr.dauphine.lamsade.hib.elections.services.GroupService#create(fr.dauphine
 	 * .lamsade.hib.elections.domain.Groupe)
 	 */
 	@Override
-	public void create(Groupe groupe) throws MyExceptions {
+	public void create(Group group) throws MyExceptions {
 		try {
-			em.persist(groupe);
+			em.persist(group);
 		} catch (IllegalArgumentException e) {
 			throw new MyExceptions(e.getMessage(), e);
 		}
@@ -105,13 +105,13 @@ public class GroupeServiceImpl implements GroupeService{
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * fr.dauphine.lamsade.hib.elections.services.GroupeService#delete(fr.dauphine
+	 * fr.dauphine.lamsade.hib.elections.services.GroupService#delete(fr.dauphine
 	 * .lamsade.hib.elections.domain.Groupe)
 	 */
 	@Override
-	public void delete(Groupe groupe) throws MyExceptions {
+	public void delete(Group group) throws MyExceptions {
 		try {
-			 em.remove(groupe);
+			 em.remove(group);
 		} catch (IllegalArgumentException e) {
 			throw new MyExceptions(e.getMessage(), e);
 		}
@@ -121,13 +121,13 @@ public class GroupeServiceImpl implements GroupeService{
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * fr.dauphine.lamsade.hib.elections.services.GroupeService#update(fr.dauphine
+	 * fr.dauphine.lamsade.hib.elections.services.GroupService#update(fr.dauphine
 	 * .lamsade.hib.elections.domain.Groupe)
 	 */
 	@Override
-	public void update(Groupe groupe) throws MyExceptions {
+	public void update(Group group) throws MyExceptions {
 		try {
-			 em.merge(groupe);
+			 em.merge(group);
 		} catch (IllegalArgumentException e) {
 			throw new MyExceptions(e.getMessage(), e);
 		}

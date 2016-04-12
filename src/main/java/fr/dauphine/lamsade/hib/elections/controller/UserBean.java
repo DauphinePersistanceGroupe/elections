@@ -102,6 +102,7 @@ public class UserBean implements Serializable {
 			person.setHasvoted(false);
 			
 			serviceUser.create(person);
+			this.personsList=serviceUser.findAll();
 			FacesMessage message = new FacesMessage("Succès de l'inscription !");
 			FacesContext.getCurrentInstance().addMessage(null, message);
 			return "login";

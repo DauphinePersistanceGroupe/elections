@@ -75,6 +75,19 @@ public class UserServiceImpl implements UserService {
 			throw new MyExceptions(e1.getMessage(), e1);
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Person> findByGroup(Long idGroup) throws MyExceptions {
+		try {
+			Query query = em
+					.createQuery("SELECT u FROM Person u WHERE u.group.id =:idGroup");
+			query.setParameter("idGroup", idGroup);
+			return query.getResultList();
+		} catch (IllegalArgumentException | PersistenceException e) {
+			throw new MyExceptions(e.getMessage(), e);
+		}
+	}
 
 	@Override
 	public List<Person> findAll() throws MyExceptions {
@@ -132,5 +145,6 @@ public class UserServiceImpl implements UserService {
 		}
 		return count;
 	}
+	
 
 }

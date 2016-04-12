@@ -15,8 +15,8 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 
 import fr.dauphine.lamsade.hib.elections.Exception.MyExceptions;
-import fr.dauphine.lamsade.hib.elections.domain.Groupe;
-import fr.dauphine.lamsade.hib.elections.services.GroupeService;
+import fr.dauphine.lamsade.hib.elections.domain.Group;
+import fr.dauphine.lamsade.hib.elections.services.GroupService;
 
 
 /**
@@ -37,18 +37,18 @@ public class GroupeBean implements Serializable {
 	private static final long serialVersionUID = 673718825850668676L;
 
 	@EJB
-	private GroupeService serviceGroupe;
-	private Groupe groupe = new Groupe();
+	private GroupService serviceGroupe;
+	private Group group = new Group();
 
-	private Groupe groupeBeforeEdit = null;
-	private List<Groupe> groupesList;
+	private Group groupeBeforeEdit = null;
+	private List<Group> groupesList;
 	
 	
 	public GroupeBean() {
 
 	}
 	
-	public void createGroupe(Groupe g) {
+	public void createGroupe(Group g) {
 
 		try {
 			serviceGroupe.create(g);
@@ -57,54 +57,54 @@ public class GroupeBean implements Serializable {
 		}
 	}
 
-	public void deleteGroupe(Groupe groupe) {
+	public void deleteGroupe(Group group) {
 		try {
-			serviceGroupe.delete(groupe);
+			serviceGroupe.delete(group);
 		} catch (MyExceptions e) {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
 		}
 	}
 
-	public String editGroupe(Groupe groupe) {
-		this.groupe = groupe;
-		System.out.println("editGroupe: " + this.groupe);
+	public String editGroupe(Group group) {
+		this.group = group;
+		System.out.println("editGroupe: " + this.group);
 		return "groupeEdit";
 	}
 
 	/**
-	 * @return the groupe
+	 * @return the group
 	 */
-	public Groupe getGroupe() {
-		return groupe;
+	public Group getGroupe() {
+		return group;
 	}
 
 	/**
 	 * @return the groupeBeforeEdit
 	 */
-	public Groupe getGroupeBeforeEdit() {
+	public Group getGroupeBeforeEdit() {
 		return groupeBeforeEdit;
 	}
 
 	/**
 	 * @return the groupesList
 	 */
-	public List<Groupe> getGroupesList() {
+	public List<Group> getGroupesList() {
 		return groupesList;
 	}
 
 	/**
-	 * @param groupe
-	 *            the groupe to set
+	 * @param group
+	 *            the group to set
 	 */
-	public void setGroupe(Groupe groupe) {
-		this.groupe = groupe;
+	public void setGroupe(Group group) {
+		this.group = group;
 	}
 
 	/**
 	 * @param groupeBeforeEdit
 	 *            the groupeBeforeEdit to set
 	 */
-	public void setGroupeBeforeEdit(Groupe groupeBeforeEdit) {
+	public void setGroupeBeforeEdit(Group groupeBeforeEdit) {
 		this.groupeBeforeEdit = groupeBeforeEdit;
 	}
 
@@ -112,13 +112,13 @@ public class GroupeBean implements Serializable {
 	 * @param groupesList
 	 *            the groupesList to set
 	 */
-	public void setGroupesList(List<Groupe> groupesList) {
+	public void setGroupesList(List<Group> groupesList) {
 		this.groupesList = groupesList;
 	}
 
 	@PostConstruct
 	public void init() {
-		groupesList = new ArrayList<Groupe>();
+		groupesList = new ArrayList<Group>();
 		try {
 			setGroupesList(serviceGroupe.findAll());
 		} catch (MyExceptions e) {
