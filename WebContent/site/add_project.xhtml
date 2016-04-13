@@ -19,7 +19,7 @@
 <h:body>
 	<!-- Navigation -->
 	<ui:insert name="navbar">
-		<ui:include src="template/navbar.xhtml" />
+		<ui:include src="template/navbarAdmin.xhtml" />
 	</ui:insert>
 	<!-- Page Content -->
 	<div class="container">
@@ -43,7 +43,7 @@
 							<h:outputLabel for="nom">Nom <span class="requis">*</span>
 							</h:outputLabel>
 							<h:inputText id="nom" value="#{project.project.nom}"
-								required="true" size="20" maxlength="20" class="form-control" />
+								required="true" size="100" maxlength="200" class="form-control" />
 							<h:message id="nomMessage" for="nom" errorClass="erreur" />
 							<br />
 						</div>
@@ -52,8 +52,8 @@
 									class="requis">*</span>
 							</h:outputLabel>
 							<h:inputText id="description"
-								value="#{project.project.description}" required="true" size="20"
-								maxlength="20" class="form-control" />
+								value="#{project.project.description}" required="true" size="100"
+								maxlength="200" class="form-control" />
 							<h:message id="descMessage" for="description" errorClass="erreur" />
 							<br />
 						</div>

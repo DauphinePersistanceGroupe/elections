@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
 	<title>Elections</title>
@@ -17,9 +17,9 @@
 </h:head>
 <h:body>
 	<!-- Navigation -->
-		<ui:insert name="navbar" >
-		  <ui:include src="../template/navbarUser.xhtml" />
-		</ui:insert>
+	<ui:insert name="navbar">
+		<ui:include src="../template/navbarUser.xhtml" />
+	</ui:insert>
 
 	<!-- Page Content -->
 	<div class="container">
@@ -30,7 +30,7 @@
 				<h1 class="page-header"></h1>
 				<ol class="breadcrumb">
 					<li><a href="#{request.contextPath}/faces/site/index.xhtml">Accueil</a></li>
-					<li class="active">Participant </li>
+					<li class="active">Participant</li>
 				</ol>
 			</div>
 		</div>
@@ -43,6 +43,7 @@
 							<div class="col-md-3">
 								<div>
 									<label><strong>Nom:&nbsp;&nbsp;</strong> </label>#{userBean.person.nom}
+
 								</div>
 								<div>
 									<label><strong>Email:&nbsp;&nbsp;</strong> </label>#{userBean.person.email}
@@ -53,12 +54,11 @@
 									<label><strong>Prénom:&nbsp;&nbsp;</strong> </label>#{userBean.person.prenom}
 								</div>
 								<div>
-									<label><strong>A voté:&nbsp;&nbsp;</strong> </label>#{userBean.person.hasvoted? 'Oui' : 'Non'}
+									<label><strong>A voté:&nbsp;&nbsp;</strong> </label>#{userBean.person.hasvoted?
+									'Oui' : 'Non'}
 								</div>
 							</div>
-							<div class="col-md-6">
-							-
-							</div>
+							<div class="col-md-6">-</div>
 						</div>
 					</div>
 				</div>
@@ -69,9 +69,15 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Mon groupe</div>
 					<div class="panel-body">
-						<h4>Projet: </h4>
+						<h4>Projet:</h4>
 						Liste des participants
 					</div>
+					<h:form>
+						<div class="panel-body">
+							<h:commandLink action="#"
+								value="Vous n'avez pas encore de projet ? Participez maintenant !" />
+						</div>
+					</h:form>
 				</div>
 			</div>
 		</div>
@@ -80,7 +86,58 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Liste des projets</div>
 					<div class="panel-body">
-						Liste des projets
+						<div class="row">
+							<div class="col-md-5">
+								<h:form>
+									<div class="form-group">
+										<h:dataTable value="#{project.allProjects}"
+											var="dataTableItem" border="1" cellpadding="2"
+											cellspacing="2" width="100%">
+											<h:column>
+												<f:facet name="header">
+													<h:outputText value="Nom " />
+												</f:facet>
+												<h:outputText value="#{dataTableItem.nom}" />
+											</h:column>
+											<h:column>
+												<f:facet name="header">
+													<h:outputText value="Description " />
+												</f:facet>
+												<h:outputText value="#{dataTableItem.description}" />
+											</h:column>
+											<!-- <h:column>
+												<f:facet name="header">
+													<h:outputText value="Choisissez ! " />
+												</f:facet>
+												<h:selectOneRadio valueChangeListener="#"
+													onclick="dataTableSelectOneRadio(this);">
+													<f:selectItem itemValue="null" />
+												</h:selectOneRadio>
+												<h:outputText value="#{dataTableItem.note}" />
+											</h:column> -->
+										</h:dataTable>
+									</div>
+								</h:form>
+								<h:form>
+									<div>
+										<h:outputText value="Votez pour le meilleur projet !   " />
+										<h:selectOneMenu value="#">
+											<f:selectItem itemValue="#{null}" itemLabel="--select--" />
+											<f:selectItems value="#{project.allProjects}" var="var"
+												itemLabel="#{var.nom}" itemValue="#{var.nom}" />
+										</h:selectOneMenu>
+										<br /> <br />
+										<h:commandButton value="Voter"
+											action="#{project.vote(var.nom, userBean.person.email)}"
+											styleClass="sansLabel" />
+										<br />
+									</div>
+								</h:form>
+
+
+							</div>
+
+						</div>
 					</div>
 				</div>
 			</div>

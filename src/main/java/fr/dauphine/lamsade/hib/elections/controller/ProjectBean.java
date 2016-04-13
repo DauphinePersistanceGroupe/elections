@@ -13,24 +13,28 @@ import javax.inject.Named;
 
 import fr.dauphine.lamsade.hib.elections.domain.Project;
 import fr.dauphine.lamsade.hib.elections.services.ProjectService;
+import fr.dauphine.lamsade.hib.elections.services.UserService;
 
 /**
  * @author omar.trabelsi
  *
  */
 @RequestScoped
-public class ProjectController implements Serializable {
+public class ProjectBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@EJB
 	ProjectService projectService;
+	@EJB
+	UserService userService;
 	private Project project;
+	String projectName;
 
 	public String addProject() {
-	    this.project = new Project();
-	    return "add_project";
-	  }
+		this.project = new Project();
+		return "add_project";
+	}
 
 	public String createProject(Project p) {
 
@@ -89,6 +93,24 @@ public class ProjectController implements Serializable {
 		}
 	}
 
+	public String vote(String name, String email) {
+		System.out.println("HEEEEEEEEEEEEERRRRRRRRRRRREEEEEE "+email);
+		System.out.println("HEEEEEEEEEEEEERRRRRRRRRRRREEEEEE"+name);
+		try {
+			Integer note = projectService.findByName(name).get(0).getNote();
+			if (note == null)
+				note = 1;
+			else
+				note++;
+			projectService.vote(name, String.valueOf(note), email);
+			;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return null;
+	}
+
 	public Project getProject() {
 		return project;
 	}
@@ -96,4 +118,6 @@ public class ProjectController implements Serializable {
 	public void setProject(Project project) {
 		this.project = project;
 	}
+
+	
 }

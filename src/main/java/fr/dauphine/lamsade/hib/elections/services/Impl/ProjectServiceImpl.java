@@ -131,6 +131,22 @@ public class ProjectServiceImpl implements ProjectService {
 
 
 	}
+	@Override
+	public void vote(String name, String note, String email) throws MyExceptions{
+		try {
+			Query query = em
+					.createQuery("update person p set p.hasvoted = true where  p.email = :email");
+			query.setParameter("email", email);
+			query.getSingleResult();
+			Query query2 = em
+					.createQuery("update project p set p.note = :note where  p.nom = :name");
+			query2.setParameter("note", note);
+			query2.setParameter("name", name);
+			query2.getSingleResult();
+		} catch (IllegalArgumentException | PersistenceException e) {
+			throw new MyExceptions(e.getMessage(), e);
+		}
+	}
 
 
 }

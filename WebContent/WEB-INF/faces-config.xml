@@ -3,7 +3,7 @@
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
  <managed-bean>
   <managed-bean-name>project</managed-bean-name>
-  <managed-bean-class>fr.dauphine.lamsade.hib.elections.controller.ProjectController</managed-bean-class>
+  <managed-bean-class>fr.dauphine.lamsade.hib.elections.controller.ProjectBean</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
  <navigation-rule>
