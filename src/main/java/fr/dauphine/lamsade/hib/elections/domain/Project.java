@@ -37,12 +37,13 @@ public class Project implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
-	private Integer id;
+	private Long id;
 
 	private String description;
 
 	private String nom;
-
+	
+	@Column(name="note", nullable = false, columnDefinition ="int default 0")
 	private Integer note;
 	
 	@OneToMany(mappedBy="project", cascade={CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.LAZY)
@@ -51,11 +52,11 @@ public class Project implements Serializable {
 	public Project() {
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

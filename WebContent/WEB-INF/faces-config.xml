@@ -48,6 +48,10 @@
    <from-outcome>resultVote</from-outcome>
    <to-view-id>/site/project/resultVote.xhtml</to-view-id>
   </navigation-case>
+  <navigation-case>
+   <from-outcome>groupeList</from-outcome>
+   <to-view-id>/site/group/groupeList.xhtml</to-view-id>
+  </navigation-case>
  </navigation-rule>
  <navigation-rule>
   <from-view-id>/site/*</from-view-id>
@@ -55,6 +59,20 @@
    <from-outcome>deconnection</from-outcome>
    <to-view-id>/site/login.xhtml</to-view-id>
    <redirect/>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/site/user/user.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>groupeList</from-outcome>
+   <to-view-id>/site/group/groupeList.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/site/group/groupeList.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>addGroup</from-outcome>
+   <to-view-id>/site/group/addGroup.xhtml</to-view-id>
   </navigation-case>
  </navigation-rule>
  <application/>

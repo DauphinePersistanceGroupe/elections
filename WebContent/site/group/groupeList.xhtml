@@ -50,12 +50,14 @@
 						id="userTable" rendered="#{not empty groupeBean.groupesList}">
 						<h:column><f:facet name="header"> <h:outputText value="Id" /> </f:facet>#{groupe.id}</h:column>
 						<h:column><f:facet name="header"> <h:outputText value="Nom" /> </f:facet>#{groupe.nom}</h:column>
-						<h:column><f:facet name="header"> <h:outputText value="Projet" /> </f:facet>#{groupe.projet}</h:column>
-						<h:column><f:facet name="header"> <h:outputText value="Personne" /> </f:facet>#{groupe.person}</h:column>
+						<h:column><f:facet name="header"> <h:outputText value="Description" /> </f:facet>#{groupe.description}</h:column>
+						<h:column><f:facet name="header"> <h:outputText value="Personne" /> </f:facet>#{groupe.project.nom}</h:column>
 						<h:column><h:commandButton action="#{groupeBean.editGroupe(groupe)}" value="Modifier" /></h:column>
 						<h:column><h:commandButton action="#{groupeBean.deleteGroupe(groupe)}" value="Supprimer" /></h:column>
 					</h:dataTable>
 					<h:outputText value="Aucun groupe" rendered="#{empty groupeBean.groupesList}"/>
+				<div>	<a class="btn btn-primary" href="#{request.contextPath}/faces/site/group/addGroup.xhtml" role="button">Ajout d'un groupe</a></div>
+<!-- 					<h:commandLink action="#{request.contextPath}/faces/site/group/addGroup.xhtml" value="Ajout d'un groupe" /> -->
 				</h:form>
 			</div>
 

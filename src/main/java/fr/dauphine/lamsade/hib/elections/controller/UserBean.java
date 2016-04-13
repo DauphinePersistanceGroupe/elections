@@ -15,8 +15,10 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import fr.dauphine.lamsade.hib.elections.Exception.MyExceptions;
+import fr.dauphine.lamsade.hib.elections.domain.Group;
 import fr.dauphine.lamsade.hib.elections.domain.Person;
 import fr.dauphine.lamsade.hib.elections.domain.Project;
+import fr.dauphine.lamsade.hib.elections.services.GroupService;
 import fr.dauphine.lamsade.hib.elections.services.ProjectService;
 import fr.dauphine.lamsade.hib.elections.services.UserService;
 import fr.dauphine.lamsade.hib.elections.utils.Constantes;
@@ -45,12 +47,17 @@ public class UserBean implements Serializable {
 	@EJB
 	ProjectService projectService;
 	
+	@EJB
+	GroupService serviceGroup;
+	
 	private Person person = new Person();
 
 	private Person personBeforeEdit = null;
 	private List<Person> personsList;
 	
 	private List<Project> projectList;
+	
+	private List<Group> groupList;
 
 	public UserBean() {
 
@@ -96,6 +103,7 @@ public class UserBean implements Serializable {
 		personsList = new ArrayList<Person>();
 		try {
 			setPersonsList(serviceUser.findAll());
+			setProjectList(projectService.findAll());
 		} catch (MyExceptions e) {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
 		}
@@ -204,6 +212,32 @@ public class UserBean implements Serializable {
 		return "resultVote";
 	}
 	
+	public void voted(Project project){
+		
+		try {
+			if(!person.getHasvoted()){
+				project=projectService.findById(project.getId());
+				Integer vote=project.getNote();
+				project.setNote(vote++);
+				person.setHasvoted(true);
+				projectService.update(project);
+				serviceUser.update(person);
+			}
+			
+		} catch (MyExceptions e) {
+			log.log(Level.SEVERE, e.getMessage(), e.getCause());
+		}
+	}
+	
+	public String linkedGroup(){
+		groupList=new ArrayList<Group>();
+		try {
+			groupList=serviceGroup.findAll();
+		} catch (MyExceptions e) {
+			log.log(Level.SEVERE, e.getMessage(), e.getCause());
+		}
+		return "groupeList";
+	}
 	public String logout() {
         HttpSession session = UtilSessionBean.getSession();
         session.invalidate();
@@ -216,6 +250,14 @@ public class UserBean implements Serializable {
 
 	public void setProjectList(List<Project> projectList) {
 		this.projectList = projectList;
+	}
+
+	public List<Group> getGroupList() {
+		return groupList;
+	}
+
+	public void setGroupList(List<Group> groupList) {
+		this.groupList = groupList;
 	}
 
 }
