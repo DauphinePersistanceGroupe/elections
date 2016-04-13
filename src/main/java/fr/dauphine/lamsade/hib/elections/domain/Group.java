@@ -4,15 +4,19 @@
 package fr.dauphine.lamsade.hib.elections.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -49,6 +53,9 @@ public class Group implements Serializable {
 	@JoinColumn(name="projet_id", nullable=false)
 	private Project project;
 
+	@OneToMany(mappedBy="group", cascade={CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.LAZY)
+	private List<Person> persons;
+	
 	public Group() {
 	}
 
@@ -82,6 +89,14 @@ public class Group implements Serializable {
 
 	public void setProject(Project project) {
 		this.project = project;
+	}
+
+	public List<Person> getPersons() {
+		return persons;
+	}
+
+	public void setPersons(List<Person> persons) {
+		this.persons = persons;
 	}
 
 

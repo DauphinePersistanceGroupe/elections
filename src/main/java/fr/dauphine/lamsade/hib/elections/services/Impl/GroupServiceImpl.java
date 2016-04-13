@@ -78,7 +78,7 @@ public class GroupServiceImpl implements GroupService{
 		try {
 			Query query = em
 					.createQuery("SELECT p FROM Group p ");
-			return  (List<Group>) query.getSingleResult();
+			return  query.getResultList();
 		} catch (IllegalArgumentException | PersistenceException e) {
 			throw new MyExceptions(e.getMessage(), e);
 		}

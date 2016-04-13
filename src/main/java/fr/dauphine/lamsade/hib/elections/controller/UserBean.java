@@ -16,6 +16,8 @@ import javax.servlet.http.HttpSession;
 
 import fr.dauphine.lamsade.hib.elections.Exception.MyExceptions;
 import fr.dauphine.lamsade.hib.elections.domain.Person;
+import fr.dauphine.lamsade.hib.elections.domain.Project;
+import fr.dauphine.lamsade.hib.elections.services.ProjectService;
 import fr.dauphine.lamsade.hib.elections.services.UserService;
 import fr.dauphine.lamsade.hib.elections.utils.Constantes;
 import fr.dauphine.lamsade.hib.elections.utils.UrlConstantes;
@@ -39,10 +41,16 @@ public class UserBean implements Serializable {
 
 	@EJB
 	private UserService serviceUser;
+	
+	@EJB
+	ProjectService projectService;
+	
 	private Person person = new Person();
 
 	private Person personBeforeEdit = null;
 	private List<Person> personsList;
+	
+	private List<Project> projectList;
 
 	public UserBean() {
 
@@ -50,6 +58,7 @@ public class UserBean implements Serializable {
 
 	public void deleteUser(Person person) {
 		try {
+			projectList=new ArrayList<Project>();
 			serviceUser.delete(person);
 		} catch (MyExceptions e) {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
@@ -183,10 +192,30 @@ public class UserBean implements Serializable {
 
 	}
 	
+	public String projectSorted(){
+		List<Project> projects;
+		try {
+			projects = projectService.findAll();
+			setProjectList(projects);
+			
+		} catch (MyExceptions e) {
+			log.log(Level.SEVERE, e.getMessage(), e.getCause());
+		}
+		return "resultVote";
+	}
+	
 	public String logout() {
         HttpSession session = UtilSessionBean.getSession();
         session.invalidate();
         return "deconnection";
     }
+
+	public List<Project> getProjectList() {
+		return projectList;
+	}
+
+	public void setProjectList(List<Project> projectList) {
+		this.projectList = projectList;
+	}
 
 }

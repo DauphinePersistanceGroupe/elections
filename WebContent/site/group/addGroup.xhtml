@@ -1,8 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:head>
 	<title>Elections</title>
@@ -17,9 +18,20 @@
 </h:head>
 <h:body>
 	<!-- Navigation -->
-		<ui:insert name="navbar" >
-		  <ui:include src="../template/navbarAdmin.xhtml" />
-		</ui:insert>
+		<ui:insert name="navbar">
+		<c:choose>
+			<c:when test="#{not empty useradmin}">
+				<ui:include src="../template/navbarAdmin.xhtml" />
+			</c:when>
+			<c:when test="#{not empty username}">
+				<ui:include src="../template/navbarUser.xhtml" />
+			</c:when>
+			<c:otherwise>
+				<ui:include src="../template/navbar.xhtml" />
+			</c:otherwise>
+		</c:choose>
+		
+	</ui:insert>
 
 	<!-- Page Content -->
 	<div class="container">
@@ -29,35 +41,17 @@
 			<div class="col-lg-12">
 				<h1 class="page-header"></h1>
 				<ol class="breadcrumb">
-					<li class="active">Administartion</li>
+					<li><a href="#{request.contextPath}/faces/site/index.xhtml">Accueil</a></li>
+					<li class="active">Groupe </li>
 				</ol>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-default">
-					<div class="panel-heading">Mes informations</div>
+					<div class="panel-heading">Création d'un groupe</div>
 					<div class="panel-body">
 						<div class="row">
-							<div class="col-md-3">
-								<div>
-									<label><strong>Nom:&nbsp;&nbsp;</strong> </label>#{userBean.person.nom}
-								</div>
-								<div>
-									<label><strong>Email:&nbsp;&nbsp;</strong> </label>#{userBean.person.email}
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div>
-									<label><strong>Prénom:&nbsp;&nbsp;</strong> </label>#{userBean.person.prenom}
-								</div>
-<!-- 								<div> -->
-<!-- 									<label><strong>A voté:&nbsp;&nbsp;</strong> </label>#{userBean.person.hasvoted? 'Oui' : 'Non'} -->
-<!-- 								</div> -->
-							</div>
-							<div class="col-md-6">
-							-
-							</div>
 						</div>
 					</div>
 				</div>
@@ -66,14 +60,13 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-default">
-					<div class="panel-heading">Classement des projets</div>
+					<div class="panel-heading">Liste des groupes</div>
 					<div class="panel-body">
-						<h:form>	<h:commandButton action="#{userBean.projectSorted()}" value="Voir le classement" /></h:form>
+						Liste des groupes
 					</div>
 				</div>
 			</div>
 		</div>
-
 		<hr />
 
 	</div>

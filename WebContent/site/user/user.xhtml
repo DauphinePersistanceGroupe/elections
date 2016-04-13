@@ -69,8 +69,14 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Mon groupe</div>
 					<div class="panel-body">
-						<h4>Projet: </h4>
+						<h4>Projet: #{userBean.person.group.nom}</h4>
 						Liste des participants
+						<h:dataTable value="#{userBean.person.group.persons}" var="person"
+						id="userTable" rendered="#{not empty userBean.person.group}"  class="table table-striped">
+						<h:column><f:facet name="header"> <h:outputText value="Nom" /> </f:facet>#{person.nom}</h:column>
+						<h:column><f:facet name="header"> <h:outputText value="Prénom" /> </f:facet>#{person.prenom}</h:column>
+						<h:column><f:facet name="header"> <h:outputText value="Email" /> </f:facet>#{person.email}</h:column>
+					</h:dataTable>
 					</div>
 				</div>
 			</div>

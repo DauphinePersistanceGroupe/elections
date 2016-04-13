@@ -1,8 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:head>
 	<title>Elections</title>
@@ -13,34 +14,24 @@
 	<meta name="author" content="" />
 	<link href="resources/img/dauphin.jpg" rel="shortcut icon" />
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
-	<!--     <link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css" /> -->
+	<h:outputStylesheet library="css" name="style.css" />
 </h:head>
-<body>
-
+<h:body>
 	<!-- Navigation -->
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-	<div class="container">
-		<!-- Brand and toggle get grouped for better mobile display -->
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target="#bs-example-navbar-collapse-1">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="">Elections</a>
-		</div>
-		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="collapse navbar-collapse"
-			id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="">accueil</a></li>
-				<li><h:form><h:commandLink action="userList"
-						value="Liste des groupes" /></h:form> </li>
-			</ul>
-		</div>
-	</div>
-	</nav>
+		<ui:insert name="navbar">
+		<c:choose>
+			<c:when test="#{not empty useradmin}">
+				<ui:include src="../template/navbarAdmin.xhtml" />
+			</c:when>
+			<c:when test="#{not empty username}">
+				<ui:include src="../template/navbarUser.xhtml" />
+			</c:when>
+			<c:otherwise>
+				<ui:include src="../template/navbar.xhtml" />
+			</c:otherwise>
+		</c:choose>
+		
+	</ui:insert>
 
 	<!-- Page Content -->
 	<div class="container">
@@ -77,6 +68,6 @@
 	<h:outputScript library="js" name="jquery.js" />
 	<h:outputScript library="js" name="bootstrap.min.js" />
 
-</body>
+</h:body>
 
 </html>

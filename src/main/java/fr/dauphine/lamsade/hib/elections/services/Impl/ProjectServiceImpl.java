@@ -73,7 +73,7 @@ public class ProjectServiceImpl implements ProjectService {
 	public List<Project> findAll() throws MyExceptions {
 		try {
 			Query query = em
-					.createQuery("SELECT p FROM Project p ");
+					.createQuery("SELECT p FROM Project p order by p.note desc ");
 			return  (List<Project>) query.getResultList();
 		} catch (IllegalArgumentException | PersistenceException e) {
 			throw new MyExceptions(e.getMessage(), e);
