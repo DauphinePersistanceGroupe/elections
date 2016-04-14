@@ -218,10 +218,12 @@ public class UserBean implements Serializable {
 			if(!person.getHasvoted()){
 				project=projectService.findById(project.getId());
 				Integer vote=project.getNote();
-				project.setNote(vote++);
+				vote++;
+				project.setNote(vote);
 				person.setHasvoted(true);
 				projectService.update(project);
 				serviceUser.update(person);
+				log.info(project.toString());
 			}
 			
 		} catch (MyExceptions e) {

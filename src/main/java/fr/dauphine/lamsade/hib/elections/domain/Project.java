@@ -43,7 +43,6 @@ public class Project implements Serializable {
 
 	private String nom;
 	
-	@Column(name="note", nullable = true, columnDefinition ="int default 0")
 	private Integer note;
 	
 	@OneToMany(mappedBy="project", cascade={CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.LAZY)
@@ -90,5 +89,18 @@ public class Project implements Serializable {
 
 	public void setGroups(List<Group> groups) {
 		this.groups = groups;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Project [id=");
+		builder.append(id);
+		builder.append(", nom=");
+		builder.append(nom);
+		builder.append(", note=");
+		builder.append(note);
+		builder.append("]");
+		return builder.toString();
 	}
 }

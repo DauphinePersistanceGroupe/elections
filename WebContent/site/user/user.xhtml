@@ -93,7 +93,7 @@
 						id="projectTable" class="table table-striped">
 							<h:column><f:facet name="header"> <h:outputText value="Nom" /> </f:facet>#{project.nom}</h:column>
 							<h:column><f:facet name="header"> <h:outputText value="Description" /> </f:facet>#{project.description}</h:column>
-							<h:column><f:facet name="header"> <h:outputText value="Nom" /> </f:facet><h:commandButton action="#{userBean.voted(project)}" value="Voter" /></h:column>
+							<h:column rendered="#{not userBean.person.hasvoted}"><f:facet name="header"> <h:outputText value="Nom" /> </f:facet><h:commandButton action="#{userBean.voted(project)}" value="Voter" /></h:column>
 							
 						</h:dataTable>
 						</h:form>
