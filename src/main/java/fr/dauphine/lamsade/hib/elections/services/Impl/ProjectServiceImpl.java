@@ -90,6 +90,9 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public void create(Project project) throws MyExceptions {
 		try {
+			if(null==project.getNote()){
+				project.setNote(0);
+			}
 			em.persist(project);;
 		} catch (IllegalArgumentException e) {
 			throw new MyExceptions(e.getMessage(), e);
