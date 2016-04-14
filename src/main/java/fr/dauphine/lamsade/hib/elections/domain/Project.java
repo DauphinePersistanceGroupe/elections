@@ -43,7 +43,7 @@ public class Project implements Serializable {
 
 	private String nom;
 	
-	@Column(name="note", nullable = false, columnDefinition ="int default 0")
+	@Column(name="note", nullable = true, columnDefinition ="int default 0")
 	private Integer note;
 	
 	@OneToMany(mappedBy="project", cascade={CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.LAZY)

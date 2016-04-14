@@ -11,8 +11,8 @@ SELECT pg_catalog.setval('person_id_seq', 2, true);
 -- Data for Name: project; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO project (id, description, nom, note) VALUES (1, 'Projet', 'Projet1', NULL);
-INSERT INTO project (id, description, nom, note) VALUES (2, 'Projet2', 'Projet2', NULL);
+INSERT INTO project (id, description, nom, note) VALUES (1, 'Projet', 'Projet1', 0);
+INSERT INTO project (id, description, nom, note) VALUES (2, 'Projet2', 'Projet2', 0);
 
 
 --
