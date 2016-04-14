@@ -24,8 +24,9 @@
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#{request.contextPath}/faces/site/index.xhtml">Accueil</a></li>
+					<li><a href="#{request.contextPath}/faces/site/index.xhtml">Accueil - #{username}</a></li>
 					<li><a href="#{request.contextPath}/faces/site/user/user.xhtml">Ma page</a></li>
+					<li><a href="#{request.contextPath}/faces/site/group/groupeList.xhtml">Groupes </a></li>
 					<li><h:form > <h:commandLink action="#{userBean.logout}" value="Logout"></h:commandLink> </h:form></li>
 					
 				</ul>

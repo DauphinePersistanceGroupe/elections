@@ -4,13 +4,17 @@
 package fr.dauphine.lamsade.hib.elections.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -33,22 +37,25 @@ public class Project implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
-	private Integer id;
+	private Long id;
 
 	private String description;
 
 	private String nom;
-
+	
 	private Integer note;
+	
+	@OneToMany(mappedBy="project", cascade={CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.LAZY)
+	private List<Group> groups;
 
 	public Project() {
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -74,5 +81,26 @@ public class Project implements Serializable {
 
 	public void setNote(Integer note) {
 		this.note = note;
+	}
+
+	public List<Group> getGroups() {
+		return groups;
+	}
+
+	public void setGroups(List<Group> groups) {
+		this.groups = groups;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Project [id=");
+		builder.append(id);
+		builder.append(", nom=");
+		builder.append(nom);
+		builder.append(", note=");
+		builder.append(note);
+		builder.append("]");
+		return builder.toString();
 	}
 }

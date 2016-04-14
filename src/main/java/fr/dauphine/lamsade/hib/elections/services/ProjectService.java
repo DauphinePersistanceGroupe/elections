@@ -24,5 +24,7 @@ public interface ProjectService {
 	void delete(Project project) throws MyExceptions;
 
 	void update(Project project) throws MyExceptions;
+	
+	void vote(String name, String note, String email) throws MyExceptions;
 
 }

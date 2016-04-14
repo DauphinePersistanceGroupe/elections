@@ -3,7 +3,7 @@
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
  <managed-bean>
   <managed-bean-name>project</managed-bean-name>
-  <managed-bean-class>fr.dauphine.lamsade.hib.elections.controller.ProjectController</managed-bean-class>
+  <managed-bean-class>fr.dauphine.lamsade.hib.elections.controller.ProjectBean</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
  <navigation-rule>
@@ -44,14 +44,36 @@
    <from-outcome>userList</from-outcome>
    <to-view-id>/site/user/userList.xhtml</to-view-id>
   </navigation-case>
+  <navigation-case>
+   <from-outcome>resultVote</from-outcome>
+   <to-view-id>/site/project/resultVote.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>groupeList</from-outcome>
+   <to-view-id>/site/group/groupeList.xhtml</to-view-id>
+  </navigation-case>
  </navigation-rule>
  <navigation-rule>
-		<from-view-id>/site/*</from-view-id>
-		<navigation-case>
-			<from-outcome>deconnection</from-outcome>
-			<to-view-id>/site/login.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
+  <from-view-id>/site/*</from-view-id>
+  <navigation-case>
+   <from-outcome>deconnection</from-outcome>
+   <to-view-id>/site/login.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/site/user/user.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>groupeList</from-outcome>
+   <to-view-id>/site/group/groupeList.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/site/group/groupeList.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>addGroup</from-outcome>
+   <to-view-id>/site/group/addGroup.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
  <application/>
 </faces-config>
