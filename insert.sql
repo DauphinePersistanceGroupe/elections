@@ -4,7 +4,7 @@
 --
 
 INSERT INTO person (id, email, hasvoted, nom, passwrd, prenom, role, version, group_id) VALUES (1, 'barou2000@hotmail.com', false, 'barou', 'azerty', 'gnepa', 'ADMIN', 0, NULL);
-INSERT INTO person (id, email, hasvoted, nom, passwrd, prenom, role, version, group_id) VALUES (2, 'test@election.com', false, 'uerTest', 'azerty', 'test', 'ELECTEUR', 0, NULL);
+INSERT INTO person (id, email, hasvoted, nom, passwrd, prenom, role, version, group_id) VALUES (2, 'test@election.com', false, 'userTest', 'azerty', 'test', 'ELECTEUR', 0, NULL);
 
 SELECT pg_catalog.setval('person_id_seq', 2, true);
 --
