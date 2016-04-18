@@ -39,6 +39,7 @@ public class Project implements Serializable {
 	@Column(unique=true, nullable=false)
 	private Long id;
 
+	
 	private String description;
 
 	private String nom;
