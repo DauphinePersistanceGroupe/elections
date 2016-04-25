@@ -12,7 +12,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
-	<link href="resources/img/dauphin.jpg" rel="shortcut icon" />
+	<link rel="shortcut icon" type="image/x-icon" href="#{resource['img/dauphin.jpg']}"/>
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 	<h:outputStylesheet library="css" name="style.css" />
 </h:head>
@@ -57,8 +57,7 @@
 						<h:column><h:commandButton action="#{groupeBean.deleteGroupe(groupe)}" value="Supprimer" /></h:column>
 					</h:dataTable>
 					<h:outputText value="Aucun groupe" rendered="#{empty groupeBean.groupesList}"/>
-				<div>	<a class="btn btn-primary" href="#{request.contextPath}/faces/site/group/addGroup.xhtml" role="button">Ajout d'un groupe</a></div>
-<!-- 					<h:commandLink action="#{request.contextPath}/faces/site/group/addGroup.xhtml" value="Ajout d'un groupe" /> -->
+					<h:commandLink action="#{groupeBean.addGroup(userBean.person)}" value="Ajout d'un groupe" />
 				</h:form>
 			</div>
 

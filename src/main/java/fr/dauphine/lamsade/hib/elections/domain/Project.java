@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 
 /**
@@ -25,7 +26,7 @@ import javax.persistence.Table;
  *@reviewer gnepa.rene.barou
  */
 @Entity
-@Table(name="PROJECT")
+@Table(name="PROJECT", uniqueConstraints = @UniqueConstraint(columnNames = "nom"))
 @NamedQuery(name="Project.findAll", query="SELECT p FROM Project p")
 public class Project implements Serializable {
 
@@ -94,14 +95,23 @@ public class Project implements Serializable {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Project [id=");
-		builder.append(id);
-		builder.append(", nom=");
-		builder.append(nom);
-		builder.append(", note=");
-		builder.append(note);
-		builder.append("]");
-		return builder.toString();
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
 	}
+
+	@Override
+    public boolean equals(Object other) {
+		if((other instanceof Project) && id != null){
+			return id.equals(((Project) other).id);
+		}else{
+			return other == this;
+		}
+    }
+
+    @Override
+    public int hashCode() {
+        return (id != null) 
+            ? (getClass().hashCode() + id.hashCode())
+            : super.hashCode();
+    }
+
 }

@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 
 
@@ -28,7 +29,7 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(name="GROUPE")
+@Table(name="GROUPE", uniqueConstraints = @UniqueConstraint(columnNames = "nom"))
 @NamedQuery(name="Group.findAll", query="SELECT g FROM Group g")
 public class Group implements Serializable {
 
@@ -97,6 +98,46 @@ public class Group implements Serializable {
 
 	public void setPersons(List<Person> persons) {
 		this.persons = persons;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Group other = (Group) obj;
+		if (nom == null) {
+			if (other.nom != null)
+				return false;
+		} else if (!nom.equals(other.nom))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Group [id=");
+		builder.append(id);
+		builder.append(", description=");
+		builder.append(description);
+		builder.append(", nom=");
+		builder.append(nom);
+		builder.append(", project=");
+		builder.append(project);
+		builder.append("]");
+		return builder.toString();
 	}
 
 

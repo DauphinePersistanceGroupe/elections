@@ -3,7 +3,9 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
 
 <h:head>
 	<title>Elections</title>
@@ -12,13 +14,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
-	<link href="resources/img/dauphin.jpg" rel="shortcut icon" />
+	<link rel="shortcut icon" type="image/x-icon" href="#{resource['img/dauphin.jpg']}"/>
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 	<h:outputStylesheet library="css" name="style.css" />
 </h:head>
 <h:body>
 	<!-- Navigation -->
-		<ui:insert name="navbar">
+	<ui:insert name="navbar">
 		<c:choose>
 			<c:when test="#{not empty useradmin}">
 				<ui:include src="../template/navbarAdmin.xhtml" />
@@ -30,7 +32,7 @@
 				<ui:include src="../template/navbar.xhtml" />
 			</c:otherwise>
 		</c:choose>
-		
+
 	</ui:insert>
 
 	<!-- Page Content -->
@@ -42,7 +44,7 @@
 				<h1 class="page-header"></h1>
 				<ol class="breadcrumb">
 					<li><a href="#{request.contextPath}/faces/site/index.xhtml">Accueil</a></li>
-					<li class="active">Groupe </li>
+					<li class="active">Groupe</li>
 				</ol>
 			</div>
 		</div>
@@ -52,6 +54,50 @@
 					<div class="panel-heading">Création d'un groupe</div>
 					<div class="panel-body">
 						<div class="row">
+							<div class="col-md-5">
+								<h:form>
+									<fieldset>
+										<!-- 									<legend>Inscription</legend> -->
+										<div class="form-group">
+											<h:outputLabel for="nom">Nom<span
+													class="requis">*</span>
+											</h:outputLabel>
+											<h:inputText id="nom" value="#{groupeBean.groupe.nom}"
+												required="true" size="20" maxlength="20"
+												class="form-control" />
+											<h:message id="nomMessage" for="nom" errorClass="erreur" />
+											<br />
+										</div>
+										<div class="form-group">
+											<h:outputLabel for="description">Description
+										</h:outputLabel>
+											<h:inputText id="description"
+												value="#{groupeBean.groupe.description}" required="true"
+												size="255" maxlength="255" class="form-control" />
+											<h:message id="descriptionMessage" for="description"
+												errorClass="erreur" />
+											<br />
+										</div>
+										<div class="form-group">
+											<h:outputLabel for="projet" value="Projet"/>
+<!-- 											<h:selectOneMenu id="projet" value="#{groupeBean.projetId}"> -->
+<!-- 												<f:selectItem itemLabel="Choisir un projet" noSelectionOption="true" /> -->
+<!-- 												<f:selectItems value="#{groupeBean.projets}" var="projetItem" -->
+<!-- 													itemLabel="#{projetItem.nom}" itemValue="#{projetItem.id}" /> -->
+<!-- 											</h:selectOneMenu> -->
+<!-- 											<h:selectOneMenu id="projet" value="#{groupeBean.projet}" converter="#{projectEntityConverter}"> -->
+<!-- 												<f:selectItem itemLabel="Choisir un projet" noSelectionOption="true" /> -->
+<!-- 												<f:selectItems value="#{groupeBean.projets}" var="projetItem" -->
+<!-- 													itemLabel="#{projetItem.nom}" itemValue="#{projetItem}" /> -->
+<!-- 											</h:selectOneMenu> -->
+											<br />
+										</div>
+										<h:commandButton value="Valider"
+											action="#{groupeBean.createGroupe}" styleClass="sansLabel" />
+										<br />
+									</fieldset>
+								</h:form>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -61,9 +107,7 @@
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">Liste des groupes</div>
-					<div class="panel-body">
-						Liste des groupes
-					</div>
+					<div class="panel-body">Liste des groupes</div>
 				</div>
 			</div>
 		</div>

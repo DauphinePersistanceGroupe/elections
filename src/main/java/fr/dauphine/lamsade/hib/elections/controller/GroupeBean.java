@@ -16,7 +16,10 @@ import javax.faces.bean.ManagedBean;
 
 import fr.dauphine.lamsade.hib.elections.Exception.MyExceptions;
 import fr.dauphine.lamsade.hib.elections.domain.Group;
+import fr.dauphine.lamsade.hib.elections.domain.Person;
+import fr.dauphine.lamsade.hib.elections.domain.Project;
 import fr.dauphine.lamsade.hib.elections.services.GroupService;
+import fr.dauphine.lamsade.hib.elections.services.ProjectService;
 
 
 /**
@@ -38,20 +41,51 @@ public class GroupeBean implements Serializable {
 
 	@EJB
 	private GroupService serviceGroupe;
+	
+	@EJB
+	private ProjectService serviceProjet;
+	
 	private Group group = new Group();
 
 	private Group groupeBeforeEdit = null;
 	private List<Group> groupesList;
 	
+	private Person person;
+	
+	private Project projet;
+	
+	private long projetId;
+	
+	private List<Project> projets;
+	
 	
 	public GroupeBean() {
 
 	}
+	public String addGroup(Person person){
+		List<Person> persons=new ArrayList<Person>();
+		projets=new ArrayList<Project>();
+		projet=new Project();
+		
+		this.person=person;
+		try {
+			projets=serviceProjet.findAll();
+		} catch (MyExceptions e) {
+			log.log(Level.SEVERE, e.getMessage(), e.getCause());
+		}
+		persons.add(person);
+		group.setPersons(persons);
+		group.setProject(projet);
+		return "addGroup";
+	}
 	
-	public void createGroupe(Group g) {
+	public void createGroupe() {
 
 		try {
-			serviceGroupe.create(g);
+			projetId=1L;
+			projet=serviceProjet.findById(projetId);
+			group.setProject(projet);
+			serviceGroupe.create(group);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -124,6 +158,36 @@ public class GroupeBean implements Serializable {
 		} catch (MyExceptions e) {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
 		}
+	}
+	public Person getPerson() {
+		return person;
+	}
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+	public Project getProjet() {
+		return projet;
+	}
+	public void setProjet(Project projet) {
+		this.projet = projet;
+	}
+	public List<Project> getProjets() {
+		return projets;
+	}
+	public void setProjets(List<Project> projets) {
+		this.projets = projets;
+	}
+	public Group getGroup() {
+		return group;
+	}
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+	public Long getProjetId() {
+		return projetId;
+	}
+	public void setProjetId(Long projetId) {
+		this.projetId = projetId;
 	}
 
 }
