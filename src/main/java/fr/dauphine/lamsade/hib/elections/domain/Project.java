@@ -100,11 +100,13 @@ public class Project implements Serializable {
 
 	@Override
     public boolean equals(Object other) {
+		boolean result;
 		if((other instanceof Project) && id != null){
-			return id.equals(((Project) other).id);
+			result= id.equals(((Project) other).id);
 		}else{
-			return other == this;
+			result= other == this;
 		}
+		return result;
     }
 
     @Override

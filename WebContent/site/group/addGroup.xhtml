@@ -79,17 +79,12 @@
 											<br />
 										</div>
 										<div class="form-group">
-											<h:outputLabel for="projet" value="Projet"/>
-<!-- 											<h:selectOneMenu id="projet" value="#{groupeBean.projetId}"> -->
-<!-- 												<f:selectItem itemLabel="Choisir un projet" noSelectionOption="true" /> -->
-<!-- 												<f:selectItems value="#{groupeBean.projets}" var="projetItem" -->
-<!-- 													itemLabel="#{projetItem.nom}" itemValue="#{projetItem.id}" /> -->
-<!-- 											</h:selectOneMenu> -->
-<!-- 											<h:selectOneMenu id="projet" value="#{groupeBean.projet}" converter="#{projectEntityConverter}"> -->
-<!-- 												<f:selectItem itemLabel="Choisir un projet" noSelectionOption="true" /> -->
-<!-- 												<f:selectItems value="#{groupeBean.projets}" var="projetItem" -->
-<!-- 													itemLabel="#{projetItem.nom}" itemValue="#{projetItem}" /> -->
-<!-- 											</h:selectOneMenu> -->
+											<h:outputLabel for="projetSelected" value="Projet"/>
+											<h:selectOneMenu id="projetSelected" value="#{groupeBean.group.project}" converter="#{projectEntityConverter}">
+												<f:selectItem itemLabel="Choisir un projet" noSelectionOption="true" />
+												<f:selectItems value="#{groupeBean.projets}" var="projetItem"
+													itemLabel="#{projetItem.nom}" itemValue="#{projetItem}" />
+											</h:selectOneMenu>
 											<br />
 										</div>
 										<h:commandButton value="Valider"

@@ -1,9 +1,9 @@
-package fr.dauphine.lamsade.hib.elections.controller;
+package fr.dauphine.lamsade.hib.elections.controller.converter;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -14,11 +14,11 @@ import fr.dauphine.lamsade.hib.elections.domain.Project;
 import fr.dauphine.lamsade.hib.elections.services.ProjectService;
 
 @ManagedBean
-@RequestScoped
+@ApplicationScoped
 public class ProjectEntityConverter implements Converter {
 
-    @EJB
-    private ProjectService projetctService;
+	    @EJB
+    private ProjectService projectService;
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String submittedValue) {
@@ -27,10 +27,10 @@ public class ProjectEntityConverter implements Converter {
         }
 
         try {
-        	Project p=projetctService.findById(Long.valueOf(submittedValue));
+        	Project p=projectService.findById(Long.valueOf(submittedValue));
             return p;
         } catch (NumberFormatException | MyExceptions e) {
-            throw new ConverterException(new FacesMessage(String.format("%s is not a valid User ID", submittedValue)), e);
+            throw new ConverterException(new FacesMessage(String.format("%s is not a valid Project ID", submittedValue)), e);
         }
     }
 
@@ -43,7 +43,7 @@ public class ProjectEntityConverter implements Converter {
         if (modelValue instanceof Project) {
             return String.valueOf(((Project) modelValue).getId());
         } else {
-            throw new ConverterException(new FacesMessage(String.format("%s is not a valid User", modelValue)));
+            throw new ConverterException(new FacesMessage(String.format("%s is not a valid Project", modelValue)));
         }
     }
 

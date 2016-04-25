@@ -47,16 +47,15 @@ public class GroupeBean implements Serializable {
 	
 	private Group group = new Group();
 
-	private Group groupeBeforeEdit = null;
 	private List<Group> groupesList;
+	
+	private List<Project> projets;
 	
 	private Person person;
 	
-	private Project projet;
 	
-	private long projetId;
 	
-	private List<Project> projets;
+	
 	
 	
 	public GroupeBean() {
@@ -64,15 +63,9 @@ public class GroupeBean implements Serializable {
 	}
 	public String addGroup(Person person){
 		List<Person> persons=new ArrayList<Person>();
-		projets=new ArrayList<Project>();
-		projet=new Project();
+		Project projet=new Project();
 		
 		this.person=person;
-		try {
-			projets=serviceProjet.findAll();
-		} catch (MyExceptions e) {
-			log.log(Level.SEVERE, e.getMessage(), e.getCause());
-		}
 		persons.add(person);
 		group.setPersons(persons);
 		group.setProject(projet);
@@ -82,12 +75,10 @@ public class GroupeBean implements Serializable {
 	public void createGroupe() {
 
 		try {
-			projetId=1L;
-			projet=serviceProjet.findById(projetId);
-			group.setProject(projet);
 			serviceGroupe.create(group);
-		} catch (Exception e) {
-			e.printStackTrace();
+			groupesList=serviceGroupe.findAll();
+		} catch (MyExceptions e) {
+			log.log(Level.SEVERE, e.getMessage(), e.getCause());
 		}
 	}
 
@@ -112,12 +103,6 @@ public class GroupeBean implements Serializable {
 		return group;
 	}
 
-	/**
-	 * @return the groupeBeforeEdit
-	 */
-	public Group getGroupeBeforeEdit() {
-		return groupeBeforeEdit;
-	}
 
 	/**
 	 * @return the groupesList
@@ -135,12 +120,6 @@ public class GroupeBean implements Serializable {
 	}
 
 	/**
-	 * @param groupeBeforeEdit
-	 *            the groupeBeforeEdit to set
-	 */
-	public void setGroupeBeforeEdit(Group groupeBeforeEdit) {
-		this.groupeBeforeEdit = groupeBeforeEdit;
-	}
 
 	/**
 	 * @param groupesList
@@ -154,7 +133,8 @@ public class GroupeBean implements Serializable {
 	public void init() {
 		groupesList = new ArrayList<Group>();
 		try {
-			setGroupesList(serviceGroupe.findAll());
+			groupesList=serviceGroupe.findAll();
+			projets=serviceProjet.findAll();
 		} catch (MyExceptions e) {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
 		}
@@ -164,12 +144,6 @@ public class GroupeBean implements Serializable {
 	}
 	public void setPerson(Person person) {
 		this.person = person;
-	}
-	public Project getProjet() {
-		return projet;
-	}
-	public void setProjet(Project projet) {
-		this.projet = projet;
 	}
 	public List<Project> getProjets() {
 		return projets;
@@ -182,12 +156,6 @@ public class GroupeBean implements Serializable {
 	}
 	public void setGroup(Group group) {
 		this.group = group;
-	}
-	public Long getProjetId() {
-		return projetId;
-	}
-	public void setProjetId(Long projetId) {
-		this.projetId = projetId;
 	}
 
 }
