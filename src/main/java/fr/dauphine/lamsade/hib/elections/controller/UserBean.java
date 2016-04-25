@@ -52,7 +52,6 @@ public class UserBean implements Serializable {
 	
 	private Person person = new Person();
 
-	private Person personBeforeEdit = null;
 	private List<Person> personsList;
 	
 	private List<Project> projectList;
@@ -84,12 +83,6 @@ public class UserBean implements Serializable {
 		return person;
 	}
 
-	/**
-	 * @return the personBeforeEdit
-	 */
-	public Person getPersonBeforeEdit() {
-		return personBeforeEdit;
-	}
 
 	/**
 	 * @return the personsList
@@ -135,14 +128,6 @@ public class UserBean implements Serializable {
 	 */
 	public void setPerson(Person person) {
 		this.person = person;
-	}
-
-	/**
-	 * @param personBeforeEdit
-	 *            the personBeforeEdit to set
-	 */
-	public void setPersonBeforeEdit(Person personBeforeEdit) {
-		this.personBeforeEdit = personBeforeEdit;
 	}
 
 	/**

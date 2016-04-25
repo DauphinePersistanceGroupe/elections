@@ -23,13 +23,13 @@
 	<ui:insert name="navbar">
 		<c:choose>
 			<c:when test="#{not empty useradmin}">
-				<ui:include src="template/navbarAdmin.xhtml" />
+				<ui:include src="../template/navbarAdmin.xhtml" />
 			</c:when>
 			<c:when test="#{not empty username}">
-				<ui:include src="template/navbarUser.xhtml" />
+				<ui:include src="../template/navbarUser.xhtml" />
 			</c:when>
 			<c:otherwise>
-				<ui:include src="template/navbar.xhtml" />
+				<ui:include src="../template/navbar.xhtml" />
 			</c:otherwise>
 		</c:choose>
 		

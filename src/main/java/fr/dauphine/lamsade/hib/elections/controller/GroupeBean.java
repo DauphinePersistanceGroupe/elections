@@ -21,7 +21,6 @@ import fr.dauphine.lamsade.hib.elections.domain.Project;
 import fr.dauphine.lamsade.hib.elections.services.GroupService;
 import fr.dauphine.lamsade.hib.elections.services.ProjectService;
 
-
 /**
  * @author yosra.helal
  * 
@@ -41,42 +40,38 @@ public class GroupeBean implements Serializable {
 
 	@EJB
 	private GroupService serviceGroupe;
-	
+
 	@EJB
 	private ProjectService serviceProjet;
-	
+
 	private Group group = new Group();
 
 	private List<Group> groupesList;
-	
+
 	private List<Project> projets;
-	
+
 	private Person person;
-	
-	
-	
-	
-	
-	
+
 	public GroupeBean() {
 
 	}
-	public String addGroup(Person person){
-		List<Person> persons=new ArrayList<Person>();
-		Project projet=new Project();
-		
-		this.person=person;
+
+	public String addGroup(Person person) {
+		List<Person> persons = new ArrayList<Person>();
+		Project projet = new Project();
+
+		this.person = person;
 		persons.add(person);
 		group.setPersons(persons);
 		group.setProject(projet);
 		return "addGroup";
 	}
-	
+
 	public void createGroupe() {
 
 		try {
 			serviceGroupe.create(group);
-			groupesList=serviceGroupe.findAll();
+			groupesList = serviceGroupe.findAll();
 		} catch (MyExceptions e) {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
 		}
@@ -92,7 +87,6 @@ public class GroupeBean implements Serializable {
 
 	public String editGroupe(Group group) {
 		this.group = group;
-		System.out.println("editGroupe: " + this.group);
 		return "groupeEdit";
 	}
 
@@ -102,7 +96,6 @@ public class GroupeBean implements Serializable {
 	public Group getGroupe() {
 		return group;
 	}
-
 
 	/**
 	 * @return the groupesList
@@ -120,8 +113,8 @@ public class GroupeBean implements Serializable {
 	}
 
 	/**
-
-	/**
+	 * /**
+	 * 
 	 * @param groupesList
 	 *            the groupesList to set
 	 */
@@ -133,27 +126,33 @@ public class GroupeBean implements Serializable {
 	public void init() {
 		groupesList = new ArrayList<Group>();
 		try {
-			groupesList=serviceGroupe.findAll();
-			projets=serviceProjet.findAll();
+			groupesList = serviceGroupe.findAll();
+			projets = serviceProjet.findAll();
 		} catch (MyExceptions e) {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
 		}
 	}
+
 	public Person getPerson() {
 		return person;
 	}
+
 	public void setPerson(Person person) {
 		this.person = person;
 	}
+
 	public List<Project> getProjets() {
 		return projets;
 	}
+
 	public void setProjets(List<Project> projets) {
 		this.projets = projets;
 	}
+
 	public Group getGroup() {
 		return group;
 	}
+
 	public void setGroup(Group group) {
 		this.group = group;
 	}

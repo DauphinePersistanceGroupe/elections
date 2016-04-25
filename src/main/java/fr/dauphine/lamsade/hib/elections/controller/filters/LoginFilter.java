@@ -8,6 +8,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class LoginFilter
  */
-//@WebFilter(filterName = "AuthentificateFilter", urlPatterns = { "*.xhtml" }, description = "Authentification filter")
+@WebFilter(filterName = "AuthentificateFilter", urlPatterns = { "*.xhtml" }, description = "Authentification filter")
 public class LoginFilter implements Filter {
 
     /**
@@ -47,7 +48,7 @@ public class LoginFilter implements Filter {
                     || reqURI.contains("javax.faces.resource"))
                 chain.doFilter(request, response);
             else
-                resp.sendRedirect(reqt.getContextPath() + "/faces/site/login.xhtml");
+                resp.sendRedirect(reqt.getContextPath() + "/faces/site/public/login.xhtml");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

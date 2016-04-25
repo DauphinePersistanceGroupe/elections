@@ -17,35 +17,38 @@ import fr.dauphine.lamsade.hib.elections.services.ProjectService;
 @ApplicationScoped
 public class ProjectEntityConverter implements Converter {
 
-	    @EJB
-    private ProjectService projectService;
+	@EJB
+	private ProjectService projectService;
 
-    @Override
-    public Object getAsObject(FacesContext context, UIComponent component, String submittedValue) {
-        if (submittedValue == null || submittedValue.isEmpty()) {
-            return null;
-        }
+	@Override
+	public Object getAsObject(FacesContext context, UIComponent component,
+			String submittedValue) {
+		if (submittedValue == null || submittedValue.isEmpty()) {
+			return null;
+		}
 
-        try {
-        	Project p=projectService.findById(Long.valueOf(submittedValue));
-            return p;
-        } catch (NumberFormatException | MyExceptions e) {
-            throw new ConverterException(new FacesMessage(String.format("%s is not a valid Project ID", submittedValue)), e);
-        }
-    }
+		try {
+			Project p = projectService.findById(Long.valueOf(submittedValue));
+			return p;
+		} catch (NumberFormatException | MyExceptions e) {
+			throw new ConverterException(new FacesMessage(String.format(
+					"%s is not a valid Project ID", submittedValue)), e);
+		}
+	}
 
-    @Override
-    public String getAsString(FacesContext context, UIComponent component, Object modelValue) {
-        if (modelValue == null) {
-            return "";
-        }
+	@Override
+	public String getAsString(FacesContext context, UIComponent component,
+			Object modelValue) {
+		if (modelValue == null) {
+			return "";
+		}
 
-        if (modelValue instanceof Project) {
-            return String.valueOf(((Project) modelValue).getId());
-        } else {
-            throw new ConverterException(new FacesMessage(String.format("%s is not a valid Project", modelValue)));
-        }
-    }
+		if (modelValue instanceof Project) {
+			return String.valueOf(((Project) modelValue).getId());
+		} else {
+			throw new ConverterException(new FacesMessage(String.format(
+					"%s is not a valid Project", modelValue)));
+		}
+	}
 
 }
-
