@@ -121,6 +121,17 @@ public class UserBean implements Serializable {
 			return "inscription";
 		}
 	}
+	
+	public void addGroup(Long idGroup, Long idPerson){
+		try {
+			Group group=serviceGroup.findById(idGroup);
+			person=serviceUser.findById(idPerson);
+			person.setGroup(group);
+			serviceUser.update(person);
+		} catch (MyExceptions e) {
+			log.log(Level.SEVERE, e.getMessage(), e.getCause());
+		}
+	}
 
 	/**
 	 * @param person
@@ -169,6 +180,7 @@ public class UserBean implements Serializable {
 			this.person=login;
 			HttpSession session = UtilSessionBean.getSession();
             session.setAttribute("username", login.getNom());
+            session.setAttribute("usermail", login.getEmail());
             if(login.isAdmin()){
             	session.setAttribute("useradmin", login.getRole());
             	return  UrlConstantes.ADMIN_ACCUEIL;

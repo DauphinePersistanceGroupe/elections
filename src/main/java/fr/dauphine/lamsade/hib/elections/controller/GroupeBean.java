@@ -20,6 +20,7 @@ import fr.dauphine.lamsade.hib.elections.domain.Person;
 import fr.dauphine.lamsade.hib.elections.domain.Project;
 import fr.dauphine.lamsade.hib.elections.services.GroupService;
 import fr.dauphine.lamsade.hib.elections.services.ProjectService;
+import fr.dauphine.lamsade.hib.elections.services.UserService;
 
 /**
  * @author yosra.helal
@@ -43,6 +44,9 @@ public class GroupeBean implements Serializable {
 
 	@EJB
 	private ProjectService serviceProjet;
+	
+	@EJB
+	private UserService serviceUser;
 
 	private Group group = new Group();
 
@@ -71,6 +75,24 @@ public class GroupeBean implements Serializable {
 
 		try {
 			serviceGroupe.create(group);
+			groupesList = serviceGroupe.findAll();
+		} catch (MyExceptions e) {
+			log.log(Level.SEVERE, e.getMessage(), e.getCause());
+		}
+	}
+	public void saveGroupe(Long idGroup) {
+		List<Person> persons ;
+		try {
+			person=serviceUser.findById(person.getId());
+			
+			group=serviceGroupe.findById(idGroup);
+			persons=group.getPersons();
+			if(null==persons){
+				persons=new ArrayList<Person>();
+			}
+			persons.add(person);
+			group.setPersons(persons);
+			serviceGroupe.update(group);
 			groupesList = serviceGroupe.findAll();
 		} catch (MyExceptions e) {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());

@@ -57,7 +57,7 @@
 							<div class="col-md-5">
 								<h:form>
 									<fieldset>
-										<!-- 									<legend>Inscription</legend> -->
+										<h:inputHidden  value="#{groupeBean.person}" converter="#{personEntityConverter}"/>
 										<div class="form-group">
 											<h:outputLabel for="nom">Nom<span
 													class="requis">*</span>
@@ -102,7 +102,20 @@
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">Liste des groupes</div>
-					<div class="panel-body">Liste des groupes</div>
+					<div class="panel-body">
+					<h:form id="groupeForm">
+					<h:dataTable value="#{groupeBean.groupesList}" var="groupe"
+						id="userTable" rendered="#{not empty groupeBean.groupesList}" class="table table-striped">
+						<h:column><f:facet name="header"> <h:outputText value="Id" /> </f:facet>#{groupe.id}</h:column>
+						<h:column><f:facet name="header"> <h:outputText value="Nom" /> </f:facet>#{groupe.nom}</h:column>
+						<h:column><f:facet name="header"> <h:outputText value="Description" /> </f:facet>#{groupe.description}</h:column>
+						<h:column><f:facet name="header"> <h:outputText value="Projet" /> </f:facet>#{groupe.project.nom}</h:column>
+						<h:column><h:commandButton action="#{userBean.addGroup(groupe.id,groupeBean.person.id)}" value="Rejoindre" rendered="#{ empty useradmin}"/></h:column>
+					</h:dataTable>
+					<h:inputHidden  value="#{groupeBean.person}" converter="#{personEntityConverter}"/>
+					</h:form>
+					<h:outputText value="Aucun groupe" rendered="#{empty groupeBean.groupesList}"/>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -69,15 +69,34 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Mon groupe</div>
 					<div class="panel-body">
-						<h:dataTable value="#{userBean.person.group.persons}" var="participant"
-						id="userTable" rendered="#{not empty userBean.person.group}"  class="table table-striped">
-						<h4>Projet: #{userBean.person.group.nom}</h4>
-						Liste des participants
-							<h:column><f:facet name="header"> <h:outputText value="Nom" /> </f:facet>#{participant.nom}</h:column>
-							<h:column><f:facet name="header"> <h:outputText value="Prénom" /> </f:facet>#{participant.prenom}</h:column>
-							<h:column><f:facet name="header"> <h:outputText value="Email" /> </f:facet>#{participant.email}</h:column>
-						</h:dataTable>
-						<h:form rendered="#{empty userBean.person.group}"><h:commandButton action="#{userBean.linkedGroup()}" value="Appartenir à un groupe" /></h:form>
+					<h:form rendered="#{not empty userBean.person.group}">
+						<div class="row">
+							<div class="col-md-3">
+								<div>
+									<label><strong>Group:&nbsp;&nbsp;</strong> </label>#{userBean.person.group.nom}
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div>
+									<label><strong>Description:&nbsp;&nbsp;</strong> </label>#{userBean.person.group.description}
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div>
+									<label><strong>Projet:&nbsp;&nbsp;</strong> </label>#{userBean.person.group.project.nom}
+								</div>
+							</div>
+						</div>
+					</h:form>
+<!-- 						<h:dataTable value="#{userBean.person.group.persons}" var="participant" -->
+<!-- 						id="userTable" rendered="#{not empty userBean.person.group}"  class="table table-striped"> -->
+<!-- 						<h4>Projet: #{userBean.person.group.nom}</h4> -->
+<!-- 						Liste des participants -->
+<!-- 							<h:column><f:facet name="header"> <h:outputText value="Nom" /> </f:facet>#{participant.nom}</h:column> -->
+<!-- 							<h:column><f:facet name="header"> <h:outputText value="Prénom" /> </f:facet>#{participant.prenom}</h:column> -->
+<!-- 							<h:column><f:facet name="header"> <h:outputText value="Email" /> </f:facet>#{participant.email}</h:column> -->
+<!-- 						</h:dataTable> -->
+						<h:form rendered="#{empty userBean.person.group}"><h:commandButton action="#{userBean.linkedGroup()}" value="Rejoindre un groupe"/></h:form>
 					</div>
 				</div>
 			</div>
@@ -93,7 +112,7 @@
 						id="projectTable" class="table table-striped">
 							<h:column><f:facet name="header"> <h:outputText value="Nom" /> </f:facet>#{project.nom}</h:column>
 							<h:column><f:facet name="header"> <h:outputText value="Description" /> </f:facet>#{project.description}</h:column>
-							<h:column rendered="#{not userBean.person.hasvoted}"><f:facet name="header"> <h:outputText value="Nom" /> </f:facet><h:commandButton action="#{userBean.voted(project)}" value="Voter" /></h:column>
+							<h:column rendered="#{not userBean.person.hasvoted}"><f:facet name="header"> <h:outputText value="Action" /> </f:facet><h:commandButton action="#{userBean.voted(project)}" value="Voter" rendered="#{ project.id!=userBean.person.group.project.id}"/></h:column>
 							
 						</h:dataTable>
 						</h:form>

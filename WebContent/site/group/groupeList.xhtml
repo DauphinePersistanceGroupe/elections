@@ -48,11 +48,11 @@
 			<div class="col-md-12">
 				<h:form id="groupeForm">
 					<h:dataTable value="#{groupeBean.groupesList}" var="groupe"
-						id="userTable" rendered="#{not empty groupeBean.groupesList}">
+						id="userTable" rendered="#{not empty groupeBean.groupesList}" class="table table-striped">
 						<h:column><f:facet name="header"> <h:outputText value="Id" /> </f:facet>#{groupe.id}</h:column>
 						<h:column><f:facet name="header"> <h:outputText value="Nom" /> </f:facet>#{groupe.nom}</h:column>
 						<h:column><f:facet name="header"> <h:outputText value="Description" /> </f:facet>#{groupe.description}</h:column>
-						<h:column><f:facet name="header"> <h:outputText value="Personne" /> </f:facet>#{groupe.project.nom}</h:column>
+						<h:column><f:facet name="header"> <h:outputText value="Projet" /> </f:facet>#{groupe.project.nom}</h:column>
 						<h:column><h:commandButton action="#{groupeBean.editGroupe(groupe)}" value="Modifier" /></h:column>
 						<h:column><h:commandButton action="#{groupeBean.deleteGroupe(groupe)}" value="Supprimer" /></h:column>
 					</h:dataTable>

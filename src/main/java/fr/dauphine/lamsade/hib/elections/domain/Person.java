@@ -139,20 +139,6 @@ public class Person implements Serializable {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Person [id=");
-		builder.append(id);
-		builder.append(", email=");
-		builder.append(email);
-		builder.append(", nom=");
-		builder.append(nom);
-		builder.append(", prenom=");
-		builder.append(prenom);
-		builder.append("]");
-		return builder.toString();
-	}
 
 	/**
 	 * @return the isAdmin
@@ -184,29 +170,26 @@ public class Person implements Serializable {
 
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		return result;
+	public String toString() {
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
 	}
-
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Person other = (Person) obj;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		return true;
-	}
+    public boolean equals(Object other) {
+		boolean result;
+		if((other instanceof Person) && id != null){
+			result= id.equals(((Person) other).id);
+		}else{
+			result= other == this;
+		}
+		return result;
+    }
+
+    @Override
+    public int hashCode() {
+        return (id != null) 
+            ? (getClass().hashCode() + id.hashCode())
+            : super.hashCode();
+    }
 
 }

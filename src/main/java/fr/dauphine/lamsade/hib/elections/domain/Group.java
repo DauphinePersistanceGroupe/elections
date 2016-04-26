@@ -6,18 +6,16 @@ package fr.dauphine.lamsade.hib.elections.domain;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 
@@ -54,7 +52,7 @@ public class Group implements Serializable {
 	@JoinColumn(name="projet_id", nullable=false)
 	private Project project;
 
-	@OneToMany(mappedBy="group", cascade={CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.LAZY)
+	@Transient
 	private List<Person> persons;
 	
 	public Group() {
@@ -101,44 +99,28 @@ public class Group implements Serializable {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Group other = (Group) obj;
-		if (nom == null) {
-			if (other.nom != null)
-				return false;
-		} else if (!nom.equals(other.nom))
-			return false;
-		return true;
-	}
-
-	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Group [id=");
-		builder.append(id);
-		builder.append(", description=");
-		builder.append(description);
-		builder.append(", nom=");
-		builder.append(nom);
-		builder.append(", project=");
-		builder.append(project);
-		builder.append("]");
-		return builder.toString();
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
 	}
+
+	@Override
+    public boolean equals(Object other) {
+		boolean result;
+		if((other instanceof Group) && id != null){
+			result= id.equals(((Group) other).id);
+		}else{
+			result= other == this;
+		}
+		return result;
+    }
+
+    @Override
+    public int hashCode() {
+        return (id != null) 
+            ? (getClass().hashCode() + id.hashCode())
+            : super.hashCode();
+    }
+
 
 
 }
