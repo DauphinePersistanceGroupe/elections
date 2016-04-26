@@ -51,6 +51,8 @@ public class UserBean implements Serializable {
 	GroupService serviceGroup;
 	
 	private Person person = new Person();
+	
+	private Person newUser = new Person();
 
 	private List<Person> personsList;
 	
@@ -105,24 +107,26 @@ public class UserBean implements Serializable {
 	public String inscrire() {
 		try {
 			if(serviceUser.count()==0){
-				person.setRole(Constantes.USER_ADMIN);
+				newUser.setRole(Constantes.USER_ADMIN);
 			}else{
-				person.setRole(Constantes.USER_ELECT);
+				newUser.setRole(Constantes.USER_ELECT);
 			}
-			person.setHasvoted(false);
+			newUser.setHasvoted(false);
 			
-			serviceUser.create(person);
+			serviceUser.create(newUser);
+			newUser=new Person();
 			this.personsList=serviceUser.findAll();
 			FacesMessage message = new FacesMessage("Succès de l'inscription !");
 			FacesContext.getCurrentInstance().addMessage(null, message);
-			return "login";
+			
+			return UrlConstantes.ADMIN_ACCUEIL;
 		} catch (MyExceptions e) {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
 			return "inscription";
 		}
 	}
 	
-	public void addGroup(Long idGroup, Long idPerson){
+	public String addGroup(Long idGroup, Long idPerson){
 		try {
 			Group group=serviceGroup.findById(idGroup);
 			person=serviceUser.findById(idPerson);
@@ -131,6 +135,7 @@ public class UserBean implements Serializable {
 		} catch (MyExceptions e) {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
 		}
+		return  UrlConstantes.USER_ACCUEIL;
 	}
 
 	/**
@@ -212,15 +217,16 @@ public class UserBean implements Serializable {
 	public void voted(Project project){
 		
 		try {
-			if(!person.getHasvoted()){
+			Person user=serviceUser.findById(person.getId());
+			if(!user.getHasvoted()){
 				project=projectService.findById(project.getId());
 				Integer vote=project.getNote();
 				vote++;
 				project.setNote(vote);
-				person.setHasvoted(true);
+				user.setHasvoted(true);
 				projectService.update(project);
-				serviceUser.update(person);
-				log.info(project.toString());
+				serviceUser.update(user);
+				person=serviceUser.findById(user.getId());
 			}
 			
 		} catch (MyExceptions e) {
@@ -257,6 +263,14 @@ public class UserBean implements Serializable {
 
 	public void setGroupList(List<Group> groupList) {
 		this.groupList = groupList;
+	}
+
+	public Person getNewUser() {
+		return newUser;
+	}
+
+	public void setNewUser(Person newUser) {
+		this.newUser = newUser;
 	}
 
 }

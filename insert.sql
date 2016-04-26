@@ -22,7 +22,7 @@ INSERT INTO project (id, description, nom, note) VALUES (2, 'Projet2', 'Projet2'
 SELECT pg_catalog.setval('project_id_seq', 2, true);
 
 
---
--- PostgreSQL database dump complete
---
+INSERT INTO groupe(id, description, nom, projet_id) VALUES (1, 'Groupe test', 'Group1', 1);
+INSERT INTO groupe(id, description, nom, projet_id) VALUES (2, 'Groupe test', 'Group2', 2);
 
+SELECT pg_catalog.setval('groupe_id_seq', 2, true);

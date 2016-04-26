@@ -47,6 +47,7 @@
 						<h:column><h:commandButton action="#{userBean.deleteUser(person)}" value="Supprimer" /></h:column>
 					</h:dataTable>
 					<h:outputText value="Aucun participant" rendered="#{empty userBean.personsList}"/>
+					<h:commandLink action="/site/public/inscription" value="Ajouter un participant" />
 				</h:form>
 			</div>
 

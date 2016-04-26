@@ -107,7 +107,6 @@
 					<div class="panel-heading">Liste des projets</div>
 					<div class="panel-body">
 					<h:form rendered="#{not empty userBean.projectList}">
-						Liste des projets
 						<h:dataTable value="#{userBean.projectList}" var="project"
 						id="projectTable" class="table table-striped">
 							<h:column><f:facet name="header"> <h:outputText value="Nom" /> </f:facet>#{project.nom}</h:column>
