@@ -119,10 +119,10 @@ public class UserBean implements Serializable {
 			FacesMessage message = new FacesMessage("Succès de l'inscription !");
 			FacesContext.getCurrentInstance().addMessage(null, message);
 			
-			return UrlConstantes.ADMIN_ACCUEIL;
+			return UrlConstantes.ACCUEIL;
 		} catch (MyExceptions e) {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
-			return "inscription";
+			return UrlConstantes.INSCRIPTION;
 		}
 	}
 	

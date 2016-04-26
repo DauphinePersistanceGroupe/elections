@@ -12,19 +12,16 @@
    <from-outcome>inscription</from-outcome>
    <to-view-id>/site/public/inscription.xhtml</to-view-id>
   </navigation-case>
+  <navigation-case>
+   <from-outcome>login</from-outcome>
+   <to-view-id>/site/public/login.xhtml</to-view-id>
+  </navigation-case>
  </navigation-rule>
  <navigation-rule>
   <from-view-id>/site/user/userList.xhtml</from-view-id>
   <navigation-case>
    <from-outcome>userEdit</from-outcome>
    <to-view-id>/site/user/userEdit.xhtml</to-view-id>
-  </navigation-case>
- </navigation-rule>
- <navigation-rule>
-  <from-view-id>/site/public/inscription.xhtml</from-view-id>
-  <navigation-case>
-   <from-outcome>login</from-outcome>
-   <to-view-id>/site/public/login.xhtml</to-view-id>
   </navigation-case>
  </navigation-rule>
  <navigation-rule>
@@ -71,6 +68,10 @@
  <navigation-rule>
   <from-view-id>/site/group/groupeList.xhtml</from-view-id>
   <navigation-case>
+   <from-outcome>user</from-outcome>
+   <to-view-id>/site/user/user.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
    <from-outcome>addGroup</from-outcome>
    <to-view-id>/site/group/addGroup.xhtml</to-view-id>
   </navigation-case>
@@ -80,6 +81,13 @@
   <navigation-case>
    <from-outcome>user</from-outcome>
    <to-view-id>/site/user/user.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/site/public/inscription.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>index</from-outcome>
+   <to-view-id>/site/public/index.xhtml</to-view-id>
   </navigation-case>
  </navigation-rule>
  <application/>

@@ -23,7 +23,7 @@
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#site#user#userList.xhtml"
-  PATH="/site/user/userList.xhtml" SHAPE="480,296,50,41" model-entity="JSFProcessGroup">
+  PATH="/site/user/userList.xhtml" SHAPE="504,384,50,41" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#site#user#userList.xhtml:0" NAME="item"
    PATH="/site/user/userList.xhtml" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT ID="userEdit::#site#user#userEdit.xhtml"
@@ -38,19 +38,22 @@
    <PROCESS-ITEM-OUTPUT ID="inscription::#site#public#inscription.xhtml"
     NAME="output" PATH="/site/public/inscription.xhtml"
     TARGET="rules:#site#public#inscription.xhtml" TITLE="inscription" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="login::#site#public#login.xhtml"
+    NAME="output1" PATH="/site/public/login.xhtml"
+    TARGET="rules:#site#public#login.xhtml" TITLE="login" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#site#public#inscription.xhtml"
   PATH="/site/public/inscription.xhtml" SHAPE="200,24,50,41" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#site#public#inscription.xhtml:0" NAME="item"
    PATH="/site/public/inscription.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="login::#site#public#login.xhtml"
-    NAME="output" PATH="/site/public/login.xhtml"
-    TARGET="rules:#site#public#login.xhtml" TITLE="login" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="index::#site#public#index.xhtml"
+    NAME="output" PATH="/site/public/index.xhtml"
+    TARGET="rules:#site#public#index.xhtml" TITLE="index" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#site#user#userEdit.xhtml"
-  PATH="/site/user/userEdit.xhtml" SHAPE="496,440,50,25"
+  PATH="/site/user/userEdit.xhtml" SHAPE="696,480,50,25"
   model-entity="JSFProcessGroup" persistent="true"/>
  <PROCESS-ITEM NAME="rules:#site#user#admin.xhtml"
   PATH="/site/user/admin.xhtml" SHAPE="216,320,50,41" model-entity="JSFProcessGroup">
@@ -79,9 +82,13 @@
   PATH="/site/project/resultVote.xhtml" SHAPE="280,480,50,25"
   model-entity="JSFProcessGroup" persistent="true"/>
  <PROCESS-ITEM NAME="rules:#site#group#groupeList.xhtml"
-  PATH="/site/group/groupeList.xhtml" SHAPE="512,197,0,0" model-entity="JSFProcessGroup">
+  PATH="/site/group/groupeList.xhtml" SHAPE="656,216,50,57" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#site#group#groupeList.xhtml:0" NAME="item"
    PATH="/site/group/groupeList.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="user::#site#user#user.xhtml" NAME="output1"
+    PATH="/site/user/user.xhtml"
+    SHAPE="705,248,744,248,744,304,410,304,410,56,415,56"
+    TARGET="rules:#site#user#user.xhtml" TITLE="user" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT ID="addGroup::#site#group#addGroup.xhtml"
     NAME="output" PATH="/site/group/addGroup.xhtml"
     TARGET="rules:#site#group#addGroup.xhtml" TITLE="addGroup" model-entity="JSFProcessItemOutput"/>
