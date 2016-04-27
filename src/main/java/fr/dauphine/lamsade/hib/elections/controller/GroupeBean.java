@@ -56,6 +56,9 @@ public class GroupeBean implements Serializable {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
 
 	public void deleteGroupe(Group group) {
 		try {
