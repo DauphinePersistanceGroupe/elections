@@ -74,9 +74,6 @@
     TARGET="rules:#site#login.xhtml" TITLE="deconnection" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#site#project#resultVote.xhtml"
-  PATH="/site/project/resultVote.xhtml" SHAPE="229,434,0,0"
-  model-entity="JSFProcessGroup" persistent="true"/>
  <PROCESS-ITEM NAME="rules:#site#group#groupeList.xhtml"
   PATH="/site/group/groupeList.xhtml" SHAPE="512,197,0,0" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#site#group#groupeList.xhtml:0" NAME="item"
@@ -86,6 +83,9 @@
     TARGET="rules:#site#group#addGroup.xhtml" TITLE="addGroup" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#site#project#resultVote.xhtml"
+  PATH="/site/project/resultVote.xhtml" SHAPE="229,434,0,0"
+  model-entity="JSFProcessGroup" persistent="true"/>
  <PROCESS-ITEM NAME="rules:#site#group#addGroup.xhtml"
   PATH="/site/group/addGroup.xhtml" SHAPE="690,244,0,0"
   model-entity="JSFProcessGroup" persistent="true"/>

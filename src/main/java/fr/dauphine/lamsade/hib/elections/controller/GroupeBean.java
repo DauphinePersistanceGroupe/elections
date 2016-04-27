@@ -126,4 +126,15 @@ public class GroupeBean implements Serializable {
 		}
 	}
 
+	public void updateGroupe() {
+		try {
+			Group groupToEdit = serviceGroupe.findById(group.getId());
+			
+			groupToEdit.setNom(group.getNom());
+			personToEdit.setDescription(group.getDescription());
+			serviceGroupe.update(groupToEdit);
+		} catch (MyExceptions e) {
+			log.log(Level.SEVERE, e.getMessage(), e.getCause());
+		}
+	}
 }

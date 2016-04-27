@@ -50,6 +50,40 @@
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">Création d'un groupe</div>
+					<div class="row">
+			<div class="col-md-5">
+
+				<h:form>
+					<fieldset>
+						<legend>Ajouter Groupe</legend>
+						<div class="form-group">
+							<h:outputLabel for="nom">Nom <span class="requis">*</span>
+							</h:outputLabel>
+							<h:inputText id="nom" value="#{groupeBean.groupe.nom}"
+								required="true" size="100" maxlength="200" class="form-control" />
+							<h:message id="nomMessage" for="nom" errorClass="erreur" />
+							<br />
+						</div>
+						<div class="form-group">
+							<h:outputLabel for="description">Description <span
+									class="requis">*</span>
+							</h:outputLabel>
+							<h:inputText id="description"
+								value="#{groupeBean.groupe.Description}" required="true" size="100"
+								maxlength="200" class="form-control" />
+							<h:message id="descMessage" for="description" errorClass="erreur" />
+							<br />
+						</div>
+						<h:messages globalOnly="true" infoClass="info" />
+
+						<h:commandButton value="Ajouter"
+							action="#{groupeBean.createGroupe()}}"
+							styleClass="sansLabel" />
+						<br />
+					</fieldset>
+				</h:form>
+			</div>
+					
 					<div class="panel-body">
 						<div class="row">
 						</div>
@@ -61,9 +95,7 @@
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">Liste des groupes</div>
-					<div class="panel-body">
-						Liste des groupes
-					</div>
+					
 				</div>
 			</div>
 		</div>

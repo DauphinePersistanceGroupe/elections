@@ -58,6 +58,14 @@
 							<h:message id="nomMessage" for="nom" errorClass="erreur" />
 							<br />
 						</div>
+						<div class="form-group">
+							<h:outputLabel for="nom">Description<span class="requis">*</span>
+							</h:outputLabel>
+							<h:inputText id="nom" value="#{groupeBean.groupe.description}"
+								required="true" size="20" maxlength="20" class="form-control" />
+							<h:message id="nomMessage" for="nom" errorClass="erreur" />
+							<br />
+						</div>
 						<h:commandButton value="Modifier" action="#{groupeBean.updateGroupe()}"
 							styleClass="sansLabel" />
 						<br />
