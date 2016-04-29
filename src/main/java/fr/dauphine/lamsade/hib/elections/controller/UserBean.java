@@ -69,9 +69,9 @@ public class UserBean implements Serializable {
 			projectList=new ArrayList<Project>();
 			serviceUser.delete(person);
 			init();
-//			setPersonsList(serviceUser.findAll());
 		} catch (MyExceptions e) {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erreur d'enregistrement: "+person.getNom()));
 		}
 		return "userList";
 	}
@@ -125,6 +125,7 @@ public class UserBean implements Serializable {
 			return UrlConstantes.ACCUEIL;
 		} catch (MyExceptions e) {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erreur de l'inscription "));
 			return UrlConstantes.INSCRIPTION;
 		}
 	}
@@ -138,6 +139,7 @@ public class UserBean implements Serializable {
 			init();
 		} catch (MyExceptions e) {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erreur d'enregistrement "));
 		}
 		return  UrlConstantes.USER_ACCUEIL;
 	}
@@ -174,6 +176,7 @@ public class UserBean implements Serializable {
 			init();
 		} catch (MyExceptions e) {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erreur d'enregistrement"));
 		}
 		return "userList";
 	}
@@ -241,6 +244,7 @@ public class UserBean implements Serializable {
 			
 		} catch (MyExceptions e) {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erreur d'enregistrement du vote"));
 		}
 		return "user";
 	}

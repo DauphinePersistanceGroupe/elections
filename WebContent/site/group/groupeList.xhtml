@@ -47,6 +47,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h:form id="groupeForm">
+				<h:messages globalOnly="true" infoClass="alert alert-warning" />
 					<h:dataTable value="#{groupeBean.groupesList}" var="groupe"
 						id="userTable" rendered="#{not empty groupeBean.groupesList}" class="table table-striped">
 						<h:column><f:facet name="header"> <h:outputText value="Id" /> </f:facet>#{groupe.id}</h:column>

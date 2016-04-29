@@ -12,7 +12,9 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 import fr.dauphine.lamsade.hib.elections.Exception.MyExceptions;
 import fr.dauphine.lamsade.hib.elections.domain.Group;
@@ -75,10 +77,12 @@ public class GroupeBean implements Serializable {
 
 		try {
 			serviceGroupe.create(group);
-			groupesList = serviceGroupe.findAll();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Succès d'enregistrement: "+group.getNom()));
 		} catch (MyExceptions e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erreur d'enregistrement: "+group.getNom()));
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
 		}
+		init();
 	}
 	public void saveGroupe(Long idGroup) {
 		List<Person> persons ;
@@ -96,6 +100,7 @@ public class GroupeBean implements Serializable {
 			groupesList = serviceGroupe.findAll();
 		} catch (MyExceptions e) {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erreur d'enregistrement id: "+idGroup));
 		}
 	}
 
@@ -105,6 +110,7 @@ public class GroupeBean implements Serializable {
 			init();
 		} catch (MyExceptions e) {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erreur de suppression: "+group.getNom()));
 		}
 	}
 
@@ -157,15 +163,18 @@ public class GroupeBean implements Serializable {
 	}
 
 
-	public void updateGroupe() {
+	public String updateGroupe(Group group) {
 		try {
 			Group groupToEdit = serviceGroupe.findById(group.getId());
 			
-			groupToEdit.setNom(group.getNom());
+			groupToEdit.setDescription(group.getDescription());
 			serviceGroupe.update(groupToEdit);
 		} catch (MyExceptions e) {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erreur d'enregistrement "));
 		}
+		init();
+		return "groupeList";
 	}
 	public Person getPerson() {
 		return person;

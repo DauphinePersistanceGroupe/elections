@@ -47,14 +47,14 @@
 		<div class="row">
 			<div class="col-md-12">
 			<h:form>
+			<h:messages globalOnly="true" infoClass="alert alert-warning" />
 					<fieldset>
 						<legend>Modifier les informations </legend>
 						<h:inputHidden value="#{groupeBean.groupe.id}" />
 						<div class="form-group">
 							<h:outputLabel for="nom">Nom<span class="requis">*</span>
 							</h:outputLabel>
-							<h:inputText id="nom" value="#{groupeBean.groupe.nom}"
-								required="true" size="20" maxlength="20" class="form-control" />
+							<h:inputText id="nom" value="#{groupeBean.groupe.nom}" readonly="true" class="form-control" />
 							<h:message id="nomMessage" for="nom" errorClass="erreur" />
 							<br />
 						</div>
@@ -66,7 +66,7 @@
 							<h:message id="descriptionMessage" for="description" errorClass="erreur" />
 							<br />
 						</div>
-						<h:commandButton value="Modifier" action="#{groupeBean.updateGroupe()}"
+						<h:commandButton value="Modifier" action="#{groupeBean.updateGroupe(groupeBean.groupe)}"
 						
 							styleClass="sansLabel" />
 						<br />

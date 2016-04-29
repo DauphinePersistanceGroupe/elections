@@ -95,7 +95,7 @@ public class GroupServiceImpl implements GroupService{
 	public void create(Group group) throws MyExceptions {
 		try {
 			em.persist(group);
-		} catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException | PersistenceException e) {
 			throw new MyExceptions(e.getMessage(), e);
 		}
 		
@@ -113,7 +113,7 @@ public class GroupServiceImpl implements GroupService{
 		try {
 			Group groupToDelete=em.getReference(Group.class, group.getId());
 			 em.remove(groupToDelete);
-		} catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException | PersistenceException e) {
 			throw new MyExceptions(e.getMessage(), e);
 		}
 	}
@@ -129,7 +129,7 @@ public class GroupServiceImpl implements GroupService{
 	public void update(Group group) throws MyExceptions {
 		try {
 			 em.merge(group);
-		} catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException | PersistenceException e) {
 			throw new MyExceptions(e.getMessage(), e);
 		}
 	}

@@ -38,6 +38,7 @@
 			<div class="col-md-12">
 			
 				<h:form id="userForm" >
+				<h:messages globalOnly="true" infoClass="alert alert-warning" />
 					<h:dataTable value="#{userBean.personsList}" var="person"
 						id="userTable" rendered="#{not empty userBean.personsList}"  class="table table-striped">
 						<h:column><f:facet name="header"> <h:outputText value="Id" /> </f:facet>#{person.id} </h:column>
