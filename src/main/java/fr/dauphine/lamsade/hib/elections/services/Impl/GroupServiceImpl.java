@@ -111,7 +111,8 @@ public class GroupServiceImpl implements GroupService{
 	@Override
 	public void delete(Group group) throws MyExceptions {
 		try {
-			 em.remove(group);
+			Group groupToDelete=em.getReference(Group.class, group.getId());
+			 em.remove(groupToDelete);
 		} catch (IllegalArgumentException e) {
 			throw new MyExceptions(e.getMessage(), e);
 		}

@@ -102,6 +102,7 @@ public class GroupeBean implements Serializable {
 	public void deleteGroupe(Group group) {
 		try {
 			serviceGroupe.delete(group);
+			init();
 		} catch (MyExceptions e) {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
 		}

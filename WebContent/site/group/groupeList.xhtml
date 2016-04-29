@@ -54,7 +54,11 @@
 						<h:column><f:facet name="header"> <h:outputText value="Description" /> </f:facet>#{groupe.description}</h:column>
 						<h:column><f:facet name="header"> <h:outputText value="Projet" /> </f:facet>#{groupe.project.nom}</h:column>
 						<h:column rendered="#{not empty useradmin}"><h:commandButton action="#{groupeBean.editGroupe(groupe)}" value="Modifier" /></h:column>
-						<h:column rendered="#{not empty useradmin}"><h:commandButton action="#{groupeBean.deleteGroupe(groupe)}" value="Supprimer" /></h:column>
+						<h:column rendered="#{not empty useradmin}">
+							<h:commandButton action="#{groupeBean.deleteGroupe(groupe)}" value="Supprimer" id="supp">
+								<f:ajax execute="supp" render="groupeForm"/>
+							</h:commandButton>
+						</h:column>
 						<h:column rendered="#{empty useradmin}"><h:commandButton action="#{userBean.addGroup(groupe.id,userBean.person.id)}" value="Rejoindre" rendered="#{groupe.id!=groupeBean.person.group.id}"/></h:column>
 					</h:dataTable>
 					<h:outputText value="Aucun groupe" rendered="#{empty groupeBean.groupesList}"/>
