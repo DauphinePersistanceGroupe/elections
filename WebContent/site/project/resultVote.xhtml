@@ -38,8 +38,8 @@
 				<h:form id="projectForm">
 					<h:dataTable value="#{userBean.projectList}" var="project"
 						id="projectTable" rendered="#{not empty userBean.projectList}"  class="table table-striped">
-						<h:column><f:facet name="header"> <h:outputText value="Id" /> </f:facet>#{project.id}</h:column>
 						<h:column><f:facet name="header"> <h:outputText value="Nom" /> </f:facet>#{project.nom}</h:column>
+						<h:column><f:facet name="header"> <h:outputText value="Description" /> </f:facet>#{project.description}</h:column>
 						<h:column><f:facet name="header"> <h:outputText value="Note" /> </f:facet>#{project.note}</h:column>
 					</h:dataTable>
 					<h:outputText value="Aucun projet" rendered="#{empty userBean.projectList}"/>

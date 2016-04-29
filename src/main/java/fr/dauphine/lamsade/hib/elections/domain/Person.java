@@ -14,14 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
-import fr.dauphine.lamsade.hib.elections.utils.Constantes;
 
 /**
  * @author gnepa.rene.barou
@@ -51,7 +47,6 @@ public class Person implements Serializable {
 
 	@NotNull
 	@Size(min = 1, max = 25)
-	@Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
 	private String nom;
 
 	private String passwrd;
@@ -60,7 +55,7 @@ public class Person implements Serializable {
 
 	private String role;
 	
-	@Transient
+	
 	private boolean isAdmin;
 
 	@Version
@@ -144,9 +139,6 @@ public class Person implements Serializable {
 	 * @return the isAdmin
 	 */
 	public boolean isAdmin() {
-		if(!this.isAdmin){
-			setAdmin(Constantes.USER_ADMIN.equalsIgnoreCase(this.role));
-		}
 		return this.isAdmin;
 	}
 
