@@ -70,33 +70,36 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Mon groupe</div>
 					<div class="panel-body">
-					<h:form rendered="#{not empty userBean.person.group}">
-						<div class="row">
-							<div class="col-md-3">
-								<div>
-									<label><strong>Group:&nbsp;&nbsp;</strong> </label>#{userBean.person.group.nom}
+						<h:form rendered="#{not empty userBean.person.group}" id="userGroup">
+							<div class="row">
+								<div class="col-md-3">
+									<div>
+										<label><strong>Group:&nbsp;&nbsp;</strong> </label>#{userBean.person.group.nom}
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div>
+										<label><strong>Description:&nbsp;&nbsp;</strong> </label>#{userBean.person.group.description}
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div>
+										<label><strong>Projet:&nbsp;&nbsp;</strong> </label>#{userBean.person.group.project.nom}
+									</div>
+								</div>
+								<div class="col-md-3">
+									<h:commandButton action="#{userBean.showPersonsGroupList(userBean.person.group.id)}" value="Liste des participants" id="showUsers"> 
+<!-- 										<f:ajax execute="showUsers" render="userGroup"/> -->
+									</h:commandButton>
 								</div>
 							</div>
-							<div class="col-md-3">
-								<div>
-									<label><strong>Description:&nbsp;&nbsp;</strong> </label>#{userBean.person.group.description}
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div>
-									<label><strong>Projet:&nbsp;&nbsp;</strong> </label>#{userBean.person.group.project.nom}
-								</div>
-							</div>
-						</div>
-					</h:form>
-<!-- 						<h:dataTable value="#{userBean.person.group.persons}" var="participant" -->
-<!-- 						id="userTable" rendered="#{not empty userBean.person.group}"  class="table table-striped"> -->
-<!-- 						<h4>Projet: #{userBean.person.group.nom}</h4> -->
-<!-- 						Liste des participants -->
-<!-- 							<h:column><f:facet name="header"> <h:outputText value="Nom" /> </f:facet>#{participant.nom}</h:column> -->
-<!-- 							<h:column><f:facet name="header"> <h:outputText value="Prénom" /> </f:facet>#{participant.prenom}</h:column> -->
-<!-- 							<h:column><f:facet name="header"> <h:outputText value="Email" /> </f:facet>#{participant.email}</h:column> -->
-<!-- 						</h:dataTable> -->
+							<h:dataTable value="#{userBean.personsGroupList}" var="person"
+								id="userTable" rendered="#{not empty userBean.personsGroupList}"  class="table table-striped" summary="Liste des participants">
+								<h:column>#{person.nom}</h:column>
+								<h:column>#{person.prenom} </h:column>
+								<h:column>#{person.email}</h:column>
+							</h:dataTable>
+						</h:form>
 						<h:form rendered="#{empty userBean.person.group}"><h:commandButton action="#{userBean.linkedGroup()}" value="Rejoindre un groupe"/></h:form>
 					</div>
 				</div>

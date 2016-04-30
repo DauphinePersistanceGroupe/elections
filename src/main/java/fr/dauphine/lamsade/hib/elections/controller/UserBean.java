@@ -53,8 +53,12 @@ public class UserBean implements Serializable {
 	private Person person = new Person();
 	
 	private Person newUser = new Person();
+	
+	private Person currentUser = new Person();
 
 	private List<Person> personsList;
+	
+	private List<Person> personsGroupList;
 	
 	private List<Project> projectList;
 	
@@ -99,6 +103,7 @@ public class UserBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		personsList = new ArrayList<Person>();
+		personsGroupList=new ArrayList<Person>();
 		try {
 			setPersonsList(serviceUser.findAll());
 			setProjectList(projectService.findAll());
@@ -178,7 +183,12 @@ public class UserBean implements Serializable {
 			log.log(Level.SEVERE, e.getMessage(), e.getCause());
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erreur d'enregistrement"));
 		}
-		return "userList";
+		if(currentUser.isAdmin()){
+			return "userList";
+		}else{
+			return UrlConstantes.USER_ACCUEIL;
+		}
+		
 	}
 
 	public String login() {
@@ -195,6 +205,7 @@ public class UserBean implements Serializable {
 		}
 		if (isAuthentificate) {
 			this.person=login;
+			this.currentUser=login;
 			HttpSession session = UtilSessionBean.getSession();
             session.setAttribute("username", login.getNom());
             session.setAttribute("usermail", login.getEmail());
@@ -258,6 +269,14 @@ public class UserBean implements Serializable {
 		}
 		return "groupeList";
 	}
+	public void showPersonsGroupList(Long idGroup){
+		try {
+			setPersonsGroupList(serviceUser.findByGroup(idGroup));
+		} catch (MyExceptions e) {
+			log.log(Level.SEVERE, e.getMessage(), e.getCause());
+		}
+		
+	}
 	public String logout() {
         HttpSession session = UtilSessionBean.getSession();
         session.invalidate();
@@ -286,6 +305,22 @@ public class UserBean implements Serializable {
 
 	public void setNewUser(Person newUser) {
 		this.newUser = newUser;
+	}
+
+	public Person getCurrentUser() {
+		return currentUser;
+	}
+
+	public void setCurrentUser(Person currentUser) {
+		this.currentUser = currentUser;
+	}
+
+	public List<Person> getPersonsGroupList() {
+		return personsGroupList;
+	}
+
+	public void setPersonsGroupList(List<Person> personsGroupList) {
+		this.personsGroupList = personsGroupList;
 	}
 
 }
